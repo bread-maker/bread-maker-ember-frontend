@@ -1,12 +1,21 @@
 /* eslint-env node */
+const _ = require('lodash')
+
+const envVars = _.pick(process.env, [
+  'BM_BACKEND_URL',
+])
+
+console.info('envVars', envVars)
 
 module.exports = function (environment) {
   var ENV = {
-    modulePrefix : 'bread-maker-ember-frontend',
-    environment  : environment,
-    rootURL      : '/',
-    locationType : 'auto',
-    EmberENV     : {
+    modulePrefix    : 'bread-maker-ember-frontend',
+    podModulePrefix : 'bread-maker-ember-frontend/pods',
+    environment     : environment,
+    rootURL         : '/',
+    locationType    : 'auto',
+    envVars,
+    EmberENV        : {
       FEATURES : {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true

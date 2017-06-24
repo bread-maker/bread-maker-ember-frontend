@@ -1,8 +1,33 @@
 /* eslint-env node */
 const EmberApp = require('ember-cli/lib/broccoli/ember-app')
+const Funnel   = require('broccoli-funnel')
+const fs       = require('fs')
+
+
+
+const environment   = process.env.EMBER_ENV || 'development'
+const defaultTarget = environment === 'production' ? 'prod' : 'localhost-4200'
+const target        = process.env.HB_DEPLOY_TARGET || defaultTarget
+const dotEnvFile    = `./.env-${target}`
+if (!fs.existsSync(dotEnvFile)) throw new Error(`ember-cli-build.js: dot-env file not found: ${dotEnvFile}`)
+
+
 
 module.exports = function (defaults) {
   var app = new EmberApp(defaults, {
+    dotEnv : {
+      clientAllowedKeys : [
+        'BM_BACKEND_URL',
+      ],
+      path : dotEnvFile
+    },
+
+    nodeModulesToVendor : [
+      new Funnel('node_modules/lodash', {
+        destDir : 'lodash',
+        files   : ['lodash.js']
+      })
+    ]
     // Add options here
   })
 
