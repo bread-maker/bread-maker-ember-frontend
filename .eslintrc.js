@@ -18,6 +18,7 @@ module.exports = {
     "generator-star-spacing": "off",
     "no-sequences": "off",
     "key-spacing": ["error", { beforeColon: true, afterColon: true, align: "colon" }],
+    "no-mixed-operators": "off",
     "no-multi-spaces": "off",
     "func-call-spacing": "off",
     "no-console": "off",
@@ -34,6 +35,6 @@ module.exports = {
   },
 
   "globals": {
-    // "showdown": false,
+    "_": false,
   }
 }

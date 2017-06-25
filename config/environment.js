@@ -5,8 +5,6 @@ const envVars = _.pick(process.env, [
   'BM_BACKEND_URL',
 ])
 
-console.info('envVars', envVars)
-
 module.exports = function (environment) {
   var ENV = {
     modulePrefix    : 'bread-maker-ember-frontend',

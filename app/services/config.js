@@ -29,12 +29,6 @@ export default Service.extend({
 
   // ----- Overridden Methods -----
 
-  init () {
-    this._super()
-
-    console.log('ENV', ENV)
-  }
-
 
 
   // ----- Custom Methods -----

@@ -5,7 +5,7 @@ import service from 'ember-service/inject'
 // ----- Ember addonAddon modules -----
 import AjaxService from 'ember-ajax/services/ajax'
 
-// ----- Own modules -----
+// ----- Third-party modules -----
 
 
 
@@ -17,7 +17,7 @@ export default AjaxService.extend({
 
 
   // ----- Overridden properties -----
-  host : reads('config.backendUrl')
+  host : reads('config.backendUrl'),
 
 
   // ----- Static properties -----
@@ -33,8 +33,34 @@ export default AjaxService.extend({
 
 
 
-
   // ----- Custom Methods -----
+  buildUrl (params) {
+    if (!params || !Object.keys(params).length) return ''
+
+    const serializedParams =
+      _
+        .map(params, (value, key) => {
+          value = encodeURIComponent(value)
+          key = encodeURIComponent(key)
+          return `${key}=${value}`
+        })
+        .join('&')
+
+    return `?${serializedParams}`
+  },
+
+
+
+  method (method, queryParams, options) {
+    const finalUrl = this.buildUrl({method, ...queryParams})
+    return this.request(finalUrl, options)
+  },
+
+
+
+  getStats () {
+    return this.method('stats')
+  }
 
 
 
