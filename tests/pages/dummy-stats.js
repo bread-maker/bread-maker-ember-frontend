@@ -8,7 +8,7 @@ import c from './_helpers/component'
 
 
 export default create({
-  visit : visitable('/'),
+  visit : visitable('/dummy-stats'),
 
   dummyStats : c('.route-dummyStats', {
     lastProgram : c('.route-dummyStats-lastProgram'),
