@@ -15,11 +15,14 @@ if (!fs.existsSync(dotEnvFile)) throw new Error(`ember-cli-build.js: dot-env fil
 
 module.exports = function (defaults) {
   var app = new EmberApp(defaults, {
-    'ember-cli-babel' : {
-      includePolyfill : true,
-      plugins         : [
+    babel : {
+      plugins : [
         'transform-object-rest-spread',
       ],
+    },
+
+    'ember-cli-babel' : {
+      includePolyfill : true,
     },
 
     dotEnv : {
