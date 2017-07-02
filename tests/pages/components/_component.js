@@ -11,6 +11,8 @@ import {
 
 import testSelector from "ember-test-selectors"
 
+import $ from "jquery"
+
 
 
 // A helper to leverage jQuery for page component queries
@@ -61,6 +63,13 @@ export default function component (scope = "", descriptor = {}) {
     placeholder      : attribute("placeholder"),
     text             : text(),
     value            : value(),
+
+    keypress (code) {
+      const event = new $.Event("keyup")
+      event.which = code
+      event.keyCode = code
+      return this.$.trigger(event)
+    },
 
     ...descriptor
   }

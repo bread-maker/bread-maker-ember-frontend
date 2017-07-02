@@ -28,6 +28,10 @@
     "ember-cli-htmlbars": "^1.1.1",
     "ember-cli-htmlbars-inline-precompile": "^0.4.0",
     "ember-cli-inject-live-reload": "^1.4.1",
+    "ember-cli-lolmaus-blueprints": "^0.1.0",
+    "ember-cli-mocha": "^0.14.4",
+    "ember-cli-mocha-reporter": "lolmaus/ember-cli-mocha-reporter#patch-1",
+    "ember-cli-moment-shim": "^3.3.3",
     "ember-cli-node-modules-to-vendor": "^0.2.1",
     "ember-cli-page-object": "^1.10.0",
     "ember-cli-shims": "^1.1.0",
@@ -35,24 +39,23 @@
     "ember-cli-uglify": "^1.2.0",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.0.0",
+    "ember-moment": "^7.3.1",
     "ember-resolver": "^4.0.0",
     "ember-source": "~2.13.0",
     "ember-test-selectors": "^0.3.4",
-    "loader.js": "^4.2.3",
-    "lodash": "^4.17.4",
-    "ember-cli-mocha": "^0.14.4",
-    "ember-cli-mocha-reporter": "lolmaus/ember-cli-mocha-reporter#patch-1",
+    "ember-zen": "file:../../ember-zen/",
     "eslint": "^4.0.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-node": "^5.0.0",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "loader.js": "^4.2.3",
+    "lodash": "^4.17.4"
   },
   "engines": {
     "node": ">= 4"
   },
   "private": true,
-  "dependencies": {
-  }
+  "dependencies": {}
 }

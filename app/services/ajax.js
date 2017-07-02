@@ -2,7 +2,7 @@
 import {reads} from 'ember-computed'
 import service from 'ember-service/inject'
 
-// ----- Ember addonAddon modules -----
+// ----- Ember Addon modules -----
 import AjaxService from 'ember-ajax/services/ajax'
 
 // ----- Third-party modules -----
@@ -51,16 +51,29 @@ export default AjaxService.extend({
 
 
 
-  method (method, queryParams, options) {
-    const finalUrl = this.buildUrl({method, ...queryParams})
-    return this.request(finalUrl, options)
+  getMethod (method, params = {}) {
+    const finalUrl = this.buildUrl({method, ...params})
+    return this.request(finalUrl)
+  },
+
+  postMethod (method, data = {}) {
+    const finalUrl = this.buildUrl({method})
+    return this.post(finalUrl, {data})
   },
 
 
+  login (password) {
+    return this.getMethod('auth.login', {password})
+  },
 
   getStats () {
-    return this.method('stats')
-  }
+    return this.getMethod('stats')
+  },
+
+  setProgram (programId, crustId, data) {
+    return this
+      .postMethod('config.baking.stages.set')
+  },
 
 
 
