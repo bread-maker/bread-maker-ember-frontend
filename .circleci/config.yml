@@ -11,6 +11,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install ember, bower and yarn
+          command: 'npm install -g ember-cli bower yarn'
+      - run:
           name: install nmp dependencies
           command: 'yarn'
       - run:
