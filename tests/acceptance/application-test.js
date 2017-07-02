@@ -8,11 +8,12 @@ import PROGRAMS from '../fixtures/programs'
 
 
 describe('Acceptance | application', function () {
-  let application, ajax, m
+  let application, ajax, session, m
 
   beforeEach(function () {
     application = startApp()
     ajax = application.__container__.lookup('service:ajax')
+    session = application.__container__.lookup('service:session')
   })
 
   afterEach(function () {
@@ -20,10 +21,8 @@ describe('Acceptance | application', function () {
   })
 
   it('stats', async function () {
-    const {token} = await ajax.login('breadtime')
+    await session.authenticate('authenticator:custom', 'breadtime')
     await ajax.setProgram(0, 0, PROGRAMS[0])
-
-    debugger
 
     await page.visit()
 

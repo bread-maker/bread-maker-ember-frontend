@@ -44,19 +44,19 @@ export default function component (scope = "", descriptor = {}) {
   return {
     ...(scope ? { scope, itemScope : scope } : {}), // inject the scope only if it was provided
 
-    $                : jquery(($el) => $el),
+    $                : jquery($el => $el),
     attribute        : attribute(),
-    blur             : jquery(($el) => $el.blur()),
-    checked          : jquery(($el) => $el.is(":checked")),
+    blur             : jquery($el => $el.blur()),
+    checked          : jquery($el => $el.is(":checked")),
     click            : clickable(),
-    contains         : jquery(($el) => (selector) => $el.find(selector).length > 0, false),
-    disabled         : jquery(($el) => $el.is("[disabled]")),
-    empty            : jquery(($el) => $el.is(":empty") || !$el.children().length && !$el.text().trim().length),
-    exists           : jquery(($el) => $el.length > 0, false), // false: don't spit an error if element isn't found
+    contains         : jquery($el => selector => $el.find(selector).length > 0, false),
+    disabled         : jquery($el => $el.is("[disabled]")),
+    empty            : jquery($el => $el.is(":empty") || !$el.children().length && !$el.text().trim().length),
+    exists           : jquery($el => $el.length > 0, false), // false: don't spit an error if element isn't found
     fill             : fillable(),
-    focus            : jquery(($el) => $el.focus()),
-    index            : jquery(($el) => $el.index()),
-    hasClass         : jquery(($el) => (className) => $el.hasClass(className)),
+    focus            : jquery($el => $el.focus()),
+    index            : jquery($el => $el.index()),
+    hasClass         : jquery($el => className => $el.hasClass(className)),
     active           : hasClass("active"),
     disabledViaClass : hasClass("disabled"),
     visible          : isVisible(),

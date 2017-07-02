@@ -12,8 +12,10 @@ export default Node.extend({
   nodeName : 'state',
 
   attrNames : [
+    'session',
     'stats',
   ],
 
-  stats : createNodeCP('stats'),
+  session : createNodeCP('session'),
+  stats   : createNodeCP('stats'),
 })

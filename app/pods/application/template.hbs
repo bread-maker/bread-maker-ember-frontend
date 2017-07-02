@@ -2,11 +2,24 @@
 
   <div class="route-application-sidebar">
     {{stats-x stats=zen.state.stats.stats}}
+
+    {{#if zen.state.session.isAuthenticated}}
+      <a
+        href
+        {{action 'invalidateSession'}}
+      >
+        Logout
+      </a>
+    {{else if isAuthenticating}}
+      Logging in...
+    {{else}}
+      {{link-to 'Login' 'login'}}
+    {{/if}}
   </div>{{! sidebar }}
 
 
   <div class="route-application-content">
-
+    {{outlet}}
   </div>{{! content }}
 
 </div>

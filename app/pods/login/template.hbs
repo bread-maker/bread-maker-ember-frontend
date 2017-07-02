@@ -1,0 +1,19 @@
+{{#if zen.state.session.isAuthenticating}}
+  Logging in...
+{{else}}
+  {{input
+    value          = password
+    type           = 'password'
+    insert-newline = (action 'login')
+  }}
+
+  <button
+    {{action 'login'}}
+  >
+    Log in
+  </button>
+{{/if}}
+
+{{#if zen.state.session.error}}
+  <p>{{zen.state.session.error.error_text}}</p>
+{{/if}}

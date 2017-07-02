@@ -13,6 +13,7 @@ export default AjaxService.extend({
 
   // ----- Services -----
   config : service(),
+  zen    : service(),
 
 
 
@@ -34,7 +35,7 @@ export default AjaxService.extend({
 
 
   // ----- Custom Methods -----
-  buildUrl (params) {
+  buildUrlQueryParams (params) {
     if (!params || !Object.keys(params).length) return ''
 
     const serializedParams =
@@ -49,16 +50,23 @@ export default AjaxService.extend({
     return `?${serializedParams}`
   },
 
-
-
   getMethod (method, params = {}) {
-    const finalUrl = this.buildUrl({method, ...params})
+    const token = this.get('zen.state.session.token')
+    const finalUrl = this.buildUrlQueryParams({...params, method, token})
+
     return this.request(finalUrl)
   },
 
   postMethod (method, data = {}) {
-    const finalUrl = this.buildUrl({method})
-    return this.post(finalUrl, {data})
+    const finalUrl = this.buildUrlQueryParams({method})
+    const token = this.get('zen.state.session.token')
+
+    return this.post(finalUrl, {
+      data : {
+        ...data,
+        token
+      }
+    })
   },
 
 
@@ -70,9 +78,18 @@ export default AjaxService.extend({
     return this.getMethod('stats')
   },
 
-  setProgram (programId, crustId, data) {
+  getTimezone () {
+    return this.getMethod('config.timezone.get')
+  },
+
+  setProgram (program_id, crust_id, program) {
+    console.log({program_id, crust_id, program})
     return this
-      .postMethod('config.baking.stages.set')
+      .postMethod('config.baking.stages.set', {
+        program_id,
+        crust_id,
+        program
+      })
   },
 
 
