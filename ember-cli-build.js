@@ -5,16 +5,24 @@ const fs       = require('fs')
 
 
 
+// Dot-env file
 const environment   = process.env.EMBER_ENV || 'development'
 const defaultTarget = environment === 'production' ? 'prod' : 'localhost-4200'
 const target        = process.env.HB_DEPLOY_TARGET || defaultTarget
 const dotEnvFile    = `./.env-${target}`
-if (!fs.existsSync(dotEnvFile)) throw new Error(`ember-cli-build.js: dot-env file not found: ${dotEnvFile}`)
+
+if (!fs.existsSync(dotEnvFile)) {
+  if (process.env.HB_DEPLOY_TARGET) {
+    throw new Error(`dot-env file specified but not found: ${dotEnvFile}`)
+  } else {
+    console.warn(`default dot-env file not found: ${dotEnvFile}, assuming env vars are passed manually`)
+  }
+}
 
 
 
 module.exports = function (defaults) {
-  var app = new EmberApp(defaults, {
+  const app = new EmberApp(defaults, {
     babel : {
       plugins : [
         'transform-object-rest-spread',
@@ -25,13 +33,6 @@ module.exports = function (defaults) {
       includePolyfill : true,
     },
 
-    dotEnv : {
-      clientAllowedKeys : [
-        'BM_BACKEND_URL',
-      ],
-      path : dotEnvFile
-    },
-
     nodeModulesToVendor : [
       new Funnel('node_modules/lodash', {
         destDir : 'lodash',
@@ -40,6 +41,18 @@ module.exports = function (defaults) {
     ]
     // Add options here
   })
+
+
+
+  if (fs.existsSync(dotEnvFile)) {
+    app.dotEnv = {
+      clientAllowedKeys : [
+        'BM_BACKEND_URL',
+      ],
+      path : dotEnvFile
+    }
+  }
+
 
   // Use `app.import` to add additional libraries to the generated
   // output files.
