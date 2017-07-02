@@ -24,6 +24,6 @@ RUN npm install -g ember-cli bower yarn
 RUN yarn
 RUN bower --allow-root install
 
-RUN echo 'BM_BACKEND_URL=http://backend:8000/api' > .env-localhost-4200
+RUN echo 'BM_BACKEND_URL=http://localhost:8000/api' > .env-localhost-4200
 
 CMD ["/usr/local/bin/ember", "s"]

@@ -22,7 +22,7 @@ if (!fs.existsSync(dotEnvFile)) {
 
 
 module.exports = function (defaults) {
-  const app = new EmberApp(defaults, {
+  const options = {
     babel : {
       plugins : [
         'transform-object-rest-spread',
@@ -40,18 +40,19 @@ module.exports = function (defaults) {
       })
     ]
     // Add options here
-  })
-
-
+  }
 
   if (fs.existsSync(dotEnvFile)) {
-    app.dotEnv = {
+    options.dotEnv = {
       clientAllowedKeys : [
         'BM_BACKEND_URL',
       ],
       path : dotEnvFile
     }
   }
+
+  const app = new EmberApp(defaults, options)
+
 
 
   // Use `app.import` to add additional libraries to the generated
