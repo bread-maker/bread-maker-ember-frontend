@@ -1,3 +1,4 @@
+[![Circle CI](https://circleci.com/gh/bread-maker/bread-maker-ember-frontend.png?style=badge)](https://circleci.com/gh/bread-maker/bread-maker-ember-frontend)
 # bread-maker-ember-frontend
 
 This README outlines the details of collaborating on this Ember application.
