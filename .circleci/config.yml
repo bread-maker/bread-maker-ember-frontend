@@ -3,16 +3,13 @@ jobs:
   build:
     working_directory: /opt/bread-maker-ember-frontend
     docker:
-      # using custom image, see .circleci/images/chrome/Dockerfile
-      - image: openbreadmaker/chrome
+      # using custom image, see .circleci/images/ember/Dockerfile
+      - image: openbreadmaker/ember
       - image: openbreadmaker/onion2
     environment:
       - BM_BACKEND_URL: "http://localhost:8000/api"
     steps:
       - checkout
-      - run:
-          name: install ember, bower and yarn
-          command: 'npm install -g ember-cli bower yarn'
       - run:
           name: install nmp dependencies
           command: 'yarn'
