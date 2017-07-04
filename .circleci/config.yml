@@ -19,3 +19,6 @@ jobs:
       - run:
           name: run tests
           command: 'ember t'
+notify:
+  webhooks:
+    - url: https://webhooks.gitter.im/e/79c1b97c31cf7a8f96d7
