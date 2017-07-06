@@ -6,7 +6,7 @@ import service from 'ember-service/inject'
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin'
 
 // ----- Third-party modules -----
-import RSVP from 'rsvp'
+// import RSVP from 'rsvp'
 
 
 

@@ -88,8 +88,8 @@ export default AjaxService.extend({
     return this.getMethod('auth.login', {password})
   },
 
-  getStats () {
-    return this.getMethod('stats')
+  getStats (interval = '') {
+    return this.getMethod('stats', {interval})
   },
 
   getTimezone () {

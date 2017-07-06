@@ -5,7 +5,7 @@
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{moment stats.time}}
+    {{moment status.time}}
   </div>{{! stat-value }}
 
 </div>{{! stat _time }}
@@ -18,7 +18,7 @@
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{stats.state}}
+    {{status.state}}
   </div>{{! stat-value }}
 </div>{{! stat _state }}
 
@@ -30,7 +30,7 @@
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{round stats.targetTemp 2}}
+    {{round status.targetTemp 2}}
   </div>{{! stat-value }}
 </div>{{! stat _targetTemp }}
 
@@ -42,7 +42,7 @@
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{round stats.temp 2}}
+    {{round status.temp 2}}
   </div>{{! stat-value }}
 </div>{{! stat _temp }}
 
@@ -54,7 +54,7 @@
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{stats.motor}}
+    {{status.motor}}
   </div>{{! stat-value }}
 </div>{{! stat _temp }}
 
@@ -68,7 +68,7 @@
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{stats.pullup}}
+    {{status.pullup}}
   </div>{{! stat-value }}
 </div>{{! stat _pullup }}
 
@@ -80,7 +80,7 @@
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{stats.adc}}
+    {{status.adc}}
   </div>{{! stat-value }}
 </div>{{! stat _adc }}
 
@@ -92,7 +92,7 @@
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{stats.res}}
+    {{status.res}}
   </div>{{! stat-value }}
 </div>{{! stat _res }}
 
@@ -104,7 +104,7 @@
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{stats.pwm}}
+    {{status.pwm}}
   </div>{{! stat-value }}
 </div>{{! stat _pwm }}
 --}}
@@ -117,6 +117,6 @@
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{stats.heat}}
+    {{status.heat}}
   </div>{{! stat-value }}
 </div>{{! stat _heat }}

@@ -1,7 +1,12 @@
 <div class="route-application">
 
   <div class="route-application-sidebar">
-    {{stats-x stats=zen.state.stats.stats}}
+    {{stats-x status=zen.state.stats.lastStatus}}
+
+    {{ember-chart
+      type = 'line'
+      data = zen.state.stats.statsChartData
+    }}
 
     {{#if zen.state.session.isAuthenticated}}
       <a
