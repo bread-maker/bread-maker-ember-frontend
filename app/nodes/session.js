@@ -39,8 +39,8 @@ export default Node.extend({
   authenticationIsFulfilled : false,
   authenticationIsRejected  : false,
   authenticationIsSettled   : false,
-  authenticationResponse    : null,
-  authenticationError       : null,
+  authenticationResponse    : undefined,
+  authenticationError       : undefined,
 
 
 

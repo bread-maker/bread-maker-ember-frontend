@@ -28,9 +28,8 @@ export default Node.extend({
   statsIsFulfilled : false,
   statsIsRejected  : false,
   statsIsSettled   : false,
-
-  statsResponse : null,
-  statsError    : null,
+  statsResponse    : undefined,
+  statsError       : undefined,
 
 
 
@@ -42,29 +41,20 @@ export default Node.extend({
   // ----- Computed properties -----
   stats : computed(
     'statsResponse.last_status',
-    ({
-      time,
-      state,
-      target_temp: targetTemp,
-      temp,
-      motor,
-      pullup,
-      adc,
-      res,
-      pwm,
-      heat
-    } = {}) => {
+    lastStatus => {
+      if (!lastStatus) return {}
+
       return {
-        time,
-        state,
-        targetTemp,
-        temp,
-        motor,
-        pullup,
-        adc,
-        res,
-        pwm,
-        heat
+        time       : lastStatus.time,
+        state      : lastStatus.state,
+        targetTemp : lastStatus.target_temp,
+        temp       : lastStatus.temp,
+        motor      : lastStatus.motor,
+        pullup     : lastStatus.pullup,
+        adc        : lastStatus.adc,
+        res        : lastStatus.res,
+        pwm        : lastStatus.pwm,
+        heat       : lastStatus.heat
       }
     }
   ),
@@ -75,7 +65,7 @@ export default Node.extend({
   request () {
     const ajax = this.get('ajax')
 
-    this.dispatchPromise('stats', () => ajax.getStats())
+    return this.dispatchPromise('stats', () => ajax.getStats())
   },
 
 

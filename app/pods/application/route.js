@@ -26,16 +26,6 @@ export default Route.extend(ApplicationRouteMixin, {
 
 
 
-  model () {
-    const zen = this.get('zen')
-
-    return RSVP.hash({
-      stats : zen.get('state.stats').request()
-    })
-  },
-
-
-
   // ----- Actions -----
   actions : {
     authenticateSession (password) {
