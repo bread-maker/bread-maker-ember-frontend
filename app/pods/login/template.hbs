@@ -1,4 +1,4 @@
-{{#if zen.state.session.isAuthenticating}}
+{{#if zen.state.session.authenticationIsPending}}
   Logging in...
 {{else}}
   {{input
@@ -14,6 +14,6 @@
   </button>
 {{/if}}
 
-{{#if zen.state.session.error}}
-  <p>{{zen.state.session.error.error_text}}</p>
+{{#if zen.state.session.authenticationError}}
+  <p>{{zen.state.session.authenticationError.error_text}}</p>
 {{/if}}

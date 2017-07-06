@@ -16,21 +16,21 @@ export default Node.extend({
   nodeName : 'stats',
 
   attrNames : [
-    'isPending',
-    'idFulfilled',
-    'isRejected',
-    'isSettled',
-    'rawResponse',
-    'rawError'
+    'statsIsPending',
+    'statsIsFulfilled',
+    'statsIsRejected',
+    'statsIsSettled',
+    'statsResponse',
+    'statsError'
   ],
 
-  isPending   : false,
-  idFulfilled : false,
-  isRejected  : false,
-  isSettled   : false,
+  statsIsPending   : false,
+  statsIsFulfilled : false,
+  statsIsRejected  : false,
+  statsIsSettled   : false,
 
-  rawResponse : undefined,
-  rawError    : undefined,
+  statsResponse : null,
+  statsError    : null,
 
 
 
@@ -41,7 +41,7 @@ export default Node.extend({
 
   // ----- Computed properties -----
   stats : computed(
-    'rawResponse.last_status',
+    'statsResponse.last_status',
     ({
       time,
       state,
@@ -53,7 +53,7 @@ export default Node.extend({
       res,
       pwm,
       heat
-    }) => {
+    } = {}) => {
       return {
         time,
         state,
@@ -73,54 +73,14 @@ export default Node.extend({
 
   // ----- Methods -----
   request () {
-    this.dispatch('startRequest')
+    const ajax = this.get('ajax')
 
-    return this
-      .get('ajax')
-      .getStats()
-      .then(rawResponse =>
-        this.dispatch('fulfillRequest', rawResponse)
-      )
-      .catch(error => {
-        this.dispatch('rejectRequest', error)
-      })
+    this.dispatchPromise('stats', () => ajax.getStats())
   },
 
 
 
   // ----- Actions -----
   actions : {
-    startRequest () {
-      this.setProperties({
-        isPending   : true,
-        idFulfilled : false,
-        isRejected  : false,
-        isSettled   : false,
-      })
-    },
-
-    fulfillRequest (rawResponse) {
-      this.setProperties({
-        isPending   : false,
-        idFulfilled : true,
-        isRejected  : false,
-        isSettled   : true,
-
-        rawResponse,
-        rawError : null,
-      })
-    },
-
-    rejectRequest (rawError) {
-      this.setProperties({
-        isPending   : false,
-        idFulfilled : false,
-        isRejected  : true,
-        isSettled   : true,
-
-        rawResponse : null,
-        rawError,
-      })
-    }
   }
 })

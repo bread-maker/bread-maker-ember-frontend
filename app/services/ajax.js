@@ -6,6 +6,7 @@ import service from 'ember-service/inject'
 import AjaxService from 'ember-ajax/services/ajax'
 
 // ----- Third-party modules -----
+import RSVP from 'rsvp'
 
 
 
@@ -52,21 +53,34 @@ export default AjaxService.extend({
 
   getMethod (method, params = {}) {
     const token = this.get('zen.state.session.token')
-    const finalUrl = this.buildUrlQueryParams({...params, method, token})
+    params = {...params, method}
+    if (token) params.token = token
+    const finalUrl = this.buildUrlQueryParams(params)
 
-    return this.request(finalUrl)
+    return this
+      .request(finalUrl)
+      .then(data => {
+        return data.error
+          ? RSVP.reject(data.error)
+          : data
+      })
   },
 
   postMethod (method, data = {}) {
     const finalUrl = this.buildUrlQueryParams({method})
     const token = this.get('zen.state.session.token')
+    data = {...data}
+    if (token) data.token = token
 
-    return this.post(finalUrl, {
-      data : {
-        ...data,
-        token
-      }
-    })
+    return this
+      .post(finalUrl, {
+        data
+      })
+      .then(data => {
+        return data.error
+          ? RSVP.reject(data.error)
+          : data
+      })
   },
 
 

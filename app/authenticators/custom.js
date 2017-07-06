@@ -20,65 +20,36 @@ export default Base.extend({
   // ----- Overridden methods -----
   authenticate (password) {
     const zen = this.get('zen')
+    const ajax = this.get('ajax')
 
-    zen.dispatch('state.session', 'startAuthentication')
-
-    return this
-      .get('ajax')
-
-      .login(password)
-
-      .then(data => {
-        return data.error
-          ? RSVP.reject(data.error)
-          : data
-      })
-
-      .then(({token}) => {
-        zen.dispatch('state.session', 'authenticate', token)
-        return {token}
-      })
-
-      .catch(data => this._reportErrorAndInvalidate(data))
+    return zen
+      .dispatchPromise('state.session', 'authentication', () => ajax.login(password))
   },
 
 
 
-  invalidate (...args) {
-    return this
-      ._super(...args)
+  invalidate () {
+    this.get('zen').dispatchAction('state.session', 'invalidate')
 
-      .then(data => {
-        this.get('zen').dispatch('state.session', 'invalidate')
-        return data
-      })
+    return RSVP.resolve()
   },
 
 
 
   restore ({token}) {
-    return this
-      .get('ajax')
+    const zen = this.get('zen')
+    const ajax = this.get('ajax')
 
-      .getMethod('config.timezone.get', {token})
-
-      .then(() => {
-        this.get('zen').dispatch('state.session', 'authenticate', token)
-        return {token}
-      })
-
-      .catch(() => {
-        this.get('zen').dispatch('state.session', 'invalidate')
-        return RSVP.reject()
+    return zen
+      .dispatchPromise('state.session', 'authentication', () => {
+        return ajax
+          .getMethod('config.timezone.get', {token})
+          .then(() => ({token}))
       })
   },
 
 
 
   // ----- Custom methods -----
-  _reportErrorAndInvalidate (error) {
-    console.error('Authentication failed:', error)
-    this.get('zen').dispatch('state.session', 'invalidate', error)
-    return RSVP.reject(error)
-  },
+
 })

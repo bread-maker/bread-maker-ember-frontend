@@ -2281,6 +2281,17 @@ ember-ajax@^3.0.0:
   dependencies:
     ember-cli-babel "^6.0.0"
 
+ember-awesome-macros@^0.37.0:
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/ember-awesome-macros/-/ember-awesome-macros-0.37.0.tgz#e10cf5ead3f99df489e4621fcd62e73f8234b038"
+  dependencies:
+    broccoli-file-creator "^1.1.1"
+    broccoli-merge-trees "^2.0.0"
+    ember-cli-babel "^6.0.0"
+    ember-cli-string-utils "^1.1.0"
+    ember-macro-helpers "^0.15.0"
+    ember-string-ishtmlsafe-polyfill "^1.1.0"
+
 ember-browserify@1.1.9:
   version "1.1.9"
   resolved "https://registry.yarnpkg.com/ember-browserify/-/ember-browserify-1.1.9.tgz#58dfc8aef7cd90e139ecf673a4a6f23802a8938e"
@@ -2776,7 +2787,7 @@ ember-macro-helpers@^0.14.1:
     ember-cli-test-info "^1.0.0"
     ember-weakmap "^2.0.0"
 
-ember-macro-helpers@^0.15.1:
+ember-macro-helpers@^0.15.0, ember-macro-helpers@^0.15.1:
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/ember-macro-helpers/-/ember-macro-helpers-0.15.1.tgz#a402651fafb3a25b3612a8c09843bc4061553a13"
   dependencies:
@@ -2854,6 +2865,13 @@ ember-source@~2.13.0:
     simple-dom "^0.3.0"
     simple-html-tokenizer "^0.3.0"
 
+ember-string-ishtmlsafe-polyfill@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ember-string-ishtmlsafe-polyfill/-/ember-string-ishtmlsafe-polyfill-1.1.0.tgz#ecde33419ff912b91dd8acf0640eb74b9758408e"
+  dependencies:
+    ember-cli-babel "^5.1.7"
+    ember-cli-version-checker "^1.2.0"
+
 ember-test-helpers@^0.6.3:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/ember-test-helpers/-/ember-test-helpers-0.6.3.tgz#f864cdf6f4e75f3f8768d6537785b5ab6e82d907"
@@ -2898,12 +2916,6 @@ ember-weakmap@^2.0.0:
   resolved "https://registry.yarnpkg.com/ember-weakmap/-/ember-weakmap-2.0.0.tgz#71c6819a8bfd0b077ae17ca1d9053fc5db06e4ac"
   dependencies:
     ember-cli-babel "^5.1.6"
-
-"ember-zen@file:../../ember-zen/":
-  version "0.0.0"
-  dependencies:
-    ember-cli-babel "^6.0.0"
-    ember-macro-helpers "^0.15.1"
 
 ember-zen@lolmaus/ember-zen#gen-2:
   version "0.0.0"

@@ -1,5 +1,9 @@
 // ----- Ember modules -----
+
+// ----- Ember addons -----
 // import computed from 'ember-macro-helpers/computed'
+import writable from 'ember-macro-helpers/writable'
+import not from 'ember-awesome-macros/not'
 
 // ----- Own modules -----
 import Node from 'ember-zen/node'
@@ -7,50 +11,74 @@ import Node from 'ember-zen/node'
 
 
 export default Node.extend({
-  attrNames : [
-    'isAuthenticated',
-    'isAuthenticating',
 
-    'token',
-    'error'
+  // ----- Attributes -----
+  nodeName : 'session',
+
+  attrNames : [
+    // 'isAuthenticated',
+    // 'isAuthenticating',
+    //
+    // 'token',
+    // 'error'
+    'authenticationIsPending',
+    'authenticationIsFulfilled',
+    'authenticationIsRejected',
+    'authenticationIsSettled',
+    'authenticationResponse',
+    'authenticationError'
   ],
 
-  isAuthenticated  : false,
-  isAuthenticating : false,
+  // isAuthenticated  : false,
+  // isAuthenticating : false,
+  //
+  // token : undefined,
+  // error : undefined,
 
-  token : undefined,
-  error : undefined,
+  authenticationIsPending   : false,
+  authenticationIsFulfilled : false,
+  authenticationIsRejected  : false,
+  authenticationIsSettled   : false,
+  authenticationResponse    : null,
+  authenticationError       : null,
+
+
+
+  // ----- Computed properties -----
+  token           : writable('authenticationResponse.token'),
+  isAuthenticated : not(not('token')),
 
 
 
   actions : {
-    startAuthentication () {
+    // startAuthentication () {
+    //   this.setProperties({
+    //     isAuthenticated  : false,
+    //     isAuthenticating : true,
+    //
+    //     token : null,
+    //     error : null,
+    //   })
+    // },
+    //
+    // authenticate (token) {
+    //   this.setProperties({
+    //     isAuthenticated  : true,
+    //     isAuthenticating : false,
+    //
+    //     token,
+    //     error : null,
+    //   })
+    // },
+    //
+    invalidate () {
       this.setProperties({
-        isAuthenticated  : false,
-        isAuthenticating : true,
-
-        token : null,
-        error : null,
-      })
-    },
-
-    authenticate (token) {
-      this.setProperties({
-        isAuthenticated  : true,
-        isAuthenticating : false,
-
-        token,
-        error : null,
-      })
-    },
-
-    invalidate (error) {
-      this.setProperties({
-        isAuthenticated  : false,
-        isAuthenticating : false,
-
-        token : null,
-        error
+        authenticationIsPending   : false,
+        authenticationIsFulfilled : false,
+        authenticationIsRejected  : false,
+        authenticationIsSettled   : false,
+        authenticationResponse    : null,
+        authenticationError       : null,
       })
     },
   },

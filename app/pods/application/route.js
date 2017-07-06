@@ -18,8 +18,10 @@ export default Route.extend(ApplicationRouteMixin, {
 
 
   // ----- Overridden methods -----
-  beforeModel () {
+  init () {
     this.get('zen').logStateChangeOnNode('state', '@@INIT')
+
+    this._super(...arguments)
   },
 
 
