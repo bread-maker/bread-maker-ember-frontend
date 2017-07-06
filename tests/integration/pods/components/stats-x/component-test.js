@@ -12,7 +12,7 @@ let m
 
 describe('Integration | Component | stats x', function () {
   setupComponentTest('stats-x', {
-    integration : true
+    integration : true,
   })
 
   beforeEach(function () {
@@ -42,7 +42,7 @@ describe('Integration | Component | stats x', function () {
       adc        : 974,
       res        : 99998,
       pwm        : 0,
-      heat       : false
+      heat       : false,
     }
 
     this.setProperties({stats})

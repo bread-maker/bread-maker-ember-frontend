@@ -74,7 +74,7 @@ export default AjaxService.extend({
 
     return this
       .post(finalUrl, {
-        data
+        data,
       })
       .then(data => {
         return data.error
@@ -102,7 +102,7 @@ export default AjaxService.extend({
       .postMethod('config.baking.stages.set', {
         program_id,
         crust_id,
-        program
+        program,
       })
   },
 

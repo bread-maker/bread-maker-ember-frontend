@@ -36,9 +36,9 @@ module.exports = function (defaults) {
     nodeModulesToVendor : [
       new Funnel('node_modules/lodash', {
         destDir : 'lodash',
-        files   : ['lodash.js']
-      })
-    ]
+        files   : ['lodash.js'],
+      }),
+    ],
     // Add options here
   }
 
@@ -47,7 +47,7 @@ module.exports = function (defaults) {
       clientAllowedKeys : [
         'BM_BACKEND_URL',
       ],
-      path : dotEnvFile
+      path : dotEnvFile,
     }
   }
 

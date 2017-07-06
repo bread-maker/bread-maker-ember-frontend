@@ -10,78 +10,78 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 1560
+        duration   : 1560,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "3rd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 3600
+        duration   : 3600,
       },
       {
         stage_name : "Bake",
         temp       : 110,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
       {
         stage : 3,
         time  : 180,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 0,
@@ -94,78 +94,78 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 1560
+        duration   : 1560,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "3rd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 3600
+        duration   : 3600,
       },
       {
         stage_name : "Bake",
         temp       : 110,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
       {
         stage : 3,
         time  : 180,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 0,
@@ -178,78 +178,78 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 1560
+        duration   : 1560,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "3rd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 3600
+        duration   : 3600,
       },
       {
         stage_name : "Bake",
         temp       : 120,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
       {
         stage : 3,
         time  : 180,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 1,
@@ -262,78 +262,78 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 1560
+        duration   : 1560,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "3rd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 3600
+        duration   : 3600,
       },
       {
         stage_name : "Bake",
         temp       : 110,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
       {
         stage : 3,
         time  : 180,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 1,
@@ -346,78 +346,78 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 1560
+        duration   : 1560,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "3rd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 3600
+        duration   : 3600,
       },
       {
         stage_name : "Bake",
         temp       : 100,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
       {
         stage : 3,
         time  : 180,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 1,
@@ -430,78 +430,78 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 1560
+        duration   : 1560,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "3rd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 3600
+        duration   : 3600,
       },
       {
         stage_name : "Bake",
         temp       : 120,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
       {
         stage : 3,
         time  : 180,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 2,
@@ -514,78 +514,78 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 1560
+        duration   : 1560,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "3rd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 3600
+        duration   : 3600,
       },
       {
         stage_name : "Bake",
         temp       : 110,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
       {
         stage : 3,
         time  : 180,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 2,
@@ -598,78 +598,78 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 1560
+        duration   : 1560,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "3rd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 3600
+        duration   : 3600,
       },
       {
         stage_name : "Bake",
         temp       : 100,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
       {
         stage : 3,
         time  : 180,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 2,
@@ -682,78 +682,78 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 1560
+        duration   : 1560,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "3rd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 3600
+        duration   : 3600,
       },
       {
         stage_name : "Bake",
         temp       : 120,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
       {
         stage : 3,
         time  : 180,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 3,
@@ -766,84 +766,84 @@ export default [
         stage_name : "Pre Heat",
         temp       : 30,
         motor      : "off",
-        duration   : 1200
+        duration   : 1200,
       },
       {
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 660
+        duration   : 660,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 1200
+        duration   : 1200,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 900
+        duration   : 900,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "3nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Bake",
         temp       : 110,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
       {
         stage : 4,
         time  : 180,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 3,
@@ -856,84 +856,84 @@ export default [
         stage_name : "Pre Heat",
         temp       : 30,
         motor      : "off",
-        duration   : 1200
+        duration   : 1200,
       },
       {
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 660
+        duration   : 660,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 1200
+        duration   : 1200,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 900
+        duration   : 900,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "3nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Bake",
         temp       : 100,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
       {
         stage : 4,
         time  : 180,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 3,
@@ -946,84 +946,84 @@ export default [
         stage_name : "Pre Heat",
         temp       : 30,
         motor      : "off",
-        duration   : 1200
+        duration   : 1200,
       },
       {
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 660
+        duration   : 660,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 1200
+        duration   : 1200,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 900
+        duration   : 900,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "3nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Bake",
         temp       : 120,
         motor      : "off",
-        duration   : 3000
+        duration   : 3000,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
       {
         stage : 4,
         time  : 180,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 4,
@@ -1036,60 +1036,60 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 420
+        duration   : 420,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 780
+        duration   : 780,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 3120
+        duration   : 3120,
       },
       {
         stage_name : "Bake",
         temp       : 110,
         motor      : "off",
-        duration   : 2100
-      }
+        duration   : 2100,
+      },
     ],
     beeps : [
       {
         stage : 3,
         time  : 120,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 4,
@@ -1102,60 +1102,60 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 420
+        duration   : 420,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 780
+        duration   : 780,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 3120
+        duration   : 3120,
       },
       {
         stage_name : "Bake",
         temp       : 100,
         motor      : "off",
-        duration   : 2100
-      }
+        duration   : 2100,
+      },
     ],
     beeps : [
       {
         stage : 3,
         time  : 120,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 4,
@@ -1168,60 +1168,60 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 420
+        duration   : 420,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 780
+        duration   : 780,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
+        duration   : 4,
       },
       {
         stage_name : "2nd Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 3120
+        duration   : 3120,
       },
       {
         stage_name : "Bake",
         temp       : 120,
         motor      : "off",
-        duration   : 2100
-      }
+        duration   : 2100,
+      },
     ],
     beeps : [
       {
         stage : 3,
         time  : 120,
-        count : 8
-      }
+        count : 8,
+      },
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 5,
@@ -1234,44 +1234,44 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
-      }
+        duration   : 4,
+      },
     ],
     beeps : [
 
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 5,
@@ -1284,44 +1284,44 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
-      }
+        duration   : 4,
+      },
     ],
     beeps : [
 
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 5,
@@ -1334,44 +1334,44 @@ export default [
         stage_name : "Mix",
         temp       : 30,
         motor      : "onoff",
-        duration   : 120
+        duration   : 120,
       },
       {
         stage_name : "1st Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "Rest",
         temp       : 30,
         motor      : "off",
-        duration   : 300
+        duration   : 300,
       },
       {
         stage_name : "2nd Knead",
         temp       : 30,
         motor      : "on",
-        duration   : 720
+        duration   : 720,
       },
       {
         stage_name : "1st Rise",
         temp       : 36,
         motor      : "off",
-        duration   : 2400
+        duration   : 2400,
       },
       {
         stage_name : "Gas Squeeze",
         temp       : 36,
         motor      : "on",
-        duration   : 4
-      }
+        duration   : 4,
+      },
     ],
     beeps : [
 
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 6,
@@ -1384,20 +1384,20 @@ export default [
         stage_name : "Bake",
         temp       : 110,
         motor      : "off",
-        duration   : 3600
+        duration   : 3600,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
 
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 6,
@@ -1410,20 +1410,20 @@ export default [
         stage_name : "Bake",
         temp       : 100,
         motor      : "off",
-        duration   : 3600
+        duration   : 3600,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
 
     ],
     warm_temp     : -1,
-    max_warm_time : -1
+    max_warm_time : -1,
   },
   {
     program_id   : 6,
@@ -1436,19 +1436,19 @@ export default [
         stage_name : "Bake",
         temp       : 120,
         motor      : "off",
-        duration   : 3600
+        duration   : 3600,
       },
       {
         stage_name : "Cool",
         temp       : 50,
         motor      : "off",
-        duration   : 1200
-      }
+        duration   : 1200,
+      },
     ],
     beeps : [
 
     ],
     warm_temp     : -1,
-    max_warm_time : -1
-  }
+    max_warm_time : -1,
+  },
 ]

@@ -49,6 +49,6 @@ export default Controller.extend({
     login () {
       const password = this.get('password')
       this.send('authenticateSession', password)
-    }
-  }
+    },
+  },
 })

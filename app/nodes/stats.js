@@ -24,7 +24,7 @@ export default Node.extend({
     'statsIsRejected',
     'statsIsSettled',
     'statsResponse',
-    'statsError'
+    'statsError',
   ],
 
   statsIsPending   : false,
@@ -48,12 +48,23 @@ export default Node.extend({
   statsChartData : computed('stats', (stats = []) => {
     return {
       labels   : stats.map(({time}) => moment(time).format('LTS')),
+      yLabels  : ["on", "onoff", "off"],
       datasets : [
         {
-          label : 'Temp',
-          data  : stats.map(({temp}) => _.round(temp, 2))
-        }
-      ]
+          label       : 'Temp',
+          yAxisID     : 'temp',
+          fill        : false,
+          borderColor : "red",
+          data        : stats.map(({temp}) => _.round(temp, 2)),
+        },
+        {
+          label       : 'Motor',
+          yAxisID     : 'motor',
+          fill        : true,
+          borderColor : "blue",
+          data        : stats.mapBy('motor'),
+        },
+      ],
     }
   }),
 
@@ -70,5 +81,5 @@ export default Node.extend({
 
   // ----- Actions -----
   actions : {
-  }
+  },
 })

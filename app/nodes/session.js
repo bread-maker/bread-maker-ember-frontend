@@ -26,7 +26,7 @@ export default Node.extend({
     'authenticationIsRejected',
     'authenticationIsSettled',
     'authenticationResponse',
-    'authenticationError'
+    'authenticationError',
   ],
 
   // isAuthenticated  : false,

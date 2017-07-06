@@ -6,7 +6,7 @@ import {
   hasClass,
   isVisible,
   text,
-  value
+  value,
 } from "../../page-object"
 
 import testSelector from "ember-test-selectors"
@@ -28,7 +28,7 @@ export function jquery (callback, errorIfMissing = true) {
       }
 
       return callback($el)
-    }
+    },
   }
 }
 
@@ -71,7 +71,7 @@ export default function component (scope = "", descriptor = {}) {
       return this.$.trigger(event)
     },
 
-    ...descriptor
+    ...descriptor,
   }
 }
 

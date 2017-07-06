@@ -6,6 +6,27 @@
     {{ember-chart
       type = 'line'
       data = zen.state.stats.statsChartData
+
+      options = (hash
+        animation = false
+        scales = (hash
+          yAxes = (array
+            (hash
+              id = "temp"
+              type = "linear"
+              position = "left"
+              ticks = (hash
+                beginAtZero = true
+              )
+            )
+            (hash
+              id = "motor"
+              type = "category"
+              position = "right"
+            )
+          )
+        )
+      )
     }}
 
     {{#if zen.state.session.isAuthenticated}}
