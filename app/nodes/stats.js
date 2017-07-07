@@ -56,6 +56,13 @@ export default Node.extend({
           data        : stats.map(({temp}) => _.round(temp, 2)),
         },
         {
+          label       : 'Target temp',
+          yAxisID     : 'temp',
+          fill        : false,
+          borderColor : "green",
+          data        : stats.map(({target_temp}) => target_temp ? _.round(target_temp, 2) : -1),
+        },
+        {
           label       : 'Motor',
           yAxisID     : 'motor',
           fill        : true,

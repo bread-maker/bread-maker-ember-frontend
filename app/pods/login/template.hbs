@@ -1,19 +1,23 @@
-{{#if zen.state.session.authenticationIsPending}}
-  Logging in...
-{{else}}
-  {{input
-    value          = password
-    type           = 'password'
-    insert-newline = (action 'login')
-  }}
+<div class = "route-login">
 
-  <button
-    {{action 'login'}}
-  >
-    Log in
-  </button>
-{{/if}}
+  {{#if zen.state.session.authenticationIsPending}}
+    Logging in...
+  {{else}}
+    {{input
+      value          = password
+      type           = 'password'
+      insert-newline = (action 'login')
+    }}
 
-{{#if zen.state.session.authenticationError}}
-  <p>{{zen.state.session.authenticationError.error_text}}</p>
-{{/if}}
+    <button
+      {{action 'login'}}
+    >
+      Log in
+    </button>
+  {{/if}}
+
+  {{#if zen.state.session.authenticationError}}
+    <p>{{zen.state.session.authenticationError.error_text}}</p>
+  {{/if}}
+
+</div>

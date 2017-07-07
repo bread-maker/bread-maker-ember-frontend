@@ -39,7 +39,10 @@ module.exports = function (defaults) {
         files   : ['lodash.js'],
       }),
     ],
-    // Add options here
+
+    sassOptions : {
+      includePaths : ['app'],
+    },
   }
 
   if (fs.existsSync(dotEnvFile)) {

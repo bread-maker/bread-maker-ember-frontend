@@ -1,0 +1,68 @@
+@at-root
+
+  @import node_modules/ember-element-query/addon/mixins
+
+
+
+  ////------------------------------------------
+  .route-application
+    //------------------------------------------
+
+    // ----- Layout -----
+    display        : flex
+    flex-direction : column
+    min-height     : 100vh
+
+    .route-application-main
+      flex-grow : 1
+
+
+
+  ////------------------------------------------
+  .route-application-header
+    //------------------------------------------
+
+    // ----- Layout -----
+    padding : config-get('bm.layout.container.padding')
+
+    // ----- RWD -----
+    +eq-from(m)
+      display         : flex
+      justify-content : space-between
+
+
+
+  ////------------------------------------------
+  .route-application-main
+    //------------------------------------------
+
+    // ----- RWD -----
+    +eq-from(m)
+      display : flex
+
+      .route-application-sidebar
+        width       : 200px
+        flex-shrink : 0
+
+      .route-application-content
+        flex-grow : 1
+
+
+
+  ////------------------------------------------
+  .route-application-sidebar
+    //------------------------------------------
+
+    // ----- Layout -----
+    padding : config-get('bm.layout.container.padding')
+
+
+
+  ////------------------------------------------
+  .route-application-content
+    //------------------------------------------
+
+    // ----- Layout -----
+    position : relative
+    padding  : config-get('bm.layout.container.padding')
+

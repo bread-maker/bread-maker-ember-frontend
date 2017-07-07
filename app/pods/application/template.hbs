@@ -1,51 +1,54 @@
 <div class="route-application">
 
-  <div class="route-application-sidebar">
-    {{stats-x status=zen.state.stats.lastStatus}}
+  {{#e-q
+    class   = "route-application-header"
+    tagName = "header"
+  }}
 
-    {{ember-chart
-      type = 'line'
-      data = zen.state.stats.statsChartData
+    <div class="route-application-header-item _left">
+      <h2>Open Bread Maker</h2>
+    </div>{{! header-item _left }}
 
-      options = (hash
-        animation = false
-        scales = (hash
-          yAxes = (array
-            (hash
-              id = "temp"
-              type = "linear"
-              position = "left"
-              ticks = (hash
-                beginAtZero = true
-              )
-            )
-            (hash
-              id = "motor"
-              type = "category"
-              position = "right"
-            )
-          )
-        )
-      )
-    }}
+    <div class="route-application-header-item _right">
+      {{link-to 'Chart' 'index'
+        class = "route-application-menuItem _chart"
+      }}
 
-    {{#if zen.state.session.isAuthenticated}}
-      <a
-        href
-        {{action 'invalidateSession'}}
-      >
-        Logout
-      </a>
-    {{else if isAuthenticating}}
-      Logging in...
-    {{else}}
-      {{link-to 'Login' 'login'}}
-    {{/if}}
-  </div>{{! sidebar }}
+      {{#if zen.state.session.isAuthenticated}}
+        <span class = "route-application-menuItem _logout">
+          Settings
+        </span>
+
+        <a
+          class = "route-application-menuItem _logout"
+          href
+          {{action 'invalidateSession'}}
+        >
+          Logout
+        </a>
+      {{else}}
+        {{link-to 'Login' 'login'
+          class = "route-application-menuItem _login"
+        }}
+      {{/if}}
+    </div>{{! header-item _right }}
 
 
-  <div class="route-application-content">
-    {{outlet}}
-  </div>{{! content }}
+  {{/e-q}}{{! header }}
+
+
+
+  {{#e-q class="route-application-main"}}
+
+    <aside class="route-application-sidebar">
+      {{stats-x status=zen.state.stats.lastStatus}}
+    </aside>{{! sidebar }}
+
+
+    <main class="route-application-content">
+      {{outlet}}
+    </main>{{! content }}
+
+  {{/e-q}}{{! main }}
 
 </div>
