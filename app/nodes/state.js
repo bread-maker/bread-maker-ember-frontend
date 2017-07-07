@@ -9,8 +9,6 @@ import {Node, createNodeCP} from 'ember-zen'
 export default Node.extend({
 
   // ----- Arguments -----
-  nodeName : 'state',
-
   attrNames : [
     'session',
     'stats',

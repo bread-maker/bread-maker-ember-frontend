@@ -13,8 +13,6 @@ import Node from 'ember-zen/node'
 export default Node.extend({
 
   // ----- Attributes -----
-  nodeName : 'session',
-
   attrNames : [
     // 'isAuthenticated',
     // 'isAuthenticating',

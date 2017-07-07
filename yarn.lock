@@ -2359,6 +2359,12 @@ ember-browserify@1.1.9:
     through2 "^2.0.0"
     walk-sync "^0.2.6"
 
+ember-chrome-devtools@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/ember-chrome-devtools/-/ember-chrome-devtools-0.1.1.tgz#2c95ec1819125169b15b3f0cbc9a871c0862329b"
+  dependencies:
+    ember-cli-babel "^6.0.0"
+
 ember-cli-app-version@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ember-cli-app-version/-/ember-cli-app-version-3.0.0.tgz#d67a33aeec7bd03187fbe72c5663dadec4c3368a"

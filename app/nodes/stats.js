@@ -16,8 +16,6 @@ import {Node/*, createNodeCP*/} from 'ember-zen'
 export default Node.extend({
 
   // ----- Attributes -----
-  nodeName : 'stats',
-
   attrNames : [
     'statsIsPending',
     'statsIsFulfilled',
