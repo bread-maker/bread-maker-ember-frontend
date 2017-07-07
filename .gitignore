@@ -13,6 +13,7 @@
 /connect.lock
 /coverage/
 /*.log*
+/*.ember-try
 
 # Env vars
 /.env*

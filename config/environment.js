@@ -6,7 +6,7 @@ const envVars = _.pick(process.env, [
 ])
 
 module.exports = function (environment) {
-  var ENV = {
+  const ENV = {
     modulePrefix    : 'bread-maker-ember-frontend',
     podModulePrefix : 'bread-maker-ember-frontend/pods',
     environment     : environment,
