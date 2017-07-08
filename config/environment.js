@@ -28,6 +28,14 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+
+    moment : {
+      // Options:
+      // 'all' - all years, all timezones
+      // 'subset' - 2010-2020, all timezones
+      // 'none' - no data, just timezone API
+      includeTimezone : 'subset',
+    },
   }
 
   if (environment === 'development') {

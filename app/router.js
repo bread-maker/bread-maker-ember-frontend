@@ -7,8 +7,8 @@ const Router = Ember.Router.extend({
 })
 
 Router.map(function () {
-  this.route('dummy-stats')
   this.route('login')
+  this.route('settings')
 })
 
 export default Router

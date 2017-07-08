@@ -60,12 +60,8 @@ export default Controller.extend(RunMixin, {
 
 
   // ----- Events and observers -----
-  consumeQueryParamsOnInit : on('init', function () {
-    next(() => {
-      this.updateIntervalFromQueryParam()
-      this.updatePollingFromQueryParam()
-      this.requestStats()
-    })
+  requestStatsOnInit : on('init', function () {
+    this.requestStats()
   }),
 
   updateIntervalFromQueryParam : observer('interval', function () {
@@ -78,6 +74,8 @@ export default Controller.extend(RunMixin, {
   updatePollingFromQueryParam : observer('polling', function () {
     const polling = this.get('polling')
     const pollingEffective = polling && polling !== 'false'
+
+    console.log({polling, pollingEffective})
 
     const zen = this.get('zen')
 
@@ -102,6 +100,11 @@ export default Controller.extend(RunMixin, {
 
   // ----- Actions -----
   actions : {
+    didReceiveQueryParams () {
+      this.updateIntervalFromQueryParam()
+      this.updatePollingFromQueryParam()
+    },
+
     updatePolling (autoUpdate) {
       const polling = autoUpdate.toString()
       this.setProperties({polling})

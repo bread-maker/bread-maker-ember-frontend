@@ -1,0 +1,32 @@
+<h1 class = "route-settings-title">
+  {{t 'routes.settings.settings'}}
+</h1>{{! title }}
+
+
+
+<div class="route-settings-settings">
+
+  <label class="route-settings-setting _locale">
+    <span class="route-settings-setting-label">
+      Language
+    </span>
+
+    {{one-way-select
+      zen.state.settings.localeResponse
+      options = intl.locales
+      update  = (action (dispatch-action) zen.state.settings 'setLocale')
+    }}
+
+    {{#if zen.state.settings.localeIsPending}}
+      <span class="route-settings-setting-status">
+        Updating...
+      </span>
+    {{else if zen.state.settings.localeIsRejected}}
+      <span class="route-settings-setting-status">
+        Failed to update locale: {{zen.state.settings.localeError}}
+      </span>
+    {{/if}}
+  </label>{{! setting }}
+
+</div>{{! settings }}
+

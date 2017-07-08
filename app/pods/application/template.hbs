@@ -1,3 +1,5 @@
+{{trigger (action 'didReceiveQueryParams')}}
+
 <div class="route-application">
 
   {{#e-q
@@ -13,14 +15,14 @@
 
     <div class="route-application-header-item _right">
       <div class = "route-application-menu">
-        {{link-to 'Chart' 'index'
+        {{link-to (t 'routes.application.menu.chart') 'index'
           class = "route-application-menu-item _chart"
         }}
 
         {{#if zen.state.session.isAuthenticated}}
-          <span class = "route-application-menu-item _logout">
-            Settings
-          </span>
+          {{link-to 'Settings' 'settings'
+            class = "route-application-menu-item _settings"
+          }}
 
           <a
             class = "route-application-menu-item _logout"

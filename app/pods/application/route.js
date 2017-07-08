@@ -24,6 +24,13 @@ export default Route.extend(ApplicationRouteMixin, {
     this._super(...arguments)
   },
 
+  beforeModel () {
+
+    return this
+      .get('zen.state.settings')
+      .request()
+  },
+
 
 
   // ----- Actions -----
