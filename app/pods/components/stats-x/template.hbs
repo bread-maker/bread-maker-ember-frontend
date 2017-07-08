@@ -1,24 +1,10 @@
-{{!--
-<div class="statsX-stat _time">
-  <div class="statsX-stat-label">
-    Time
-  </div>{{! stat-label }}
-
-  <div class="statsX-stat-value">
-    {{moment status.time}}
-  </div>{{! stat-value }}
-
-</div>{{! stat _time }}
---}}
-
-
 <div class="statsX-stat _state">
   <div class="statsX-stat-label">
-    State
+    {{t 'domain.state-labels.state'~}}
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{status.state}}
+    {{t (concat 'domain.state-states.' status.state)}}
   </div>{{! stat-value }}
 </div>{{! stat _state }}
 
@@ -26,7 +12,7 @@
 
 <div class="statsX-stat _targetTemp">
   <div class="statsX-stat-label">
-    Target temp
+    {{t 'domain.state-labels.target-temp'~}}
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
@@ -38,7 +24,7 @@
 
 <div class="statsX-stat _temp">
   <div class="statsX-stat-label">
-    Temp
+    {{t 'domain.state-labels.temp'~}}
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
@@ -50,73 +36,22 @@
 
 <div class="statsX-stat _motor">
   <div class="statsX-stat-label">
-    Motor
+    {{t 'domain.state-labels.motor'~}}
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{status.motor}}
+    {{t (concat 'domain.motor.' status.motor)}}
   </div>{{! stat-value }}
 </div>{{! stat _temp }}
 
 
 
-
-{{!--
-<div class="statsX-stat _pullup">
-  <div class="statsX-stat-label">
-    Pullup
-  </div>{{! stat-label }}
-
-  <div class="statsX-stat-value">
-    {{status.pullup}}
-  </div>{{! stat-value }}
-</div>{{! stat _pullup }}
-
-
-
-<div class="statsX-stat _adc">
-  <div class="statsX-stat-label">
-    ADC
-  </div>{{! stat-label }}
-
-  <div class="statsX-stat-value">
-    {{status.adc}}
-  </div>{{! stat-value }}
-</div>{{! stat _adc }}
-
-
-
-<div class="statsX-stat _res">
-  <div class="statsX-stat-label">
-    Res
-  </div>{{! stat-label }}
-
-  <div class="statsX-stat-value">
-    {{status.res}}
-  </div>{{! stat-value }}
-</div>{{! stat _res }}
-
-
-
-<div class="statsX-stat _pwm">
-  <div class="statsX-stat-label">
-    PWM
-  </div>{{! stat-label }}
-
-  <div class="statsX-stat-value">
-    {{status.pwm}}
-  </div>{{! stat-value }}
-</div>{{! stat _pwm }}
---}}
-
-
-
 <div class="statsX-stat _heat">
   <div class="statsX-stat-label">
-    Heat
+    {{t 'domain.state-labels.heat'~}}
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{status.heat}}
+    {{t (concat 'domain.onoff-boolean.' status.heat)}}
   </div>{{! stat-value }}
 </div>{{! stat _heat }}

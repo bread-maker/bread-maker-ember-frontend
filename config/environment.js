@@ -30,11 +30,8 @@ module.exports = function (environment) {
     },
 
     moment : {
-      // Options:
-      // 'all' - all years, all timezones
-      // 'subset' - 2010-2020, all timezones
-      // 'none' - no data, just timezone API
       includeTimezone : 'subset',
+      includeLocales  : ['en', 'ru'],
     },
   }
 

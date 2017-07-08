@@ -2,10 +2,7 @@
 
 <div class="route-application">
 
-  {{#e-q
-    class   = "route-application-header"
-    tagName = "header"
-  }}
+  <header class = "route-application-header">
 
     <div class="route-application-header-item _left">
       <h2 class="route-application-title">
@@ -20,7 +17,7 @@
         }}
 
         {{#if zen.state.session.isAuthenticated}}
-          {{link-to 'Settings' 'settings'
+          {{link-to (t 'routes.application.menu.settings') 'settings'
             class = "route-application-menu-item _settings"
           }}
 
@@ -29,28 +26,31 @@
             href
             {{action 'invalidateSession'}}
           >
-            Logout
+            {{t 'domain.login.logout'}}
           </a>
         {{else}}
-          {{link-to 'Login' 'login'
+          {{link-to (t 'domain.login.login') 'login'
             class = "route-application-menu-item _login"
           }}
         {{/if}}
       </div>{{! menu }}
     </div>{{! header-item _right }}
 
-
-  {{/e-q}}{{! header }}
-
+  </header>{{! header }}
 
 
-  {{#e-q class="route-application-main"}}
+
+  <div class="route-application-main">
 
     <aside class="route-application-sidebar">
       {{#if (and (not zen.state.stats.statsResponse) zen.state.stats.statsIsPending)}}
-        <p>Loading stats...</p>
+        <p>
+          {{t 'routes.application.sidebar.stats-loading'}}
+        </p>
       {{else if zen.state.stats.statsError}}
-        <p>Failed to fetch stats: {{zen.state.stats.statsError}}</p>
+        <p>
+          {{t 'routes.application.sidebar.stats-error' error=zen.state.stats.statsError}}
+        </p>
       {{else if zen.state.stats.statsResponse}}
         {{stats-x status=zen.state.stats.lastStatus}}
       {{/if}}
@@ -61,7 +61,9 @@
           update  = (action 'updatePolling')
         }}
 
-        Auto-update
+        <span>
+          {{t 'routes.application.sidebar.auto-update'}}
+        </span>
       </label>
     </aside>{{! sidebar }}
 
@@ -70,6 +72,6 @@
       {{outlet}}
     </main>{{! content }}
 
-  {{/e-q}}{{! main }}
+  </div>{{! main }}
 
 </div>

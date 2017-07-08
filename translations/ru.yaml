@@ -1,0 +1,80 @@
+product:
+  info: '{product} will cost {price, number, USD} if ordered by {deadline, date, time}'
+  title: 'Hello world!'
+  html:
+    info: '<strong>{product}</strong> will cost <em>{price, number, USD}</em> if ordered by {deadline, date, time}'
+
+
+routes:
+  application:
+    menu:
+      chart: График
+      settings: Настройки
+    sidebar:
+      auto-update: Авто-обновление
+      stats-loading: Загружаем состояние...
+      stats-error: "Не удалось загрузить состояние: {error}"
+
+  index:
+    loading: Загружаем график...
+    error: "Не удалось загрузить состояние: {error}"
+
+  settings:
+    title: Настройки
+    language: Язык
+    timezone: Часовой пояс
+    updating: Обновляем...
+    error: "Не удалось обновить {field}: {error}"
+
+
+
+components:
+  stats-chart:
+    interval: Интервал
+
+
+
+nodes:
+  stats:
+    interval:
+      sec: 8 минут
+      5sec: 40 минут
+      15sec: 2 часа
+      30sec: 4 часа
+      min: 8 часов
+
+
+
+domain:
+  state-labels:
+    state: Состояние
+    target-temp: Целевая темп.
+    temp: Температура
+    motor: Мотор
+    heat: Нагрев
+  state-states:
+    idle: бездействие
+    timer: таймер
+    baking: выпечка
+    warming: поддержание температуры
+    error: ошибка
+  motor:
+    off: выкл
+    on: вкл
+    onoff: пульс
+  onoff-boolean:
+    false: выкл
+    true: вкл
+
+  login:
+    login: Вход
+    logout: Выход
+    log-in: Войти
+    log-out: Выйти
+    logging-in: Входим...
+    password: Пароль
+
+  locale:
+    en: English
+    ru: Русский
+

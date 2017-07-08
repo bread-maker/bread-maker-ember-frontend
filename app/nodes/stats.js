@@ -1,4 +1,5 @@
 // ----- Ember modules -----
+import EmberObject from 'ember-object'
 import service from 'ember-service/inject'
 
 // ----- Ember Addon modules -----
@@ -6,12 +7,24 @@ import computed from 'ember-macro-helpers/computed'
 import writable from 'ember-macro-helpers/writable'
 import raw from 'ember-macro-helpers/raw'
 import findBy from 'ember-awesome-macros/array/find-by'
+import tag from 'ember-awesome-macros/tag'
+import {Node/*, createNodeCP*/} from 'ember-zen'
 
 // ----- Third-party libraries -----
-import moment from 'moment'
 
 // ----- Own modules -----
-import {Node/*, createNodeCP*/} from 'ember-zen'
+import t from 'bread-maker-ember-frontend/macros/t'
+
+
+
+const IntervalOption = EmberObject.extend({
+  interval  : undefined,
+  multipier : undefined,
+  intl      : undefined,
+
+  label : t(tag`nodes.stats.interval.${'interval'}`),
+})
+
 
 
 
@@ -42,18 +55,22 @@ export default Node.extend({
 
 
   // ----- Services -----
-  ajax : service(),
+  ajax   : service(),
+  intl   : service(),
+  moment : service(),
 
 
 
   // ----- Static properties -----
-  intervalOptions : [
-    {interval :   'sec', multiplier :  1, label : '8 minutes'},
-    {interval :  '5sec', multiplier :  5, label : '40 minutes'},
-    {interval : '15sec', multiplier : 15, label : '2 hours'},
-    {interval : '30sec', multiplier : 30, label : '4 hours'},
-    {interval :   'min', multiplier : 60, label : '8 hours'},
-  ],
+  intervalOptions : computed('intl', intl => [
+    /* eslint-disable key-spacing */
+    IntervalOption.create({interval :   'sec', multiplier :  1, intl}),
+    IntervalOption.create({interval :  '5sec', multiplier :  5, intl}),
+    IntervalOption.create({interval : '15sec', multiplier : 15, intl}),
+    IntervalOption.create({interval : '30sec', multiplier : 30, intl}),
+    IntervalOption.create({interval :   'min', multiplier : 60, intl}),
+    /* eslint-enable key-spacing */
+  ]),
 
 
 
@@ -64,48 +81,69 @@ export default Node.extend({
   currentIntervalOption : findBy('intervalOptions', raw('interval'), 'interval'),
 
   statsChartData : computed(
-    'stats',    'currentIntervalOption',
-    (stats = [], currentIntervalOption) => {
+    'stats',    'currentIntervalOption.multiplier', 'intl', 'moment',      'zen.state.settings.locale', 'zen.state.settings.timezone',
+    (stats = [], multiplier,                         intl,   momentService) => {
       const limit      = 500
       const lastTime   = stats[stats.length - 1].time
-      const multiplier = currentIntervalOption.multiplier
 
       const labels =
         _.times(limit, i => {
           const prior       = (limit - i) * multiplier
           const currentTime = (lastTime - prior) * 1000
 
-          return moment(currentTime).format('LTS')
+          return momentService.moment(currentTime).format('LTS')
         })
 
       return {
         // labels   : stats.map(({time}) => moment(time * 1000).format('LTS')),
         labels,
-        yLabels  : ["on", "onoff", "off"],
+
+        yLabels : [
+          intl.t('domain.motor.on'),
+          intl.t('domain.motor.onoff'),
+          intl.t('domain.motor.off'),
+        ],
+
         datasets : [
           {
-            label       : 'Temp',
+            label       : intl.t('domain.state-labels.temp'),
             yAxisID     : 'temp',
             fill        : false,
             borderColor : "red",
-            data        : _.arrayPadLeft(stats.map(({temp}) => _.round(temp, 2)), limit, -1),
             pointRadius : 0,
+
+            data : _.arrayPadLeft(
+              stats.mapBy('temp').map(t => _.round(t, 2)),
+              limit,
+              -1
+            ),
           },
           {
-            label       : 'Target temp',
+            label       : intl.t('domain.state-labels.target-temp'),
             yAxisID     : 'temp',
             fill        : false,
             borderColor : "green",
-            data        : _.arrayPadLeft(stats.map(({target_temp}) => target_temp ? _.round(target_temp, 2) : -1), limit, -1),
             pointRadius : 0,
+
+            data : _.arrayPadLeft(
+              stats.mapBy('target_temp').map(t => t ? _.round(t, 2) : -1),
+              limit,
+              -1
+            ),
           },
+
           {
-            label       : 'Motor',
+            label       : intl.t('domain.state-labels.motor'),
             yAxisID     : 'motor',
             fill        : true,
             borderColor : "blue",
-            data        : _.arrayPadLeft(stats.mapBy('motor'), limit, 'off'),
             pointRadius : 0,
+
+            data : _.arrayPadLeft(
+              stats.mapBy('motor').map(motor => intl.t(`domain.motor.${motor}`)),
+              limit,
+              'off'
+            ),
           },
         ],
       }

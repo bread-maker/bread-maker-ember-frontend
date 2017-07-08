@@ -1,7 +1,11 @@
 {{#if (and (not zen.state.stats.statsResponse) zen.state.stats.statsIsPending)}}
-  <p>Loading chart...</p>
+  <p>
+    {{t 'routes.index.loading'}}
+  </p>
 {{else if zen.state.stats.statsError}}
-  <p>Failed to fetch stats: {{zen.state.stats.statsError}}</p>
+  <p>
+    {{t 'routes.index.error' error=zen.state.stats.statsError}}
+  </p>
 {{else if zen.state.stats.statsResponse}}
   {{stats-chart
     data = zen.state.stats.statsChartData

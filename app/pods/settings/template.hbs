@@ -1,32 +1,68 @@
-<h1 class = "route-settings-title">
-  {{t 'routes.settings.settings'}}
+<h1 class = 'route-settings-title'>
+  {{t 'routes.settings.title'}}
 </h1>{{! title }}
 
 
 
-<div class="route-settings-settings">
+<div class='route-settings-settings'>
 
-  <label class="route-settings-setting _locale">
-    <span class="route-settings-setting-label">
-      Language
-    </span>
+  <div class='route-settings-setting _locale'>
+    <div class='route-settings-setting-inner'>
+      <label class='route-settings-setting-label'>
+        {{t 'routes.settings.language'}}
+      </label>
 
-    {{one-way-select
-      zen.state.settings.localeResponse
-      options = intl.locales
-      update  = (action (dispatch-action) zen.state.settings 'setLocale')
-    }}
+      {{#power-select
+        class    = 'route-settings-setting-field'
+        tagName  = 'div'
+        selected = zen.state.settings.localeResponse
+        options  = intl.locales
+        onchange = (action (dispatch-action) zen.state.settings 'setLocale')
+        as |locale|
+      }}
+        {{t (concat 'domain.locale.' locale)}}
+      {{/power-select}}
+    </div>
 
     {{#if zen.state.settings.localeIsPending}}
-      <span class="route-settings-setting-status">
-        Updating...
-      </span>
+      <div class='route-settings-setting-status'>
+        {{t 'routes.settings.updating'}}
+      </div>
     {{else if zen.state.settings.localeIsRejected}}
-      <span class="route-settings-setting-status">
-        Failed to update locale: {{zen.state.settings.localeError}}
-      </span>
+      <div class='route-settings-setting-status'>
+        {{t 'routes.settings.error' field='locale' error=zen.state.settings.localeError}}
+      </div>
     {{/if}}
-  </label>{{! setting }}
+  </div>{{! setting _locale}}
+
+  <div class='route-settings-setting _timezone'>
+    <div class='route-settings-setting-inner'>
+      <label class='route-settings-setting-label'>
+        {{t 'routes.settings.timezone'}}
+      </label>
+
+      {{#power-select
+        class    = 'route-settings-setting-field'
+        tagName  = 'div'
+        selected = zen.state.settings.timezoneResponse
+        options  = timezones
+        onchange = (action (dispatch-action) zen.state.settings 'setTimezone')
+        as |timezone|
+      }}
+        {{timezone}}
+      {{/power-select}}
+    </div>
+
+    {{#if zen.state.settings.timezoneIsPending}}
+      <div class='route-settings-setting-status'>
+        {{t 'routes.settings.updating'}}
+      </div>
+    {{else if zen.state.settings.timezoneIsRejected}}
+      <div class='route-settings-setting-status'>
+        {{t 'routes.settings.error' field='timezone' error=zen.state.settings.timezoneError}}
+      </div>
+    {{/if}}
+  </div>{{! setting _timezone}}
 
 </div>{{! settings }}
 

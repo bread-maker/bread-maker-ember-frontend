@@ -4,7 +4,7 @@ import service from 'ember-service/inject'
 // ----- Ember addons -----
 import Node from 'ember-zen/node'
 // import computed from 'ember-macro-helpers/computed'
-// import writable from 'ember-macro-helpers/writable'
+import writable from 'ember-macro-helpers/writable'
 // import not from 'ember-awesome-macros/not'
 
 // ----- Third-party libraries -----
@@ -62,7 +62,7 @@ export default Node.extend({
   timezoneIsFulfilled : false,
   timezoneIsRejected  : false,
   timezoneIsSettled   : false,
-  timezoneResponse    : 'celsius',
+  timezoneResponse    : 'UTC',
   timezoneError       : undefined,
 
 
@@ -74,13 +74,16 @@ export default Node.extend({
 
 
   // ----- Computed properties -----
+  locale   : writable('localeResponse'),
+  temp     : writable('tempResponse'),
+  timezone : writable('timezoneResponse'),
 
 
 
   // ----- Methods -----
   requestLocale () {
     const key    = `${LS_PREFIX}locale`
-    const locale = localStorage.getItem(key) || 'en-us'
+    const locale = localStorage.getItem(key) || 'en'
 
     return this.dispatchPromise('locale', () => {
       return timeout(1000)
@@ -90,7 +93,7 @@ export default Node.extend({
   },
 
   requestTemp () {
-    const key  = `${LS_PREFIX}locale`
+    const key  = `${LS_PREFIX}temp`
     const temp = localStorage.getItem(key) || 'celsius'
 
     return this.dispatchPromise('temp', () => {
@@ -100,7 +103,7 @@ export default Node.extend({
   },
 
   requestTimezone () {
-    const key = `${LS_PREFIX}locale`
+    const key = `${LS_PREFIX}timezone`
     const timezone = localStorage.getItem(key) || 'UTC'
 
     return this.dispatchPromise('timezone', () => {
@@ -124,12 +127,14 @@ export default Node.extend({
 
     intl.setLocale(locale)
     moment.setLocale(locale)
+    return locale
   },
 
   updateTimezone (timezone) {
     const moment = this.get('moment')
 
     moment.setTimeZone(timezone)
+    return timezone
   },
 
 
@@ -147,7 +152,7 @@ export default Node.extend({
     },
 
     setTemp (temp) {
-      const key = `${LS_PREFIX}locale`
+      const key = `${LS_PREFIX}temp`
       localStorage.setItem(key, temp)
 
       return this.dispatchPromise('temp', () => {

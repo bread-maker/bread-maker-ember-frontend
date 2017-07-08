@@ -1,9 +1,5 @@
 @at-root
 
-  @import node_modules/ember-element-query/addon/mixins
-
-
-
   ////------------------------------------------
   .route-application
     //------------------------------------------
@@ -26,12 +22,11 @@
     padding : config-get('bm.layout.container.padding')
 
     // ----- RWD -----
-    +eq-to(s)
+    +to(xs)
       .route-application-header-item:not(:last-child)
         margin-bottom : config-get('bm.layout.container.padding')
 
-
-    +eq-from(m)
+    +from(s)
       display         : flex
       justify-content : space-between
       align-items     : center
@@ -62,11 +57,11 @@
     //------------------------------------------
 
     // ----- RWD -----
-    +eq-from(m)
+    +from(m)
       display : flex
 
       .route-application-sidebar
-        width       : 200px
+        width       : 300px
         flex-shrink : 0
 
       .route-application-content

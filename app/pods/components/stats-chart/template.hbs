@@ -16,7 +16,7 @@
 <div class="statsChart-options">
 
   <label class="statsChart-option">
-    Window
+    {{t 'components.stats-chart.interval'}}
 
     {{one-way-select currentIntervalOption
       options = intervalOptions
@@ -25,7 +25,5 @@
       update  = updateIntervalAction
     }}
   </label>
-
-
 
 </div>{{! options }}

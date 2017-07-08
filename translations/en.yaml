@@ -1,0 +1,79 @@
+product:
+  info: '{product} will cost {price, number, USD} if ordered by {deadline, date, time}'
+  title: 'Hello world!'
+  html:
+    info: '<strong>{product}</strong> will cost <em>{price, number, USD}</em> if ordered by {deadline, date, time}'
+
+
+routes:
+  application:
+    menu:
+      chart: Chart
+      settings: Settings
+    sidebar:
+      auto-update: Auto-update
+      stats-loading: Loading stats...
+      stats-error: "Failed to fetch stats: {error}"
+
+  index:
+    loading: Loading chart...
+    error: "Failed to fetch stats: {error}"
+
+  settings:
+    title: Settings
+    language: Language
+    timezone: Timezone
+    updating: Updating...
+    error: "Failed to update {field}: {error}"
+
+
+
+components:
+  stats-chart:
+    interval: Interval
+
+
+
+nodes:
+  stats:
+    interval:
+      sec: 8 minutes
+      5sec: 40 minutes
+      15sec: 2 hours
+      30sec: 4 hours
+      min: 8 hours
+
+
+
+domain:
+  state-labels:
+    state: State
+    target-temp: Target temp
+    temp: Temp
+    motor: Motor
+    heat: Heat
+  state-states:
+    idle: idle
+    timer: timer
+    baking: baking
+    warming: warming
+    error: error
+  motor:
+    off: off
+    on: on
+    onoff: pulse
+  onoff-boolean:
+    false: off
+    true: on
+
+  login:
+    login: Login
+    logout: Logout
+    log-in: Log in
+    log-out: Log out
+    logging-in: Logging in...
+    password: Password
+
+  locale:
+    en: English
+    ru: Русский

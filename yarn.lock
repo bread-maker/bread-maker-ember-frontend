@@ -1202,6 +1202,14 @@ breakable@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/breakable/-/breakable-1.0.0.tgz#784a797915a38ead27bad456b5572cb4bbaa78c1"
 
+breakpoint-sass@^2.7.1:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/breakpoint-sass/-/breakpoint-sass-2.7.1.tgz#8ef6c4744dcc25ba83d969b6c9a17e5daa29980a"
+
+breakpoint-slicer@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/breakpoint-slicer/-/breakpoint-slicer-2.0.0.tgz#dc70c63de9ed76057bb4285fabb2303151c9045c"
+
 broccoli-asset-rev@^2.4.5:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/broccoli-asset-rev/-/broccoli-asset-rev-2.5.0.tgz#f5f66eac962bf9f086286921f0eaeaab6d00d819"
@@ -2629,6 +2637,15 @@ ember-awesome-macros@^0.37.0:
     ember-macro-helpers "^0.15.0"
     ember-string-ishtmlsafe-polyfill "^1.1.0"
 
+ember-basic-dropdown@^0.32.5:
+  version "0.32.9"
+  resolved "https://registry.yarnpkg.com/ember-basic-dropdown/-/ember-basic-dropdown-0.32.9.tgz#b5ad98ed7a07dcea098b64402745b662b1835a51"
+  dependencies:
+    ember-cli-babel "^6.1.0"
+    ember-cli-htmlbars "^1.1.1"
+    ember-native-dom-helpers "^0.5.0"
+    ember-wormhole "^0.5.1"
+
 ember-browserify@1.1.9:
   version "1.1.9"
   resolved "https://registry.yarnpkg.com/ember-browserify/-/ember-browserify-1.1.9.tgz#58dfc8aef7cd90e139ecf673a4a6f23802a8938e"
@@ -2696,7 +2713,7 @@ ember-cli-babel@^6.0.0, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.1.0:
     clone "^2.0.0"
     ember-cli-version-checker "^2.0.0"
 
-ember-cli-babel@^6.3.0:
+ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.3.0:
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.6.0.tgz#a8362bc44841bfdf89b389f3197f104d7ba526da"
   dependencies:
@@ -2787,7 +2804,7 @@ ember-cli-htmlbars-inline-precompile@^0.4.1:
     hash-for-dep "^1.0.2"
     silent-error "^1.1.0"
 
-ember-cli-htmlbars@^1.0.0, ember-cli-htmlbars@^1.0.10, ember-cli-htmlbars@^1.0.3:
+ember-cli-htmlbars@^1.0.0, ember-cli-htmlbars@^1.0.10, ember-cli-htmlbars@^1.1.1:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-1.3.3.tgz#06815262c1577736235bd42ce99db559ce5ebfd1"
   dependencies:
@@ -3143,19 +3160,21 @@ ember-composable-helpers@^2.0.3:
     broccoli-funnel "^1.0.1"
     ember-cli-babel "^6.1.0"
 
+ember-concurrency@^0.8.1:
+  version "0.8.7"
+  resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-0.8.7.tgz#346f5c88f2d5e987fb7e7324f8eb53ae3bae0970"
+  dependencies:
+    babel-core "^6.24.1"
+    ember-cli-babel "^6.1.0"
+    ember-getowner-polyfill "^1.1.0"
+    ember-maybe-import-regenerator "^0.1.5"
+
 ember-cookies@^0.0.13:
   version "0.0.13"
   resolved "https://registry.yarnpkg.com/ember-cookies/-/ember-cookies-0.0.13.tgz#18350df766240793d46744e4ee5c9a55ae6b4e0a"
   dependencies:
     ember-cli-babel "^5.1.7"
     ember-getowner-polyfill "^1.2.2"
-
-ember-element-query@lolmaus/ember-element-query#use-ember-evented:
-  version "1.0.1"
-  resolved "https://codeload.github.com/lolmaus/ember-element-query/tar.gz/bd16916de27fbeb1704589eba8194b2b586375f5"
-  dependencies:
-    ember-cli-babel "^5.1.6"
-    ember-cli-htmlbars "^1.0.3"
 
 ember-export-application-global@^2.0.0:
   version "2.0.0"
@@ -3304,6 +3323,15 @@ ember-macro-helpers@^0.15.0, ember-macro-helpers@^0.15.1:
     ember-cli-test-info "^1.0.0"
     ember-weakmap "^2.0.0"
 
+ember-maybe-import-regenerator@^0.1.5:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/ember-maybe-import-regenerator/-/ember-maybe-import-regenerator-0.1.6.tgz#35d41828afa6d6a59bc0da3ce47f34c573d776ca"
+  dependencies:
+    broccoli-funnel "^1.0.1"
+    broccoli-merge-trees "^1.0.0"
+    ember-cli-babel "^6.0.0-beta.4"
+    regenerator-runtime "^0.9.5"
+
 ember-mocha@^0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/ember-mocha/-/ember-mocha-0.12.0.tgz#ea27ae9838c8c6e28ea72c48084586ef5fa00a7a"
@@ -3317,6 +3345,13 @@ ember-moment@^7.3.1:
     ember-cli-babel "^5.1.6"
     ember-macro-helpers "^0.14.1"
 
+ember-native-dom-helpers@^0.5.0:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/ember-native-dom-helpers/-/ember-native-dom-helpers-0.5.2.tgz#ba6123230fc32c3350f90a8f9183584a022215fa"
+  dependencies:
+    broccoli-funnel "^1.1.0"
+    ember-cli-babel "^6.1.0"
+
 ember-one-way-controls@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ember-one-way-controls/-/ember-one-way-controls-2.0.0.tgz#7a79f1a56094c44fe1012fd0f9b75bd92d136fe9"
@@ -3326,6 +3361,17 @@ ember-one-way-controls@^2.0.0:
     ember-get-helper "~1.1.0"
     ember-invoke-action "1.4.0"
     ember-runtime-enumerable-includes-polyfill "^1.0.1"
+
+ember-power-select@^1.8.5:
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/ember-power-select/-/ember-power-select-1.8.5.tgz#73924736ffc91e66468d071e4b585599e33448ae"
+  dependencies:
+    ember-basic-dropdown "^0.32.5"
+    ember-cli-babel "^6.1.0"
+    ember-cli-htmlbars "^2.0.1"
+    ember-concurrency "^0.8.1"
+    ember-text-measurer "^0.3.3"
+    ember-truth-helpers "^1.3.0"
 
 ember-resolver@^4.0.0:
   version "4.1.0"
@@ -3412,6 +3458,12 @@ ember-test-selectors@^0.3.4:
     ember-cli-babel "^6.0.0"
     ember-cli-version-checker "^2.0.0"
 
+ember-text-measurer@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/ember-text-measurer/-/ember-text-measurer-0.3.3.tgz#0762809a71c2e1f2e60ab00c53c6eb1b63c9f963"
+  dependencies:
+    ember-cli-babel "^5.1.6"
+
 ember-truth-helpers@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/ember-truth-helpers/-/ember-truth-helpers-1.3.0.tgz#6ed9f83ce9a49f52bb416d55e227426339a64c60"
@@ -3450,6 +3502,13 @@ ember-weakmap@^2.0.0:
   resolved "https://registry.yarnpkg.com/ember-weakmap/-/ember-weakmap-2.0.0.tgz#71c6819a8bfd0b077ae17ca1d9053fc5db06e4ac"
   dependencies:
     ember-cli-babel "^5.1.6"
+
+ember-wormhole@^0.5.1:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/ember-wormhole/-/ember-wormhole-0.5.2.tgz#cc0ceb7db4f8b8da0fd852edc81d75cb1dcd92f1"
+  dependencies:
+    ember-cli-babel "^6.0.0"
+    ember-cli-htmlbars "^1.1.1"
 
 ember-zen@lolmaus/ember-zen#gen-2:
   version "0.0.0"
@@ -6938,6 +6997,10 @@ regenerate@^1.2.1:
 regenerator-runtime@^0.10.0:
   version "0.10.5"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.10.5.tgz#336c3efc1220adcedda2c9fab67b5a7955a33658"
+
+regenerator-runtime@^0.9.5:
+  version "0.9.6"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.9.6.tgz#d33eb95d0d2001a4be39659707c51b0cb71ce029"
 
 regenerator-transform@0.9.11:
   version "0.9.11"

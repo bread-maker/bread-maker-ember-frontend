@@ -1,15 +1,23 @@
 @at-root
 
   ////------------------------------------------
+  .statsX
+    //------------------------------------------
+
+    // ----- Content layout -----
+    .statsX-stat:not(:last-child)
+      margin-bottom : config-get('bm.layout.container.padding') / 2
+
+  ////------------------------------------------
   .statsX-stat
     //------------------------------------------
 
     // ----- Layout -----
-    display: flex
+    display : flex
 
     // ----- Content layout -----
     .statsX-stat-label
-      width: 100px
+      width : 130px
 
 
 
@@ -18,7 +26,7 @@
     //------------------------------------------
 
     // ----- Text -----
-    font-weight: bold
+    font-weight : bold
 
     &:after
-      content: ':'
+      content : ':'
