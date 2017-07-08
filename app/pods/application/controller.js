@@ -72,7 +72,7 @@ export default Controller.extend(RunMixin, {
     const interval = this.get('interval')
     const zen = this.get('zen')
 
-    zen.dispatchSet('state.application', 'interval query param', 'interval', interval)
+    zen.dispatchSet('state.stats', 'interval query param', 'interval', interval)
   }),
 
   updatePollingFromQueryParam : observer('polling', function () {
@@ -81,7 +81,7 @@ export default Controller.extend(RunMixin, {
 
     const zen = this.get('zen')
 
-    zen.dispatchSet('state.application', 'polling query param', 'polling', pollingEffective)
+    zen.dispatchSet('state.stats', 'polling query param', 'polling', pollingEffective)
 
     if (pollingEffective) {
       this.pollTask('requestStatsPoll', REQUEST_STATS_POLL_ID)

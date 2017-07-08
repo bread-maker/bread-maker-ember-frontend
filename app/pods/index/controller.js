@@ -56,7 +56,7 @@ export default Controller.extend({
     updateInterval ({interval}) {
       this.setProperties({interval})
 
-      const polling = this.get('zen.state.application.polling')
+      const polling = this.get('zen.state.stats.polling')
 
       if (!polling) this.get('applicationController').requestStats()
     },

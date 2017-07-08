@@ -17,7 +17,7 @@ module.exports = {
     "comma-dangle": ["error", "always-multiline"],
     "func-call-spacing": "off",
     "generator-star-spacing": "off",
-    "key-spacing": ["error", { beforeColon: true, afterColon: true, align: "colon" }],
+    "key-spacing": "off",
     "new-cap": "off",
     "no-console": "off",
     "no-mixed-operators": "off",

@@ -18,6 +18,4 @@ export default Node.extend({
 
   session : createNodeCP('session'),
   stats   : createNodeCP('stats'),
-
-  application : createNodeCP('application'),
 })
