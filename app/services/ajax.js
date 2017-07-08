@@ -97,7 +97,6 @@ export default AjaxService.extend({
   },
 
   setProgram (program_id, crust_id, program) {
-    console.log({program_id, crust_id, program})
     return this
       .postMethod('config.baking.stages.set', {
         program_id,

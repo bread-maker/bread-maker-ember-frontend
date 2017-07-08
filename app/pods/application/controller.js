@@ -103,7 +103,6 @@ export default Controller.extend(RunMixin, {
   // ----- Actions -----
   actions : {
     updatePolling (autoUpdate) {
-      console.log('upda', autoUpdate)
       const polling = autoUpdate.toString()
       this.setProperties({polling})
     },
