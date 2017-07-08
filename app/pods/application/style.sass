@@ -26,9 +26,34 @@
     padding : config-get('bm.layout.container.padding')
 
     // ----- RWD -----
+    +eq-to(s)
+      .route-application-header-item:not(:last-child)
+        margin-bottom : config-get('bm.layout.container.padding')
+
+
     +eq-from(m)
       display         : flex
       justify-content : space-between
+      align-items     : center
+
+
+
+  ////------------------------------------------
+  .route-application-title
+    //------------------------------------------
+
+    // ----- Text -----
+    font-size : 2rem
+
+
+
+  ////------------------------------------------
+  .route-application-menu
+    //------------------------------------------
+
+    // ----- Content layout -----
+    .route-application-menu-item:not(:last-child)
+      margin-right : config-get('bm.layout.container.padding')
 
 
 
@@ -55,6 +80,10 @@
 
     // ----- Layout -----
     padding : config-get('bm.layout.container.padding')
+
+    // ----- Content layout -----
+    > *:not(:last-child)
+      margin-bottom : config-get('bm.layout.container.padding')
 
 
 

@@ -45,7 +45,7 @@ export default Node.extend({
 
   statsChartData : computed('stats', (stats = []) => {
     return {
-      labels   : stats.map(({time}) => moment(time).format('LTS')),
+      labels   : stats.map(({time}) => moment(time * 1000).format('LTS')),
       yLabels  : ["on", "onoff", "off"],
       datasets : [
         {
@@ -54,6 +54,7 @@ export default Node.extend({
           fill        : false,
           borderColor : "red",
           data        : stats.map(({temp}) => _.round(temp, 2)),
+          pointRadius : 0,
         },
         {
           label       : 'Target temp',
@@ -61,6 +62,7 @@ export default Node.extend({
           fill        : false,
           borderColor : "green",
           data        : stats.map(({target_temp}) => target_temp ? _.round(target_temp, 2) : -1),
+          pointRadius : 0,
         },
         {
           label       : 'Motor',
@@ -68,6 +70,7 @@ export default Node.extend({
           fill        : true,
           borderColor : "blue",
           data        : stats.mapBy('motor'),
+          pointRadius : 0,
         },
       ],
     }
@@ -76,10 +79,11 @@ export default Node.extend({
 
 
   // ----- Methods -----
-  request () {
+  request (interval) {
     const ajax = this.get('ajax')
+    interval = interval || this.get('zen.state.application.interval')
 
-    return this.dispatchPromise('stats', () => ajax.getStats('min'))
+    return this.dispatchPromise('stats', () => ajax.getStats(interval))
   },
 
 

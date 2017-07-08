@@ -13,7 +13,11 @@ import Component from 'ember-component'
 export default Component.extend({
 
   // ----- Arguments -----
-  data : null,
+  data                  : undefined,
+  currentIntervalOption : undefined,
+  intervalOptions       : undefined,
+
+  updateIntervalAction : undefined,
 
 
 

@@ -10,3 +10,22 @@
   }}
 
 </div>{{! wrapper }}
+
+
+
+<div class="statsChart-options">
+
+  <label class="statsChart-option">
+    Window
+
+    {{one-way-select currentIntervalOption
+      options = intervalOptions
+      optionValuePath = 'interval'
+      optionLabelPath = 'label'
+      update  = updateIntervalAction
+    }}
+  </label>
+
+
+
+</div>{{! options }}

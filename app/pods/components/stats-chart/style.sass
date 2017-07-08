@@ -9,7 +9,20 @@
     // ----- Intrinsic ratio -----
     position: relative
     height: 0
-    padding-top: 60%
+    padding-top: 263 / 526 * 100%
 
     .statsChart-chart
       +stretch
+
+
+
+  ////------------------------------------------
+  .statsChart-options
+    //------------------------------------------
+
+    // ----- Intrinsic ratio -----
+    display: flex
+
+    .statsChart-option:not(:last-child)
+      margin-right: config-get('bm.layout.container.padding')
+

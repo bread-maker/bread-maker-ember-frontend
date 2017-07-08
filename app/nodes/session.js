@@ -14,11 +14,6 @@ export default Node.extend({
 
   // ----- Attributes -----
   attrNames : [
-    // 'isAuthenticated',
-    // 'isAuthenticating',
-    //
-    // 'token',
-    // 'error'
     'authenticationIsPending',
     'authenticationIsFulfilled',
     'authenticationIsRejected',
@@ -26,12 +21,6 @@ export default Node.extend({
     'authenticationResponse',
     'authenticationError',
   ],
-
-  // isAuthenticated  : false,
-  // isAuthenticating : false,
-  //
-  // token : undefined,
-  // error : undefined,
 
   authenticationIsPending   : false,
   authenticationIsFulfilled : false,
@@ -49,26 +38,6 @@ export default Node.extend({
 
 
   actions : {
-    // startAuthentication () {
-    //   this.setProperties({
-    //     isAuthenticated  : false,
-    //     isAuthenticating : true,
-    //
-    //     token : null,
-    //     error : null,
-    //   })
-    // },
-    //
-    // authenticate (token) {
-    //   this.setProperties({
-    //     isAuthenticated  : true,
-    //     isAuthenticating : false,
-    //
-    //     token,
-    //     error : null,
-    //   })
-    // },
-    //
     invalidate () {
       this.setProperties({
         authenticationIsPending   : false,

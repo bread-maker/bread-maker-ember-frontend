@@ -6,31 +6,35 @@
   }}
 
     <div class="route-application-header-item _left">
-      <h2>Open Bread Maker</h2>
+      <h2 class="route-application-title">
+        Open Bread Maker
+      </h2>
     </div>{{! header-item _left }}
 
     <div class="route-application-header-item _right">
-      {{link-to 'Chart' 'index'
-        class = "route-application-menuItem _chart"
-      }}
-
-      {{#if zen.state.session.isAuthenticated}}
-        <span class = "route-application-menuItem _logout">
-          Settings
-        </span>
-
-        <a
-          class = "route-application-menuItem _logout"
-          href
-          {{action 'invalidateSession'}}
-        >
-          Logout
-        </a>
-      {{else}}
-        {{link-to 'Login' 'login'
-          class = "route-application-menuItem _login"
+      <div class = "route-application-menu">
+        {{link-to 'Chart' 'index'
+          class = "route-application-menu-item _chart"
         }}
-      {{/if}}
+
+        {{#if zen.state.session.isAuthenticated}}
+          <span class = "route-application-menu-item _logout">
+            Settings
+          </span>
+
+          <a
+            class = "route-application-menu-item _logout"
+            href
+            {{action 'invalidateSession'}}
+          >
+            Logout
+          </a>
+        {{else}}
+          {{link-to 'Login' 'login'
+            class = "route-application-menu-item _login"
+          }}
+        {{/if}}
+      </div>{{! menu }}
     </div>{{! header-item _right }}
 
 
@@ -41,7 +45,22 @@
   {{#e-q class="route-application-main"}}
 
     <aside class="route-application-sidebar">
-      {{stats-x status=zen.state.stats.lastStatus}}
+      {{#if (and (not zen.state.stats.statsResponse) zen.state.stats.statsIsPending)}}
+        <p>Loading stats...</p>
+      {{else if zen.state.stats.statsError}}
+        <p>Failed to fetch stats: {{zen.state.stats.statsError}}</p>
+      {{else if zen.state.stats.statsResponse}}
+        {{stats-x status=zen.state.stats.lastStatus}}
+      {{/if}}
+
+      <label class="route-application-autoUpdate">
+        {{one-way-checkbox
+          checked = zen.state.application.polling
+          update  = (action 'updatePolling')
+        }}
+
+        Auto-update
+      </label>
     </aside>{{! sidebar }}
 
 
