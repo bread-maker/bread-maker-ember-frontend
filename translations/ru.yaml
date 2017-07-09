@@ -73,8 +73,12 @@ domain:
     log-out: Выйти
     logging-in: Входим...
     password: Пароль
+    old-password: Старый пароль
+    new-password: Новый пароль
 
   locale:
     en: English
     ru: Русский
 
+  forms:
+    update: Обновить

@@ -18,4 +18,6 @@ export default Node.extend({
   session  : createNodeCP('session'),
   settings : createNodeCP('settings'),
   stats    : createNodeCP('stats'),
+
+  preferences : createNodeCP('preferences'),
 })

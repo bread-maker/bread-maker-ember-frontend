@@ -73,7 +73,12 @@ domain:
     log-out: Log out
     logging-in: Logging in...
     password: Password
+    old-password: Old password
+    new-password: New password
 
   locale:
     en: English
     ru: Русский
+
+  forms:
+    update: Update

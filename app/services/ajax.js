@@ -93,7 +93,9 @@ export default AjaxService.extend({
   },
 
   getTimezone () {
-    return this.getMethod('config.timezone.get')
+    return this
+      .getMethod('config.timezone.get')
+      .then(({timezone}) => timezone)
   },
 
   setProgram (program_id, crust_id, program) {
@@ -103,6 +105,11 @@ export default AjaxService.extend({
         crust_id,
         program,
       })
+  },
+
+  setPassword (password, new_password) {
+    debugger
+    return this.postMethod('auth.passwd', {password, new_password})
   },
 
 

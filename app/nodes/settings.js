@@ -42,6 +42,13 @@ export default Node.extend({
     'timezoneIsSettled',
     'timezoneResponse',
     'timezoneError',
+
+    'passwordIsPending',
+    'passwordIsFulfilled',
+    'passwordIsRejected',
+    'passwordIsSettled',
+    'passwordResponse',
+    'passwordError',
   ],
 
   localeIsPending   : false,
@@ -65,9 +72,17 @@ export default Node.extend({
   timezoneResponse    : 'UTC',
   timezoneError       : undefined,
 
+  passwordIsPending   : false,
+  passwordIsFulfilled : false,
+  passwordIsRejected  : false,
+  passwordIsSettled   : false,
+  passwordResponse    : undefined,
+  passwordError       : undefined,
+
 
 
   // ----- Services -----
+  ajax   : service(),
   intl   : service(),
   moment : service(),
 
@@ -169,6 +184,14 @@ export default Node.extend({
         return timeout(1000)
           .then(() => timezone)
           .then(() => this.updateTimezone(timezone))
+      })
+    },
+
+    setPassword (password, newPassword) {
+      const ajax = this.get('ajax')
+
+      return this.dispatchPromise('password', () => {
+        return ajax.setPassword(password, newPassword)
       })
     },
   },
