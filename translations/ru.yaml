@@ -77,7 +77,8 @@ domain:
     new-password: Новый пароль
 
   locale:
-    en: English
+    en: English (US)
+    en-gb: English (Europe)
     ru: Русский
 
   forms:

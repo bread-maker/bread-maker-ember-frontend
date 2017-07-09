@@ -14,6 +14,7 @@ import {Node/*, createNodeCP*/} from 'ember-zen'
 
 // ----- Own modules -----
 import t from 'bread-maker-ember-frontend/macros/t'
+import {convertTemp} from 'bread-maker-ember-frontend/helpers/format-temp'
 
 
 
@@ -81,8 +82,8 @@ export default Node.extend({
   currentIntervalOption : findBy('intervalOptions', raw('interval'), 'interval'),
 
   statsChartData : computed(
-    'stats',    'currentIntervalOption.multiplier', 'intl', 'moment',      'zen.state.settings.locale', 'zen.state.settings.timezone',
-    (stats = [], multiplier,                         intl,   momentService) => {
+    'stats',    'currentIntervalOption.multiplier', 'intl', 'moment',       'zen.state.settings.locale', 'zen.state.settings.timezone',
+    (stats = [], multiplier,                         intl,   momentService,  locale) => {
       const limit      = 500
       const lastTime   = stats[stats.length - 1].time
 
@@ -95,7 +96,6 @@ export default Node.extend({
         })
 
       return {
-        // labels   : stats.map(({time}) => moment(time * 1000).format('LTS')),
         labels,
 
         yLabels : [
@@ -113,7 +113,7 @@ export default Node.extend({
             pointRadius : 0,
 
             data : _.arrayPadLeft(
-              stats.mapBy('temp').map(t => _.round(t, 2)),
+              stats.mapBy('temp').map(t => _.round(convertTemp(t, locale), 2)),
               limit,
               -1
             ),
@@ -126,7 +126,7 @@ export default Node.extend({
             pointRadius : 0,
 
             data : _.arrayPadLeft(
-              stats.mapBy('target_temp').map(t => t ? _.round(t, 2) : -1),
+              stats.mapBy('target_temp').map(t => t ? _.round(convertTemp(t, locale), 2) : convertTemp(-1, locale)),
               limit,
               -1
             ),

@@ -8,7 +8,8 @@
   </p>
 {{else if zen.state.stats.statsResponse}}
   {{stats-chart
-    data = zen.state.stats.statsChartData
+    data   = zen.state.stats.statsChartData
+    locale = zen.state.settings.locale
 
     currentIntervalOption = zen.state.stats.currentIntervalOption
     intervalOptions       = zen.state.stats.intervalOptions

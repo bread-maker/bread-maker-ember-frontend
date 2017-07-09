@@ -10,27 +10,27 @@
 
 
 
-<div class="statsX-stat _targetTemp">
-  <div class="statsX-stat-label">
-    {{t 'domain.state-labels.target-temp'~}}
-  </div>{{! stat-label }}
-
-  <div class="statsX-stat-value">
-    {{round status.target_temp 2}}
-  </div>{{! stat-value }}
-</div>{{! stat _targetTemp }}
-
-
-
 <div class="statsX-stat _temp">
   <div class="statsX-stat-label">
     {{t 'domain.state-labels.temp'~}}
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{round status.temp 2}}
+    {{format-temp (round status.temp 2)}}
   </div>{{! stat-value }}
 </div>{{! stat _temp }}
+
+
+
+<div class="statsX-stat _targetTemp">
+  <div class="statsX-stat-label">
+    {{t 'domain.state-labels.target-temp'~}}
+  </div>{{! stat-label }}
+
+  <div class="statsX-stat-value">
+    {{format-temp (round status.target_temp 2)}}
+  </div>{{! stat-value }}
+</div>{{! stat _targetTemp }}
 
 
 
