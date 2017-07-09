@@ -108,8 +108,19 @@ export default AjaxService.extend({
   },
 
   setPassword (password, new_password) {
-    debugger
     return this.postMethod('auth.passwd', {password, new_password})
+  },
+
+  getGlobalBakingConfig () {
+    return this
+      .getMethod('config.baking.global.get')
+      .then(({config}) => config)
+  },
+
+  setGlobalBakingConfig (config) {
+    return this
+      .postMethod('config.baking.global.set', {config})
+      .then(({config}) => config)
   },
 
 

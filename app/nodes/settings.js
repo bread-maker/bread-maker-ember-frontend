@@ -5,7 +5,7 @@ import service from 'ember-service/inject'
 import Node from 'ember-zen/node'
 // import computed from 'ember-macro-helpers/computed'
 import writable from 'ember-macro-helpers/writable'
-// import not from 'ember-awesome-macros/not'
+import divide from 'ember-awesome-macros/divide'
 
 // ----- Third-party libraries -----
 import RSVP from 'rsvp'
@@ -49,6 +49,13 @@ export default Node.extend({
     'passwordIsSettled',
     'passwordResponse',
     'passwordError',
+
+    'globalBakingConfigIsPending',
+    'globalBakingConfigIsFulfilled',
+    'globalBakingConfigIsRejected',
+    'globalBakingConfigIsSettled',
+    'globalBakingConfigResponse',
+    'globalBakingConfigError',
   ],
 
   localeIsPending   : false,
@@ -79,6 +86,13 @@ export default Node.extend({
   passwordResponse    : undefined,
   passwordError       : undefined,
 
+  globalBakingConfigIsPending   : false,
+  globalBakingConfigIsFulfilled : false,
+  globalBakingConfigIsRejected  : false,
+  globalBakingConfigIsSettled   : false,
+  globalBakingConfigResponse    : undefined,
+  globalBakingConfigError       : undefined,
+
 
 
   // ----- Services -----
@@ -92,6 +106,12 @@ export default Node.extend({
   locale   : writable('localeResponse'),
   temp     : writable('tempResponse'),
   timezone : writable('timezoneResponse'),
+
+  maxTempBeforeTimer  : writable('globalBakingConfigResponse.max_temp_a'),
+  maxTempBeforeBaking : writable('globalBakingConfigResponse.max_temp_b'),
+  maxTempAfterBaking  : writable('globalBakingConfigResponse.max_temp_b'),
+  maxTempDuration     : writable('globalBakingConfigResponse.max_warm_time'),
+  maxTempDurationMins : divide('maxTempDuration'),
 
 
 
@@ -133,6 +153,14 @@ export default Node.extend({
       locale   : this.requestLocale(),
       temp     : this.requestTemp(),
       timezone : this.requestTimezone(),
+    })
+  },
+
+  requestGlobalBakingConfig () {
+    const ajax = this.get('ajax')
+
+    return this.dispatchPromise('globalBakingConfig', () => {
+      return ajax.getGlobalBakingConfig()
     })
   },
 
@@ -192,6 +220,14 @@ export default Node.extend({
 
       return this.dispatchPromise('password', () => {
         return ajax.setPassword(password, newPassword)
+      })
+    },
+
+    setGlobalBakingConfig (option, value) {
+      const ajax = this.get('ajax')
+
+      return this.dispatchPromise('globalBakingConfig', () => {
+        return ajax.setGlobalBakingConfig({[option] : value})
       })
     },
   },

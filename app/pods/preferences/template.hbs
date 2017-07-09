@@ -4,7 +4,64 @@
 
 
 
-<div class='route-preferences-settings'>
+<div class='route-preferences-settingsGroup _baking'>
+
+  <h2 class='route-preferences-settingsGroup-title'>
+    System
+  </h2>
+
+  <div class='route-preferences-setting _locale'>
+    <div class='route-preferences-setting-inner'>
+      <label class='route-preferences-setting-label'>
+        {{t 'domain.baking.max-temp-a'}}
+      </label>
+
+      {{one-way-input
+        type   = 'number'
+        value  = zen.state.preferences.maxTempBeforeTimerUserInput
+        update = (action
+          (dispatch-set)
+          zen.state.preferences
+          'maxTempBeforeTimerUserInput'
+          'maxTempBeforeTimerUserInput'
+        )
+      }}
+
+      <button
+        {{action
+          (dispatch-action)
+          zen.state.settings
+          'setGlobalBakingConfig'
+          'max_temp_a'
+          zen.state.preferences.maxTempBeforeTimerUserInput
+        }}
+      >
+        {{t 'domain.forms.update'}}
+      </button>
+    </div>{{! setting-inner }}
+
+    {{#if zen.state.settings.globalBakingConfigIsPending}}
+      <div class='route-preferences-setting-status'>
+        {{t 'routes.settings.updating'}}
+      </div>
+    {{else if zen.state.settings.globalBakingConfigIsRejected}}
+      <div class='route-preferences-setting-status'>
+        {{t 'routes.settings.error'
+            field='globalBakingConfig'
+            error=(or zen.state.settings.globalBakingConfigError.error_text zen.state.settings.globalBakingConfigError)
+        }}
+      </div>
+    {{/if}}
+  </div>{{! setting _locale}}
+</div>{{! settingsGroup _baking }}
+
+
+
+<div class='route-preferences-settingsGroup _system'>
+
+  <h2 class='route-preferences-settingsGroup-title'>
+    System
+  </h2>
 
   <div class='route-preferences-setting _locale'>
     <div class='route-preferences-setting-inner'>
@@ -54,7 +111,7 @@
       }}
         {{timezone}}
       {{/power-select}}
-    </div>
+    </div>{{! setting-inner }}
 
     {{#if zen.state.settings.timezoneIsPending}}
       <div class='route-preferences-setting-status'>
@@ -113,7 +170,7 @@
       >
         {{t 'domain.forms.update'}}
       </button>
-    </div>
+    </div>{{! setting-inner }}
 
     {{#if zen.state.settings.passwordIsPending}}
       <div class='route-preferences-setting-status'>
@@ -129,5 +186,5 @@
     {{/if}}
   </div>{{! setting _password}}
 
-</div>{{! settings }}
+</div>{{! settingsGroup _system }}
 

@@ -1,11 +1,10 @@
 // ----- Ember modules -----
 import Controller from 'ember-controller'
 import service from 'ember-service/inject'
-import on from 'ember-evented/on'
 import observer from 'ember-metal/observer'
-import {next} from 'ember-runloop'
 
 // ----- Ember Addon modules -----
+import computed from 'ember-macro-helpers/computed'
 import RunMixin from 'ember-lifeline/mixins/run'
 
 // ----- Own modules -----
@@ -36,6 +35,9 @@ export default Controller.extend(RunMixin, {
 
 
   // ----- Computed properties -----
+  pollingEffective : computed('polling', polling => {
+    return polling && polling !== 'false'
+  }),
 
 
 
@@ -60,22 +62,15 @@ export default Controller.extend(RunMixin, {
 
 
   // ----- Events and observers -----
-  requestStatsOnInit : on('init', function () {
-    this.requestStats()
-  }),
-
   updateIntervalFromQueryParam : observer('interval', function () {
     const interval = this.get('interval')
-    const zen = this.get('zen')
+    const zen      = this.get('zen')
 
     zen.dispatchSet('state.stats', 'interval query param', 'interval', interval)
   }),
 
-  updatePollingFromQueryParam : observer('polling', function () {
-    const polling = this.get('polling')
-    const pollingEffective = polling && polling !== 'false'
-
-    console.log({polling, pollingEffective})
+  updatePollingFromQueryParam : observer('pollingEffective', function () {
+    const pollingEffective = this.get('pollingEffective')
 
     const zen = this.get('zen')
 
@@ -84,11 +79,9 @@ export default Controller.extend(RunMixin, {
     if (pollingEffective) {
       this.pollTask('requestStatsPoll', REQUEST_STATS_POLL_ID)
     } else {
-      next(() => {
-        const requestStatsTaskId = this.get('requestStatsTaskId')
-        this.cancelTask(requestStatsTaskId)
-        this.cancelPoll(REQUEST_STATS_POLL_ID)
-      })
+      const requestStatsTaskId = this.get('requestStatsTaskId')
+      this.cancelTask(requestStatsTaskId)
+      this.cancelPoll(REQUEST_STATS_POLL_ID)
     }
   }),
 
@@ -101,8 +94,15 @@ export default Controller.extend(RunMixin, {
   // ----- Actions -----
   actions : {
     didReceiveQueryParams () {
-      this.updateIntervalFromQueryParam()
-      this.updatePollingFromQueryParam()
+      const pollingEffective = this.get('pollingEffective')
+
+      if (pollingEffective) {
+        this.updatePollingFromQueryParam()
+      } else {
+        const zen = this.get('zen')
+        zen.dispatchSet('state.stats', 'polling query param', 'polling', pollingEffective)
+        this.requestStats()
+      }
     },
 
     updatePolling (autoUpdate) {

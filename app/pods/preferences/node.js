@@ -4,7 +4,7 @@
 // ----- Ember addons -----
 import Node from 'ember-zen/node'
 // import computed from 'ember-macro-helpers/computed'
-// import writable from 'ember-macro-helpers/writable'
+import writable from 'ember-macro-helpers/writable'
 // import not from 'ember-awesome-macros/not'
 
 // ----- Third-party libraries -----
@@ -23,10 +23,21 @@ export default Node.extend({
   attrNames : [
     'oldPasswordUserInput',
     'newPasswordUserInput',
+    'maxTempBeforeTimerUserInput',
+    'maxTempBeforeBakingUserInput',
+    'maxTempAfterBakingUserInput',
+    'maxTempDurationUserInput',
+    'maxTempDurationMinsUserInput',
   ],
 
   oldPasswordUserInput : '',
   newPasswordUserInput : '',
+
+  maxTempBeforeTimerUserInput  : writable('zen.state.settings.maxTempBeforeTimer'),
+  maxTempBeforeBakingUserInput : writable('zen.state.settings.maxTempBeforeBaking'),
+  maxTempAfterBakingUserInput  : writable('zen.state.settings.maxTempAfterBaking'),
+  maxTempDurationUserInput     : writable('zen.state.settings.maxTempDuration'),
+  maxTempDurationMinsUserInput : writable('zen.state.settings.maxTempDurationMins'),
 
 
   // ----- Services -----
@@ -44,3 +55,6 @@ export default Node.extend({
   actions : {
   },
 })
+
+// ToDo: reset user input on entering route
+// ToDo: block buttons when promise is running

@@ -65,6 +65,11 @@ domain:
   onoff-boolean:
     false: off
     true: on
+  baking:
+    max-temp-a: Max temperature before starting delay timer
+    max-temp-b: Max temperature before starting baking
+    warm-temp: Temperature sustained after baking
+    max-warm-time: Max time of sustaining temperature after baking
 
   login:
     login: Login
