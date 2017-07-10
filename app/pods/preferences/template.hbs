@@ -10,49 +10,46 @@
     System
   </h2>
 
-  <div class='route-preferences-setting _locale'>
-    <div class='route-preferences-setting-inner'>
-      <label class='route-preferences-setting-label'>
-        {{t 'domain.baking.max-temp-a'}}
-      </label>
 
-      {{one-way-input
-        type   = 'number'
-        value  = zen.state.preferences.maxTempBeforeTimerUserInput
-        update = (action
-          (dispatch-set)
-          zen.state.preferences
-          'maxTempBeforeTimerUserInput'
-          'maxTempBeforeTimerUserInput'
-        )
+
+  {{#settings-field
+    fieldName   = 'max-temp-a'
+    label       = (t 'routes.settings.fields.max-temp-a.label')
+    description = (t 'routes.settings.fields.max-temp-a.description')
+
+    requestIsPending  = zen.state.settings.globalBakingConfigIsPending
+    requestIsRejected = zen.state.settings.globalBakingConfigIsRejected
+
+    errorLabel = (t
+      'routes.settings.error'
+      field='globalBakingConfig'
+      error=(or zen.state.settings.globalBakingConfigError.error_text zen.state.settings.globalBakingConfigError)
+    )
+  }}
+    {{one-way-input
+      type   = 'number'
+      value  = zen.state.preferences.maxTempBeforeTimerUserInput
+      update = (action
+        (dispatch-set)
+        zen.state.preferences
+        'maxTempBeforeTimerUserInput'
+        'maxTempBeforeTimerUserInput'
+      )
+    }}
+
+    <button
+      {{action
+        (dispatch-action)
+        zen.state.settings
+        'setGlobalBakingConfig'
+        'max_temp_a'
+        zen.state.preferences.maxTempBeforeTimerUserInput
       }}
+    >
+      {{t 'domain.forms.update'}}
+    </button>
+  {{/settings-field}}{{! locale }}
 
-      <button
-        {{action
-          (dispatch-action)
-          zen.state.settings
-          'setGlobalBakingConfig'
-          'max_temp_a'
-          zen.state.preferences.maxTempBeforeTimerUserInput
-        }}
-      >
-        {{t 'domain.forms.update'}}
-      </button>
-    </div>{{! setting-inner }}
-
-    {{#if zen.state.settings.globalBakingConfigIsPending}}
-      <div class='route-preferences-setting-status'>
-        {{t 'routes.settings.updating'}}
-      </div>
-    {{else if zen.state.settings.globalBakingConfigIsRejected}}
-      <div class='route-preferences-setting-status'>
-        {{t 'routes.settings.error'
-            field='globalBakingConfig'
-            error=(or zen.state.settings.globalBakingConfigError.error_text zen.state.settings.globalBakingConfigError)
-        }}
-      </div>
-    {{/if}}
-  </div>{{! setting _locale}}
 </div>{{! settingsGroup _baking }}
 
 
@@ -63,128 +60,118 @@
     System
   </h2>
 
-  <div class='route-preferences-setting _locale'>
-    <div class='route-preferences-setting-inner'>
-      <label class='route-preferences-setting-label'>
-        {{t 'routes.settings.language'}}
-      </label>
+  {{#settings-field
+    fieldName   = 'locale'
+    label       = (t 'routes.settings.fields.locale.label')
+    description = (t 'routes.settings.fields.locale.description')
 
-      {{#power-select
-        class    = 'route-preferences-setting-field'
-        tagName  = 'div'
-        selected = zen.state.settings.localeResponse
-        options  = intl.locales
-        onchange = (action (dispatch-action) zen.state.settings 'setLocale')
-        as |locale|
+    requestIsPending  = zen.state.settings.localeIsPending
+    requestIsRejected = zen.state.settings.localeIsRejected
+
+    errorLabel = (t
+      'routes.settings.error'
+      field='locale'
+      error=(or zen.state.settings.localeError.error_text zen.state.settings.localeError)
+    )
+  }}
+    {{#power-select
+      class    = 'route-preferences-setting-field'
+      tagName  = 'div'
+      selected = zen.state.settings.localeResponse
+      options  = intl.locales
+      onchange = (action (dispatch-action) zen.state.settings 'setLocale')
+      as |locale|
+    }}
+      {{t (concat 'domain.locale.' locale)}}
+    {{/power-select}}
+  {{/settings-field}}{{! locale }}
+
+
+
+  {{#settings-field
+    fieldName   = 'timezone'
+    label       = (t 'routes.settings.fields.timezone.label')
+
+    requestIsPending  = zen.state.settings.timezoneIsPending
+    requestIsRejected = zen.state.settings.timezoneIsRejected
+
+    errorLabel = (t
+      'routes.settings.error'
+      field='timezone'
+      error=(or zen.state.settings.timezoneError.error_text zen.state.settings.timezoneError)
+    )
+  }}
+    {{#power-select
+      class    = 'route-preferences-setting-field'
+      tagName  = 'div'
+      selected = zen.state.settings.timezoneResponse
+      options  = timezones
+      onchange = (action (dispatch-action) zen.state.settings 'setTimezone')
+      as |timezone|
+    }}
+      {{timezone}}
+    {{/power-select}}
+  {{/settings-field}}{{! timezone }}
+
+
+
+  {{#settings-field
+    fieldName   = 'password'
+    label       = (t 'domain.login.password')
+
+    requestIsPending  = zen.state.settings.passwordIsPending
+    requestIsRejected = zen.state.settings.passwordIsRejected
+
+    errorLabel = (t
+      'routes.settings.error'
+      field='password'
+      error=(or zen.state.settings.passwordError.error_text zen.state.settings.passwordError)
+    )
+  }}
+    <label class='route-preferences-setting-label'>
+      {{t 'domain.login.old-password'}}
+    </label>
+
+    {{one-way-input
+      type   = 'password'
+      value  = zen.state.preferences.oldPasswordUserInput
+      update = (action
+        (dispatch-set)
+        zen.state.preferences
+        'old password user input'
+        'oldPasswordUserInput'
+      )
+    }}
+
+    <label class='route-preferences-setting-label'>
+      {{t 'domain.login.new-password'}}
+    </label>
+
+    {{one-way-input
+      type   = 'password'
+      value  = zen.state.preferences.newPasswordUserInput
+      update = (action
+        (dispatch-set)
+        zen.state.preferences
+        'new password user input'
+        'newPasswordUserInput'
+      )
+    }}
+
+    <button
+      {{action
+        (dispatch-action)
+        zen.state.settings
+        'setPassword'
+        zen.state.preferences.oldPasswordUserInput
+        zen.state.preferences.newPasswordUserInput
       }}
-        {{t (concat 'domain.locale.' locale)}}
-      {{/power-select}}
-    </div>
+    >
+      {{t 'domain.forms.update'}}
+    </button>
+  {{/settings-field}}{{! password }}
 
-    {{#if zen.state.settings.localeIsPending}}
-      <div class='route-preferences-setting-status'>
-        {{t 'routes.settings.updating'}}
-      </div>
-    {{else if zen.state.settings.localeIsRejected}}
-      <div class='route-preferences-setting-status'>
-        {{t 'routes.settings.error'
-            field='locale'
-            error=(or zen.state.settings.localeError.error_text zen.state.settings.localeError)
-        }}
-      </div>
-    {{/if}}
-  </div>{{! setting _locale}}
 
-  <div class='route-preferences-setting _timezone'>
-    <div class='route-preferences-setting-inner'>
-      <label class='route-preferences-setting-label'>
-        {{t 'routes.settings.timezone'}}
-      </label>
-
-      {{#power-select
-        class    = 'route-preferences-setting-field'
-        tagName  = 'div'
-        selected = zen.state.settings.timezoneResponse
-        options  = timezones
-        onchange = (action (dispatch-action) zen.state.settings 'setTimezone')
-        as |timezone|
-      }}
-        {{timezone}}
-      {{/power-select}}
-    </div>{{! setting-inner }}
-
-    {{#if zen.state.settings.timezoneIsPending}}
-      <div class='route-preferences-setting-status'>
-        {{t 'routes.settings.updating'}}
-      </div>
-    {{else if zen.state.settings.timezoneIsRejected}}
-      <div class='route-preferences-setting-status'>
-        {{t 'routes.settings.error'
-            field='timezone'
-            error=(or zen.state.settings.timezoneError.error_text zen.state.settings.timezoneError)
-        }}
-      </div>
-    {{/if}}
-  </div>{{! setting _timezone}}
-
-  <div class='route-preferences-setting _password'>
-    <div class='route-preferences-setting-inner'>
-      <label class='route-preferences-setting-label'>
-        {{t 'domain.login.old-password'}}
-      </label>
-
-      {{one-way-input
-        type   = 'password'
-        value  = zen.state.preferences.oldPasswordUserInput
-        update = (action
-          (dispatch-set)
-          zen.state.preferences
-          'old password user input'
-          'oldPasswordUserInput'
-        )
-      }}
-
-      <label class='route-preferences-setting-label'>
-        {{t 'domain.login.new-password'}}
-      </label>
-
-      {{one-way-input
-        type   = 'password'
-        value  = zen.state.preferences.newPasswordUserInput
-        update = (action
-          (dispatch-set)
-          zen.state.preferences
-          'new password user input'
-          'newPasswordUserInput'
-        )
-      }}
-
-      <button
-        {{action
-          (dispatch-action)
-          zen.state.settings
-          'setPassword'
-          zen.state.preferences.oldPasswordUserInput
-          zen.state.preferences.newPasswordUserInput
-        }}
-      >
-        {{t 'domain.forms.update'}}
-      </button>
-    </div>{{! setting-inner }}
-
-    {{#if zen.state.settings.passwordIsPending}}
-      <div class='route-preferences-setting-status'>
-        {{t 'routes.settings.updating'}}
-      </div>
-    {{else if zen.state.settings.passwordIsRejected}}
-      <div class='route-preferences-setting-status'>
-        {{t 'routes.settings.error'
-            field='password'
-            error=(or zen.state.settings.passwordError.error_text zen.state.settings.passwordError)
-        }}
-      </div>
-    {{/if}}
-  </div>{{! setting _password}}
 
 </div>{{! settingsGroup _system }}
 

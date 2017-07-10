@@ -21,10 +21,18 @@ routes:
 
   settings:
     title: Settings
-    language: Language
-    timezone: Timezone
     updating: Updating...
     error: "Failed to update {field}: {error}"
+
+    fields:
+      max-temp-a:
+        label: Max Temp A
+        description: Max temperature before starting delay timer
+      locale:
+        label: Language
+        description: US uses Fahrenheit, everything else uses Celsius
+      timezone:
+        label: Timezone
 
 
 
@@ -66,7 +74,6 @@ domain:
     false: off
     true: on
   baking:
-    max-temp-a: Max temperature before starting delay timer
     max-temp-b: Max temperature before starting baking
     warm-temp: Temperature sustained after baking
     max-warm-time: Max time of sustaining temperature after baking

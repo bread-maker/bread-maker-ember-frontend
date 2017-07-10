@@ -39,16 +39,19 @@ export function decorateTemp (temp, locale) {
 
 
 
-export function convertTemp (temp, locale) {
-  return isFahrenheit(locale)
-    ? celsiusToFahrenheit(temp)
-    : temp
+export function convertTemp (temp, locale, precision = 2) {
+  const effectiveTemp =
+    isFahrenheit(locale)
+      ? celsiusToFahrenheit(temp)
+      : temp
+
+  return _.round(effectiveTemp, precision)
 }
 
 
 
-export function formatTemp (temp, locale) {
-  const effectiveTemp = convertTemp(temp, locale)
+export function formatTemp (temp, locale, precision = 2) {
+  const effectiveTemp = convertTemp(temp, locale, precision)
   return decorateTemp(effectiveTemp, locale)
 }
 
@@ -63,9 +66,9 @@ export default Helper.extend({
     this.recompute()
   }),
 
-  compute ([temp]) {
+  compute ([temp, precision = 2]) {
     const locale = this.get('locale')
 
-    return formatTemp(temp, locale)
+    return formatTemp(temp, locale, precision)
   },
 })

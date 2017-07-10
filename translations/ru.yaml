@@ -21,10 +21,19 @@ routes:
 
   settings:
     title: Настройки
-    language: Язык
-    timezone: Часовой пояс
     updating: Обновляем...
     error: "Не удалось обновить {field}: {error}"
+
+    fields:
+      max-temp-a:
+        label: Макс. температура А
+        description: Максимальная температура перед запуском таймера отсрочки
+      locale:
+        label: Язык
+        description: US использует Фаренгейт, все остальные используют Цельсий
+      timezone:
+        label: Часовой пояс
+
 
 
 

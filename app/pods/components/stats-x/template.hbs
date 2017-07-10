@@ -16,7 +16,7 @@
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{format-temp (round status.temp 2)}}
+    {{format-temp status.temp}}
   </div>{{! stat-value }}
 </div>{{! stat _temp }}
 
@@ -28,7 +28,7 @@
   </div>{{! stat-label }}
 
   <div class="statsX-stat-value">
-    {{format-temp (round status.target_temp 2)}}
+    {{format-temp status.target_temp}}
   </div>{{! stat-value }}
 </div>{{! stat _targetTemp }}
 

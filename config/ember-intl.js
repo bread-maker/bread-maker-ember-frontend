@@ -26,14 +26,14 @@ module.exports = function (/* env */) {
     * @type {String?}
     * @default "null"
     */
-    baseLocale : null,
+    baseLocale : 'en',
 
     /**
     * autoPolyfill, when true will automatically inject the IntlJS polyfill
     * into index.html
     *
     * @property autoPolyfill
-    * @type {Boolean}
+    * @type {Boolean}null
     * @default "false"
     */
     autoPolyfill : false,
