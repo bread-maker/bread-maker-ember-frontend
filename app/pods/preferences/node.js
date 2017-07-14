@@ -20,24 +20,10 @@ import writable from 'ember-macro-helpers/writable'
 export default Node.extend({
 
   // ----- Attributes -----
-  attrNames : [
-    'oldPasswordUserInput',
-    'newPasswordUserInput',
-    'maxTempBeforeTimerUserInput',
-    'maxTempBeforeBakingUserInput',
-    'maxTempAfterBakingUserInput',
-    'maxTempDurationUserInput',
-    'maxTempDurationMinsUserInput',
-  ],
-
-  oldPasswordUserInput : '',
-  newPasswordUserInput : '',
-
-  maxTempBeforeTimerUserInput  : writable('zen.state.settings.maxTempBeforeTimer'),
-  maxTempBeforeBakingUserInput : writable('zen.state.settings.maxTempBeforeBaking'),
-  maxTempAfterBakingUserInput  : writable('zen.state.settings.maxTempAfterBaking'),
-  maxTempDurationUserInput     : writable('zen.state.settings.maxTempDuration'),
-  maxTempDurationMinsUserInput : writable('zen.state.settings.maxTempDurationMins'),
+  attrs : {
+    oldPasswordUserInput : '',
+    newPasswordUserInput : '',
+  },
 
 
   // ----- Services -----
@@ -45,6 +31,11 @@ export default Node.extend({
 
 
   // ----- Computed properties -----
+  maxTempBeforeTimerUserInput  : writable('zen.state.settings.maxTempBeforeTimer'),
+  maxTempBeforeBakingUserInput : writable('zen.state.settings.maxTempBeforeBaking'),
+  maxTempAfterBakingUserInput  : writable('zen.state.settings.maxTempAfterBaking'),
+  maxTempDurationUserInput     : writable('zen.state.settings.maxTempDuration'),
+  maxTempDurationMinsUserInput : writable('zen.state.settings.maxTempDurationMins'),
 
 
 
@@ -52,6 +43,7 @@ export default Node.extend({
 
 
 
+  // ----- Actions -----
   actions : {
   },
 })

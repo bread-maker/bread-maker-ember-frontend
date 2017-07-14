@@ -2713,7 +2713,7 @@ ember-cli-babel@^6.0.0, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.1.0:
     clone "^2.0.0"
     ember-cli-version-checker "^2.0.0"
 
-ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.3.0:
+ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.3.0, ember-cli-babel@^6.6.0:
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.6.0.tgz#a8362bc44841bfdf89b389f3197f104d7ba526da"
   dependencies:
@@ -3323,6 +3323,15 @@ ember-macro-helpers@^0.15.0, ember-macro-helpers@^0.15.1:
     ember-cli-test-info "^1.0.0"
     ember-weakmap "^2.0.0"
 
+ember-macro-helpers@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/ember-macro-helpers/-/ember-macro-helpers-0.16.0.tgz#0f6eb67780d59ff786e42170143d63383c0502a0"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+    ember-cli-string-utils "^1.1.0"
+    ember-cli-test-info "^1.0.0"
+    ember-weakmap "^2.0.0"
+
 ember-maybe-import-regenerator@^0.1.5:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/ember-maybe-import-regenerator/-/ember-maybe-import-regenerator-0.1.6.tgz#35d41828afa6d6a59bc0da3ce47f34c573d776ca"
@@ -3512,10 +3521,10 @@ ember-wormhole@^0.5.1:
 
 ember-zen@lolmaus/ember-zen#gen-2:
   version "0.0.0"
-  resolved "https://codeload.github.com/lolmaus/ember-zen/tar.gz/402b822b52a7a17dcc59ee5e535a52772e42d54c"
+  resolved "https://codeload.github.com/lolmaus/ember-zen/tar.gz/25144760a750e645a376489c78f236e48414bf73"
   dependencies:
     ember-cli-babel "^6.3.0"
-    ember-macro-helpers "^0.15.1"
+    ember-macro-helpers "^0.16.0"
 
 encodeurl@~1.0.1:
   version "1.0.1"

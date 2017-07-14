@@ -2,7 +2,7 @@
 import service from 'ember-service/inject'
 
 // ----- Ember addons -----
-import Node from 'ember-zen/node'
+import {Node, promiseAttr} from 'ember-zen'
 // import computed from 'ember-macro-helpers/computed'
 import writable from 'ember-macro-helpers/writable'
 import divide from 'ember-awesome-macros/divide'
@@ -21,77 +21,13 @@ const LS_PREFIX = 'bread-maker:'
 export default Node.extend({
 
   // ----- Attributes -----
-  attrNames : [
-    'localeIsPending',
-    'localeIsFulfilled',
-    'localeIsRejected',
-    'localeIsSettled',
-    'localeResponse',
-    'localeError',
-
-    'tempIsPending',
-    'tempIsFulfilled',
-    'tempIsRejected',
-    'tempIsSettled',
-    'tempResponse',
-    'tempError',
-
-    'timezoneIsPending',
-    'timezoneIsFulfilled',
-    'timezoneIsRejected',
-    'timezoneIsSettled',
-    'timezoneResponse',
-    'timezoneError',
-
-    'passwordIsPending',
-    'passwordIsFulfilled',
-    'passwordIsRejected',
-    'passwordIsSettled',
-    'passwordResponse',
-    'passwordError',
-
-    'globalBakingConfigIsPending',
-    'globalBakingConfigIsFulfilled',
-    'globalBakingConfigIsRejected',
-    'globalBakingConfigIsSettled',
-    'globalBakingConfigResponse',
-    'globalBakingConfigError',
-  ],
-
-  localeIsPending   : false,
-  localeIsFulfilled : false,
-  localeIsRejected  : false,
-  localeIsSettled   : false,
-  localeResponse    : 'en-US',
-  localeError       : undefined,
-
-  tempIsPending   : false,
-  tempIsFulfilled : false,
-  tempIsRejected  : false,
-  tempIsSettled   : false,
-  tempResponse    : 'celsius',
-  tempError       : undefined,
-
-  timezoneIsPending   : false,
-  timezoneIsFulfilled : false,
-  timezoneIsRejected  : false,
-  timezoneIsSettled   : false,
-  timezoneResponse    : 'UTC',
-  timezoneError       : undefined,
-
-  passwordIsPending   : false,
-  passwordIsFulfilled : false,
-  passwordIsRejected  : false,
-  passwordIsSettled   : false,
-  passwordResponse    : undefined,
-  passwordError       : undefined,
-
-  globalBakingConfigIsPending   : false,
-  globalBakingConfigIsFulfilled : false,
-  globalBakingConfigIsRejected  : false,
-  globalBakingConfigIsSettled   : false,
-  globalBakingConfigResponse    : undefined,
-  globalBakingConfigError       : undefined,
+  attrs : {
+    locale             : promiseAttr,
+    temp               : promiseAttr,
+    timezone           : promiseAttr,
+    password           : promiseAttr,
+    globalBakingConfig : promiseAttr,
+  },
 
 
 
@@ -111,7 +47,7 @@ export default Node.extend({
   maxTempBeforeBaking : writable('globalBakingConfigResponse.max_temp_b'),
   maxTempAfterBaking  : writable('globalBakingConfigResponse.max_temp_b'),
   maxTempDuration     : writable('globalBakingConfigResponse.max_warm_time'),
-  maxTempDurationMins : divide('maxTempDuration'),
+  maxTempDurationMins : divide('maxTempDuration', 60),
 
 
 

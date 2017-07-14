@@ -2,22 +2,18 @@
 // import computed from 'ember-macro-helpers/computed'
 
 // ----- Own modules -----
-import {Node, createNodeCP} from 'ember-zen'
+import {Node, nodeAttr} from 'ember-zen'
 
 
 
 export default Node.extend({
 
   // ----- Arguments -----
-  attrNames : [
-    'session',
-    'settings',
-    'stats',
-  ],
+  attrs : {
+    session     : nodeAttr,
+    settings    : nodeAttr,
+    stats       : nodeAttr,
+    preferences : nodeAttr,
+  },
 
-  session  : createNodeCP('session'),
-  settings : createNodeCP('settings'),
-  stats    : createNodeCP('stats'),
-
-  preferences : createNodeCP('preferences'),
 })

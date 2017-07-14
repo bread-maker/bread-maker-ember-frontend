@@ -8,7 +8,7 @@ import writable from 'ember-macro-helpers/writable'
 import raw from 'ember-macro-helpers/raw'
 import findBy from 'ember-awesome-macros/array/find-by'
 import tag from 'ember-awesome-macros/tag'
-import {Node/*, createNodeCP*/} from 'ember-zen'
+import {Node, promiseAttr} from 'ember-zen'
 
 // ----- Third-party libraries -----
 
@@ -32,27 +32,12 @@ const IntervalOption = EmberObject.extend({
 export default Node.extend({
 
   // ----- Attributes -----
-  attrNames : [
-    'statsIsPending',
-    'statsIsFulfilled',
-    'statsIsRejected',
-    'statsIsSettled',
-    'statsResponse',
-    'statsError',
+  attrs : {
+    stats : promiseAttr,
 
-    'polling',
-    'interval',
-  ],
-
-  statsIsPending   : false,
-  statsIsFulfilled : false,
-  statsIsRejected  : false,
-  statsIsSettled   : false,
-  statsResponse    : undefined,
-  statsError       : undefined,
-
-  polling  : true,
-  interval : 'sec',
+    polling  : true,
+    interval : 'sec',
+  },
 
 
   // ----- Services -----

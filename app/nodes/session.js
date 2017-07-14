@@ -1,33 +1,21 @@
 // ----- Ember modules -----
 
 // ----- Ember addons -----
+import {Node, promiseAttr} from 'ember-zen'
 // import computed from 'ember-macro-helpers/computed'
 import writable from 'ember-macro-helpers/writable'
 import not from 'ember-awesome-macros/not'
 
 // ----- Own modules -----
-import Node from 'ember-zen/node'
 
 
 
 export default Node.extend({
 
   // ----- Attributes -----
-  attrNames : [
-    'authenticationIsPending',
-    'authenticationIsFulfilled',
-    'authenticationIsRejected',
-    'authenticationIsSettled',
-    'authenticationResponse',
-    'authenticationError',
-  ],
-
-  authenticationIsPending   : false,
-  authenticationIsFulfilled : false,
-  authenticationIsRejected  : false,
-  authenticationIsSettled   : false,
-  authenticationResponse    : undefined,
-  authenticationError       : undefined,
+  attrs : {
+    authentication : promiseAttr,
+  },
 
 
 
