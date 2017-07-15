@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build:
+    working_directory: /opt/bread-maker-ember-frontend
+    docker:
+      # using custom image, see .circleci/images/ember/Dockerfile
+      - image: openbreadmaker/ember
+      - image: openbreadmaker/onion2
+    environment:
+      - BM_BACKEND_URL: "http://localhost:8000/api"
+    steps:
+      - checkout
+      - run:
+          name: install nmp dependencies
+          command: 'yarn'
+      - run:
+          name: install bower dependecies
+          command: 'bower --allow-root install'
+      - run:
+          name: run tests
+          command: 'ember t'
+notify:
+  webhooks:
+    - url: https://webhooks.gitter.im/e/79c1b97c31cf7a8f96d7
