@@ -1,0 +1,19 @@
+{{#if (and (not zen.state.stats.statsResponse) zen.state.stats.statsIsPending)}}
+  <p>
+    {{t 'routes.index.loading'}}
+  </p>
+{{else if zen.state.stats.statsError}}
+  <p>
+    {{t 'routes.index.error' error=zen.state.stats.statsError}}
+  </p>
+{{else if zen.state.stats.statsResponse}}
+  {{stats-chart
+    data   = zen.state.stats.statsChartData
+    locale = zen.state.settings.locale
+
+    currentIntervalOption = zen.state.stats.currentIntervalOption
+    intervalOptions       = zen.state.stats.intervalOptions
+
+    updateIntervalAction = (action 'updateInterval')
+  }}
+{{/if}}

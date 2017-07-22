@@ -1,0 +1,57 @@
+<div class="statsX-stat _state">
+  <div class="statsX-stat-label">
+    {{t 'domain.state-labels.state'~}}
+  </div>{{! stat-label }}
+
+  <div class="statsX-stat-value">
+    {{t (concat 'domain.state-states.' status.state)}}
+  </div>{{! stat-value }}
+</div>{{! stat _state }}
+
+
+
+<div class="statsX-stat _temp">
+  <div class="statsX-stat-label">
+    {{t 'domain.state-labels.temp'~}}
+  </div>{{! stat-label }}
+
+  <div class="statsX-stat-value">
+    {{format-temp status.temp}}
+  </div>{{! stat-value }}
+</div>{{! stat _temp }}
+
+
+
+<div class="statsX-stat _targetTemp">
+  <div class="statsX-stat-label">
+    {{t 'domain.state-labels.target-temp'~}}
+  </div>{{! stat-label }}
+
+  <div class="statsX-stat-value">
+    {{format-temp status.target_temp}}
+  </div>{{! stat-value }}
+</div>{{! stat _targetTemp }}
+
+
+
+<div class="statsX-stat _motor">
+  <div class="statsX-stat-label">
+    {{t 'domain.state-labels.motor'~}}
+  </div>{{! stat-label }}
+
+  <div class="statsX-stat-value">
+    {{t (concat 'domain.motor.' status.motor)}}
+  </div>{{! stat-value }}
+</div>{{! stat _temp }}
+
+
+
+<div class="statsX-stat _heat">
+  <div class="statsX-stat-label">
+    {{t 'domain.state-labels.heat'~}}
+  </div>{{! stat-label }}
+
+  <div class="statsX-stat-value">
+    {{t (concat 'domain.onoff-boolean.' status.heat)}}
+  </div>{{! stat-value }}
+</div>{{! stat _heat }}

@@ -1,0 +1,95 @@
+@at-root
+
+  ////------------------------------------------
+  .route-application
+    //------------------------------------------
+
+    // ----- Layout -----
+    display        : flex
+    flex-direction : column
+    min-height     : 100vh
+
+    .route-application-main
+      flex-grow : 1
+
+
+
+  ////------------------------------------------
+  .route-application-header
+    //------------------------------------------
+
+    // ----- Layout -----
+    padding : config-get('bm.layout.container.padding')
+
+    // ----- RWD -----
+    +to(xs)
+      .route-application-header-item:not(:last-child)
+        margin-bottom : config-get('bm.layout.container.padding')
+
+    +from(s)
+      display         : flex
+      justify-content : space-between
+      align-items     : center
+
+
+
+  ////------------------------------------------
+  .route-application-title
+    //------------------------------------------
+
+    // ----- Text -----
+    font-size : 2rem
+
+
+
+  ////------------------------------------------
+  .route-application-menu
+    //------------------------------------------
+
+    // ----- Content layout -----
+    .route-application-menu-item:not(:last-child)
+      margin-right : config-get('bm.layout.container.padding')
+
+
+
+  ////------------------------------------------
+  .route-application-main
+    //------------------------------------------
+
+    // ----- RWD -----
+    display : flex
+
+    .route-application-content
+      flex-grow : 1
+
+    +to(s)
+      flex-direction: column
+
+    +from(m)
+      .route-application-sidebar
+        width       : 300px
+        flex-shrink : 0
+
+
+
+  ////------------------------------------------
+  .route-application-sidebar
+    //------------------------------------------
+
+    // ----- Layout -----
+    padding : config-get('bm.layout.container.padding')
+
+    // ----- Content layout -----
+    > *:not(:last-child)
+      margin-bottom : config-get('bm.layout.container.padding')
+
+
+
+  ////------------------------------------------
+  .route-application-content
+    //------------------------------------------
+
+    // ----- Layout -----
+    position : relative
+    padding  : config-get('bm.layout.container.padding')
+

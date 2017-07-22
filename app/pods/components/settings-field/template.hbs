@@ -1,0 +1,38 @@
+<label class='settingsField-label'>
+  {{label}}
+</label>{{! label }}
+
+
+
+{{#if description}}
+  <div class='settingsField-description'>
+    {{description}}
+  </div>{{! description }}
+{{/if}}{{! description }}
+
+
+
+<div class='settingsField-content'>
+  {{yield}}
+</div>{{! content }}
+
+
+
+{{#if (or
+  requestIsPending
+  requestIsRejected
+)}}
+  <div
+    class = '
+      settingsField-status
+      {{if requestIsPending  '-pending' ''}}
+      {{if requestIsRejected '-rejected' ''}}
+    '
+  >
+    {{#if requestIsPending}}
+      {{updatingLabel}}
+    {{else if requestIsRejected}}
+      {{errorLabel}}
+    {{/if}}
+  </div>{{! status }}
+{{/if}}{{! or }}

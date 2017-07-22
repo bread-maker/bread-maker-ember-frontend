@@ -1,0 +1,39 @@
+<div class = "route-login">
+
+  <h1 class = "route-login-title">
+    {{t 'domain.login.login'}}
+  </h1>
+
+  {{#if zen.state.session.authenticationIsPending}}
+    {{t 'domain.login.logging-in'}}
+  {{else}}
+    <label>
+      {{t 'domain.login.password'}}:
+    </label>
+
+    {{input
+      value          = password
+      type           = 'password'
+      insert-newline = (action 'login')
+    }}
+
+    <button
+      {{action 'login'}}
+    >
+      {{t 'domain.login.log-in'}}
+    </button>
+  {{/if}}
+
+  {{#if (and
+    (not zen.state.session.authenticationIsPending)
+    zen.state.session.authenticationError
+  )}}
+    <p>
+      {{or
+        zen.state.session.authenticationError.payload.error.error_text
+        zen.state.session.authenticationError.message
+      }}
+    </p>
+  {{/if}}
+
+</div>

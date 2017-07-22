@@ -6,7 +6,7 @@ const envVars = _.pick(process.env, [
 ])
 
 module.exports = function (environment) {
-  var ENV = {
+  const ENV = {
     modulePrefix    : 'bread-maker-ember-frontend',
     podModulePrefix : 'bread-maker-ember-frontend/pods',
     environment     : environment,
@@ -20,14 +20,19 @@ module.exports = function (environment) {
       },
       EXTEND_PROTOTYPES : {
         // Prevent Ember Data from overriding Date.parse.
-        Date : false
-      }
+        Date : false,
+      },
     },
 
     APP : {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
+
+    moment : {
+      includeTimezone : 'subset',
+      includeLocales  : ['en', 'ru'],
+    },
   }
 
   if (environment === 'development') {
@@ -49,9 +54,9 @@ module.exports = function (environment) {
     ENV.APP.rootElement = '#ember-testing'
   }
 
-  if (environment === 'production') {
-
-  }
+  // if (environment === 'production') {
+  //
+  // }
 
   return ENV
 }

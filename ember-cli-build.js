@@ -36,10 +36,13 @@ module.exports = function (defaults) {
     nodeModulesToVendor : [
       new Funnel('node_modules/lodash', {
         destDir : 'lodash',
-        files   : ['lodash.js']
-      })
-    ]
-    // Add options here
+        files   : ['lodash.js'],
+      }),
+    ],
+
+    sassOptions : {
+      includePaths : ['app'],
+    },
   }
 
   if (fs.existsSync(dotEnvFile)) {
@@ -47,7 +50,7 @@ module.exports = function (defaults) {
       clientAllowedKeys : [
         'BM_BACKEND_URL',
       ],
-      path : dotEnvFile
+      path : dotEnvFile,
     }
   }
 

@@ -1,0 +1,103 @@
+product:
+  info: '{product} will cost {price, number, USD} if ordered by {deadline, date, time}'
+  title: 'Hello world!'
+  html:
+    info: '<strong>{product}</strong> will cost <em>{price, number, USD}</em> if ordered by {deadline, date, time}'
+
+
+routes:
+  application:
+    menu:
+      chart: График
+      settings: Настройки
+    sidebar:
+      auto-update: Авто-обновление
+      stats-loading: Загружаем состояние...
+      stats-error: "Не удалось загрузить состояние: {error}"
+
+  index:
+    loading: Загружаем график...
+    error: "Не удалось загрузить состояние: {error}"
+
+  settings:
+    title: Настройки
+    updating: Обновляем...
+    error: "Не удалось обновить {field}: {error}"
+
+    fields:
+      maxTempBeforeTimer:
+        label: Макс. температура A
+        description: Максимальная температура перед запуском таймера отсрочки
+      maxTempBeforeBaking:
+        label: Макс. температура B
+        description: Максимальная температура перед началом выпечки
+      maxTempAfterBaking:
+        label: Температура поддержания
+        description: Температура, которая поддерживается после выпечки
+      maxTempDurationMins:
+        label: Макс. время поддержания
+        description: Максимальное время, в течении которого поддерживается температура (в минутах)
+      locale:
+        label: Язык
+        description: US использует Фаренгейт, все остальные используют Цельсий
+      timezone:
+        label: Часовой пояс
+
+
+
+
+components:
+  stats-chart:
+    interval: Интервал
+
+
+
+nodes:
+  stats:
+    interval:
+      sec: 8 минут
+      5sec: 40 минут
+      15sec: 2 часа
+      30sec: 4 часа
+      min: 8 часов
+
+
+
+domain:
+  state-labels:
+    state: Состояние
+    target-temp: Целевая темп.
+    temp: Температура
+    motor: Мотор
+    heat: Нагрев
+  state-states:
+    idle: бездействие
+    timer: таймер
+    baking: выпечка
+    warming: поддержание температуры
+    error: ошибка
+  motor:
+    off: выкл
+    on: вкл
+    onoff: пульс
+  onoff-boolean:
+    false: выкл
+    true: вкл
+
+  login:
+    login: Вход
+    logout: Выход
+    log-in: Войти
+    log-out: Выйти
+    logging-in: Входим...
+    password: Пароль
+    old-password: Старый пароль
+    new-password: Новый пароль
+
+  locale:
+    en: English (US)
+    en-gb: English (Europe)
+    ru: Русский
+
+  forms:
+    update: Обновить

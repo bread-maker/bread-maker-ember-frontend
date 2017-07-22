@@ -1,0 +1,77 @@
+{{trigger (action 'didReceiveQueryParams')}}
+
+<div class="route-application">
+
+  <header class = "route-application-header">
+
+    <div class="route-application-header-item _left">
+      <h2 class="route-application-title">
+        Open Bread Maker
+      </h2>
+    </div>{{! header-item _left }}
+
+    <div class="route-application-header-item _right">
+      <div class = "route-application-menu">
+        {{link-to (t 'routes.application.menu.chart') 'index'
+          class = "route-application-menu-item _chart"
+        }}
+
+        {{#if zen.state.session.isAuthenticated}}
+          {{link-to (t 'routes.application.menu.settings') 'preferences'
+            class = "route-application-menu-item _settings"
+          }}
+
+          <a
+            class = "route-application-menu-item _logout"
+            href
+            {{action 'invalidateSession'}}
+          >
+            {{t 'domain.login.logout'}}
+          </a>
+        {{else}}
+          {{link-to (t 'domain.login.login') 'login'
+            class = "route-application-menu-item _login"
+          }}
+        {{/if}}
+      </div>{{! menu }}
+    </div>{{! header-item _right }}
+
+  </header>{{! header }}
+
+
+
+  <div class="route-application-main">
+
+    <aside class="route-application-sidebar">
+      {{#if (and (not zen.state.stats.statsResponse) zen.state.stats.statsIsPending)}}
+        <p>
+          {{t 'routes.application.sidebar.stats-loading'}}
+        </p>
+      {{else if zen.state.stats.statsError}}
+        <p>
+          {{t 'routes.application.sidebar.stats-error' error=zen.state.stats.statsError}}
+        </p>
+      {{else if zen.state.stats.statsResponse}}
+        {{stats-x status=zen.state.stats.lastStatus}}
+      {{/if}}
+
+      <label class="route-application-autoUpdate">
+        {{one-way-checkbox
+          checked = zen.state.stats.polling
+          update  = (action 'updatePolling')
+        }}
+
+        <span>
+          {{t 'routes.application.sidebar.auto-update'}}
+        </span>
+      </label>
+    </aside>{{! sidebar }}
+
+
+    <main class="route-application-content">
+      {{outlet}}
+    </main>{{! content }}
+
+  </div>{{! main }}
+
+</div>

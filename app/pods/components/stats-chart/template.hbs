@@ -1,0 +1,29 @@
+<div class="statsChart-wrapper">
+
+  {{ember-chart
+    class   = "statsChart-chart"
+    type    = 'line'
+    data    = data
+    options = options
+    width   = null
+    height  = null
+  }}
+
+</div>{{! wrapper }}
+
+
+
+<div class="statsChart-options">
+
+  <label class="statsChart-option">
+    {{t 'components.stats-chart.interval'}}
+
+    {{one-way-select currentIntervalOption
+      options = intervalOptions
+      optionValuePath = 'interval'
+      optionLabelPath = 'label'
+      update  = updateIntervalAction
+    }}
+  </label>
+
+</div>{{! options }}

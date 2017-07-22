@@ -1,0 +1,22 @@
+=stretch
+  position : absolute
+  left     : 0
+  top      : 0
+  width    : 100%
+  height   : 100%
+
+
+
+=center($direction: 'both')
+  position: absolute
+
+  @if $direction == 'both' or $direction == 'vertical'
+    top: 50%
+
+  @if $direction == 'both' or $direction == 'horizontal'
+    left: 50%
+
+  $hor: if($direction == 'both' or $direction == 'horizontal', -50%, 0)
+  $vert: if($direction == 'both' or $direction == 'vertical', -50%, 0)
+
+  transform: translate(#{$hor}, #{$vert})

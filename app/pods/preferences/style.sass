@@ -1,0 +1,27 @@
+@at-root
+
+  ////------------------------------------------
+  .route-preferences-settingsGroup
+    //------------------------------------------
+
+    // ----- Content layout -----
+    .route-preferences-setting
+      margin-bottom : config-get('bm.layout.container.padding')
+
+
+
+  ////------------------------------------------
+  .route-preferences-setting-inner
+    //------------------------------------------
+
+    // ----- RWD -----
+    +from(xs)
+      display     : flex
+      align-items : center
+
+      .route-preferences-setting-label
+        width        : 100px
+        margin-right : config-get('bm.layout.container.padding')
+
+      .route-preferences-setting-field
+        width        : 300px
