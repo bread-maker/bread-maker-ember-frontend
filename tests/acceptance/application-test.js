@@ -20,9 +20,9 @@ describe('Acceptance | application', function () {
     destroyApp(application)
   })
 
-  it('stats', async function () {
-    await session.authenticate('authenticator:custom', 'breadtime')
-    await ajax.setProgram(0, 0, PROGRAMS[0])
+  it('should display stats', async function () {
+    await ajax._setAutorun(false, {forceauth : true})
+    await ajax._setEmuTemp(30,    {forceauth : true})
 
     await page.visit()
 
@@ -30,10 +30,10 @@ describe('Acceptance | application', function () {
     expect(page.stats.state.text, m).equal("idle")
 
     m = "targetTemp"
-    expect(page.stats.targetTemp.text, m).equal("0")
+    expect(page.stats.targetTemp.text, m).equal("0°C")
 
     m = "temp"
-    expect(page.stats.temp.text, m).equal("25")
+    expect(page.stats.temp.text, m).equal("30°C")
 
     m = "motor"
     expect(page.stats.motor.text, m).equal("off")

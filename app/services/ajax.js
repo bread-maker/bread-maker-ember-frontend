@@ -127,6 +127,15 @@ export default AjaxService.extend({
     return RSVP.reject(error)
   },
 
+  _setAutorun (enabled, params = {}) {
+    enabled = enabled ? 1 : 0
+    return this.postMethod('emu.autorun', {enabled, ...params})
+  },
+
+  _setEmuTemp (temp, params = {}) {
+    return this.postMethod('emu.temp', {temp, ...params})
+  },
+
 
 
   // ----- Events and observers -----

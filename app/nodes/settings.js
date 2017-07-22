@@ -54,7 +54,7 @@ export default Node.extend({
   // ----- Methods -----
   requestLocale () {
     const key    = `${LS_PREFIX}locale`
-    const locale = localStorage.getItem(key) || 'en'
+    const locale = localStorage.getItem(key) || 'en-gb'
 
     return this.dispatchPromise('locale', () => {
       return timeout(1000)
