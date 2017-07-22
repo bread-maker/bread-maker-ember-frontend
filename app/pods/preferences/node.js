@@ -14,6 +14,12 @@ import writable from 'ember-macro-helpers/writable'
 // import timeout from 'bread-maker-ember-frontend/utils/timeout'
 
 // ----- Constants -----
+const RESETTABLE_ATTRS = {
+  maxTempBeforeTimerUserInput  : writable('zen.state.settings.maxTempBeforeTimer'),
+  maxTempBeforeBakingUserInput : writable('zen.state.settings.maxTempBeforeBaking'),
+  maxTempAfterBakingUserInput  : writable('zen.state.settings.maxTempAfterBaking'),
+  maxTempDurationMinsUserInput : writable('zen.state.settings.maxTempDurationMins'),
+}
 
 
 
@@ -23,6 +29,8 @@ export default Node.extend({
   attrs : {
     oldPasswordUserInput : '',
     newPasswordUserInput : '',
+
+    ...RESETTABLE_ATTRS,
   },
 
 
@@ -31,15 +39,20 @@ export default Node.extend({
 
 
   // ----- Computed properties -----
-  maxTempBeforeTimerUserInput  : writable('zen.state.settings.maxTempBeforeTimer'),
-  maxTempBeforeBakingUserInput : writable('zen.state.settings.maxTempBeforeBaking'),
-  maxTempAfterBakingUserInput  : writable('zen.state.settings.maxTempAfterBaking'),
-  maxTempDurationUserInput     : writable('zen.state.settings.maxTempDuration'),
-  maxTempDurationMinsUserInput : writable('zen.state.settings.maxTempDurationMins'),
 
 
 
   // ----- Methods -----
+  reset (attr) {
+    if (attr == null) {
+      this.dispatchSetProperties('reset', RESETTABLE_ATTRS)
+    } else {
+      const key = `${attr}UserInput`
+      const value = RESETTABLE_ATTRS[key]
+      if (!value) throw new Error(`Attempted to reset attr ${key}, but it does not exist`)
+      this.dispatchSet(`reset ${key}`, key, value)
+    }
+  },
 
 
 
@@ -48,5 +61,4 @@ export default Node.extend({
   },
 })
 
-// ToDo: reset user input on entering route
 // ToDo: block buttons when promise is running

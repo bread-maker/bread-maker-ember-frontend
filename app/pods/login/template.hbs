@@ -24,9 +24,15 @@
     </button>
   {{/if}}
 
-  {{#if zen.state.session.authenticationError}}
+  {{#if (and
+    (not zen.state.session.authenticationIsPending)
+    zen.state.session.authenticationError
+  )}}
     <p>
-      {{zen.state.session.authenticationError.error_text}}
+      {{or
+        zen.state.session.authenticationError.payload.error.error_text
+        zen.state.session.authenticationError.message
+      }}
     </p>
   {{/if}}
 

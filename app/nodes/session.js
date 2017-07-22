@@ -27,7 +27,7 @@ export default Node.extend({
 
   actions : {
     invalidate () {
-      this.setProperties({
+      this.setAttrs({
         authenticationIsPending   : false,
         authenticationIsFulfilled : false,
         authenticationIsRejected  : false,

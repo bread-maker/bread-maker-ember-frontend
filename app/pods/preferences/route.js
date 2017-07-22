@@ -36,6 +36,10 @@ export default Route.extend({
       .requestGlobalBakingConfig()
   },
 
+  deactivate () {
+    this.get('zen.state.preferences').reset()
+  },
+
 
 
   // ----- Custom Methods -----

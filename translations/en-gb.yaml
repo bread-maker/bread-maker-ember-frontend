@@ -25,9 +25,18 @@ routes:
     error: "Failed to update {field}: {error}"
 
     fields:
-      max-temp-a:
+      maxTempBeforeTimer:
         label: Max Temp A
         description: Max temperature before starting delay timer
+      maxTempBeforeBaking:
+        label: Max Temp B
+        description: Max temperature before starting baking
+      maxTempAfterBaking:
+        label: Warm Temp
+        description: Temperature sustained after baking
+      maxTempDurationMins:
+        label: Max Warm Time
+        description: Max time of sustaining temperature after baking (in minutes)
       locale:
         label: Language
         description: US uses Fahrenheit, everything else uses Celsius
@@ -73,10 +82,6 @@ domain:
   onoff-boolean:
     false: off
     true: on
-  baking:
-    max-temp-b: Max temperature before starting baking
-    warm-temp: Temperature sustained after baking
-    max-warm-time: Max time of sustaining temperature after baking
 
   login:
     login: Login

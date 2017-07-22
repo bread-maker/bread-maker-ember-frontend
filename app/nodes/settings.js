@@ -45,7 +45,7 @@ export default Node.extend({
 
   maxTempBeforeTimer  : writable('globalBakingConfigResponse.max_temp_a'),
   maxTempBeforeBaking : writable('globalBakingConfigResponse.max_temp_b'),
-  maxTempAfterBaking  : writable('globalBakingConfigResponse.max_temp_b'),
+  maxTempAfterBaking  : writable('globalBakingConfigResponse.warm_temp'),
   maxTempDuration     : writable('globalBakingConfigResponse.max_warm_time'),
   maxTempDurationMins : divide('maxTempDuration', 60),
 
@@ -155,15 +155,31 @@ export default Node.extend({
       const ajax = this.get('ajax')
 
       return this.dispatchPromise('password', () => {
-        return ajax.setPassword(password, newPassword)
+        return ajax.setPassword({password, newPassword})
       })
     },
 
-    setGlobalBakingConfig (option, value) {
-      const ajax = this.get('ajax')
+    setGlobalBakingConfig (attr, value) {
+      const ajax      = this.get('ajax')
+      const prefsNode = this.get('zen.state.preferences')
+
+      /* eslint-disable indent */
+      const key =
+        attr === 'maxTempBeforeTimer'  ? 'max_temp_a'    :
+        attr === 'maxTempBeforeBaking' ? 'max_temp_b'    :
+        attr === 'maxTempAfterBaking'  ? 'warm_temp'     :
+        attr === 'maxTempDurationMins' ? 'max_warm_time' :
+                                         attr
+
+      const efficientValue =
+        attr === 'maxTempDurationMins' ? value * 60 :
+                                         value
+      /* eslint-enable indent */
 
       return this.dispatchPromise('globalBakingConfig', () => {
-        return ajax.setGlobalBakingConfig({[option] : value})
+        return ajax
+          .setGlobalBakingConfig({[key] : efficientValue})
+          .then(response => (prefsNode.reset(attr), response))
       })
     },
   },

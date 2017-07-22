@@ -4,6 +4,7 @@ import service from 'ember-service/inject'
 
 // ----- Ember Addon modules -----
 import AjaxService from 'ember-ajax/services/ajax'
+import {isUnauthorizedError} from 'ember-ajax/errors'
 
 // ----- Third-party modules -----
 import RSVP from 'rsvp'
@@ -13,8 +14,9 @@ import RSVP from 'rsvp'
 export default AjaxService.extend({
 
   // ----- Services -----
-  config : service(),
-  zen    : service(),
+  config  : service(),
+  session : service(),
+  zen     : service(),
 
 
 
@@ -59,11 +61,7 @@ export default AjaxService.extend({
 
     return this
       .request(finalUrl)
-      .then(data => {
-        return data.error
-          ? RSVP.reject(data.error)
-          : data
-      })
+      .catch(error => this._logOutOnTokenExpired(error))
   },
 
   postMethod (method, data = {}) {
@@ -73,54 +71,60 @@ export default AjaxService.extend({
     if (token) data.token = token
 
     return this
-      .post(finalUrl, {
-        data,
-      })
-      .then(data => {
-        return data.error
-          ? RSVP.reject(data.error)
-          : data
-      })
+      .post(finalUrl, {data})
+      .catch(error => this._logOutOnTokenExpired(error))
   },
 
 
-  login (password) {
-    return this.getMethod('auth.login', {password})
+  login (password, params = {}) {
+    return this.getMethod('auth.login', {password, ...params})
   },
 
-  getStats (interval = '') {
-    return this.getMethod('stats', {interval})
+  getStats (interval = '', params = {}) {
+    return this.getMethod('stats', {interval, ...params})
   },
 
-  getTimezone () {
+  getTimezone (params = {}) {
     return this
-      .getMethod('config.timezone.get')
+      .getMethod('config.timezone.get', params)
       .then(({timezone}) => timezone)
   },
 
-  setProgram (program_id, crust_id, program) {
+  setProgram (program_id, crust_id, program, params = {}) {
     return this
       .postMethod('config.baking.stages.set', {
         program_id,
         crust_id,
         program,
+        ...params,
       })
   },
 
-  setPassword (password, new_password) {
-    return this.postMethod('auth.passwd', {password, new_password})
+  setPassword (password, new_password, params = {}) {
+    return this.postMethod('auth.passwd', {password, new_password, params})
   },
 
-  getGlobalBakingConfig () {
+  getGlobalBakingConfig (params = {}) {
     return this
-      .getMethod('config.baking.global.get')
+      .getMethod('config.baking.global.get', params)
       .then(({config}) => config)
   },
 
-  setGlobalBakingConfig (config) {
+  setGlobalBakingConfig (config, params = {}) {
     return this
-      .postMethod('config.baking.global.set', {config})
+      .postMethod('config.baking.global.set', {config, ...params})
       .then(({config}) => config)
+  },
+
+
+
+  // ----- Private methods -----
+  _logOutOnTokenExpired (error) {
+    if (isUnauthorizedError(error) && this.get('session.isAuthenticated')) {
+      this.get('session').invalidate()
+    }
+
+    return RSVP.reject(error)
   },
 
 

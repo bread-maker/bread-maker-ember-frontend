@@ -3314,7 +3314,7 @@ ember-macro-helpers@^0.14.1:
     ember-cli-test-info "^1.0.0"
     ember-weakmap "^2.0.0"
 
-ember-macro-helpers@^0.15.0, ember-macro-helpers@^0.15.1:
+ember-macro-helpers@^0.15.0:
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/ember-macro-helpers/-/ember-macro-helpers-0.15.1.tgz#a402651fafb3a25b3612a8c09843bc4061553a13"
   dependencies:
@@ -3521,7 +3521,7 @@ ember-wormhole@^0.5.1:
 
 ember-zen@lolmaus/ember-zen#gen-2:
   version "0.0.0"
-  resolved "https://codeload.github.com/lolmaus/ember-zen/tar.gz/25144760a750e645a376489c78f236e48414bf73"
+  resolved "https://codeload.github.com/lolmaus/ember-zen/tar.gz/b44243ebba6f1aeda32ee7a8cf6d751cb22e4a67"
   dependencies:
     ember-cli-babel "^6.3.0"
     ember-macro-helpers "^0.16.0"

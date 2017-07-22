@@ -57,15 +57,18 @@
     //------------------------------------------
 
     // ----- RWD -----
-    +from(m)
-      display : flex
+    display : flex
 
+    .route-application-content
+      flex-grow : 1
+
+    +to(s)
+      flex-direction: column
+
+    +from(m)
       .route-application-sidebar
         width       : 300px
         flex-shrink : 0
-
-      .route-application-content
-        flex-grow : 1
 
 
 
