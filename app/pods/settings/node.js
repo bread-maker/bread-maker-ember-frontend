@@ -15,10 +15,10 @@ import writable from 'ember-macro-helpers/writable'
 
 // ----- Constants -----
 const RESETTABLE_ATTRS = {
-  maxTempBeforeTimerUserInput  : writable('zen.state.settings.maxTempBeforeTimer'),
-  maxTempBeforeBakingUserInput : writable('zen.state.settings.maxTempBeforeBaking'),
-  maxTempAfterBakingUserInput  : writable('zen.state.settings.maxTempAfterBaking'),
-  maxTempDurationMinsUserInput : writable('zen.state.settings.maxTempDurationMins'),
+  maxTempBeforeTimerUserInput  : writable('zen.state.settingsData.maxTempBeforeTimer'),
+  maxTempBeforeBakingUserInput : writable('zen.state.settingsData.maxTempBeforeBaking'),
+  maxTempAfterBakingUserInput  : writable('zen.state.settingsData.maxTempAfterBaking'),
+  maxTempDurationMinsUserInput : writable('zen.state.settingsData.maxTempDurationMins'),
 }
 
 

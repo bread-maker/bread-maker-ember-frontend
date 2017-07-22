@@ -32,12 +32,12 @@ export default Route.extend({
   // ----- Overridden Methods -----
   model () {
     return this
-      .get('zen.state.settings')
+      .get('zen.state.settingsData')
       .requestGlobalBakingConfig()
   },
 
   deactivate () {
-    this.get('zen.state.preferences').reset()
+    this.get('zen.state.settings').reset()
   },
 
 

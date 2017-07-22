@@ -1,12 +1,12 @@
-<h1 class = 'route-preferences-title'>
+<h1 class = 'route-settings-title'>
   {{t 'routes.settings.title'}}
 </h1>{{! title }}
 
 
 
-<div class='route-preferences-settingsGroup _baking'>
+<div class='route-settings-settingsGroup _baking'>
 
-  <h2 class='route-preferences-settingsGroup-title'>
+  <h2 class='route-settings-settingsGroup-title'>
     System
   </h2>
 
@@ -17,21 +17,21 @@
     label       = (t 'routes.settings.fields.maxTempBeforeTimer.label')
     description = (t 'routes.settings.fields.maxTempBeforeTimer.description')
 
-    requestIsPending  = zen.state.settings.globalBakingConfigIsPending
-    requestIsRejected = zen.state.settings.globalBakingConfigIsRejected
+    requestIsPending  = zen.state.settingsData.globalBakingConfigIsPending
+    requestIsRejected = zen.state.settingsData.globalBakingConfigIsRejected
 
     errorLabel = (t
       'routes.settings.error'
       field='globalBakingConfig'
-      error=(or zen.state.settings.globalBakingConfigError.error_text zen.state.settings.globalBakingConfigError)
+      error=(or zen.state.settingsData.globalBakingConfigError.error_text zen.state.settingsData.globalBakingConfigError)
     )
   }}
     {{one-way-input
       type   = 'number'
-      value  = zen.state.preferences.maxTempBeforeTimerUserInput
+      value  = zen.state.settings.maxTempBeforeTimerUserInput
       update = (action
         (dispatch-set)
-        zen.state.preferences
+        zen.state.settings
         'maxTempBeforeTimerUserInput'
         'maxTempBeforeTimerUserInput'
       )
@@ -40,10 +40,10 @@
     <button
       {{action
         (dispatch-action)
-        zen.state.settings
+        zen.state.settingsData
         'setGlobalBakingConfig'
         'maxTempBeforeTimer'
-        zen.state.preferences.maxTempBeforeTimerUserInput
+        zen.state.settings.maxTempBeforeTimerUserInput
       }}
     >
       {{t 'domain.forms.update'}}
@@ -57,21 +57,21 @@
     label       = (t 'routes.settings.fields.maxTempBeforeBaking.label')
     description = (t 'routes.settings.fields.maxTempBeforeBaking.description')
 
-    requestIsPending  = zen.state.settings.globalBakingConfigIsPending
-    requestIsRejected = zen.state.settings.globalBakingConfigIsRejected
+    requestIsPending  = zen.state.settingsData.globalBakingConfigIsPending
+    requestIsRejected = zen.state.settingsData.globalBakingConfigIsRejected
 
     errorLabel = (t
       'routes.settings.error'
       field='globalBakingConfig'
-      error=(or zen.state.settings.globalBakingConfigError.error_text zen.state.settings.globalBakingConfigError)
+      error=(or zen.state.settingsData.globalBakingConfigError.error_text zen.state.settingsData.globalBakingConfigError)
     )
   }}
     {{one-way-input
       type   = 'number'
-      value  = zen.state.preferences.maxTempBeforeBakingUserInput
+      value  = zen.state.settings.maxTempBeforeBakingUserInput
       update = (action
         (dispatch-set)
-        zen.state.preferences
+        zen.state.settings
         'maxTempBeforeBakingUserInput'
         'maxTempBeforeBakingUserInput'
       )
@@ -80,10 +80,10 @@
     <button
       {{action
         (dispatch-action)
-        zen.state.settings
+        zen.state.settingsData
         'setGlobalBakingConfig'
         'maxTempBeforeBaking'
-        zen.state.preferences.maxTempBeforeBakingUserInput
+        zen.state.settings.maxTempBeforeBakingUserInput
       }}
     >
       {{t 'domain.forms.update'}}
@@ -97,21 +97,21 @@
     label       = (t 'routes.settings.fields.maxTempAfterBaking.label')
     description = (t 'routes.settings.fields.maxTempAfterBaking.description')
 
-    requestIsPending  = zen.state.settings.globalBakingConfigIsPending
-    requestIsRejected = zen.state.settings.globalBakingConfigIsRejected
+    requestIsPending  = zen.state.settingsData.globalBakingConfigIsPending
+    requestIsRejected = zen.state.settingsData.globalBakingConfigIsRejected
 
     errorLabel = (t
       'routes.settings.error'
       field='globalBakingConfig'
-      error=(or zen.state.settings.globalBakingConfigError.error_text zen.state.settings.globalBakingConfigError)
+      error=(or zen.state.settingsData.globalBakingConfigError.error_text zen.state.settingsData.globalBakingConfigError)
     )
   }}
     {{one-way-input
       type   = 'number'
-      value  = zen.state.preferences.maxTempAfterBakingUserInput
+      value  = zen.state.settings.maxTempAfterBakingUserInput
       update = (action
         (dispatch-set)
-        zen.state.preferences
+        zen.state.settings
         'maxTempAfterBakingUserInput'
         'maxTempAfterBakingUserInput'
       )
@@ -120,10 +120,10 @@
     <button
       {{action
         (dispatch-action)
-        zen.state.settings
+        zen.state.settingsData
         'setGlobalBakingConfig'
         'maxTempAfterBaking'
-        zen.state.preferences.maxTempAfterBakingUserInput
+        zen.state.settings.maxTempAfterBakingUserInput
       }}
     >
       {{t 'domain.forms.update'}}
@@ -137,21 +137,21 @@
     label       = (t 'routes.settings.fields.maxTempDurationMins.label')
     description = (t 'routes.settings.fields.maxTempDurationMins.description')
 
-    requestIsPending  = zen.state.settings.globalBakingConfigIsPending
-    requestIsRejected = zen.state.settings.globalBakingConfigIsRejected
+    requestIsPending  = zen.state.settingsData.globalBakingConfigIsPending
+    requestIsRejected = zen.state.settingsData.globalBakingConfigIsRejected
 
     errorLabel = (t
       'routes.settings.error'
       field='globalBakingConfig'
-      error=(or zen.state.settings.globalBakingConfigError.error_text zen.state.settings.globalBakingConfigError)
+      error=(or zen.state.settingsData.globalBakingConfigError.error_text zen.state.settingsData.globalBakingConfigError)
     )
   }}
     {{one-way-input
       type   = 'number'
-      value  = zen.state.preferences.maxTempDurationMinsUserInput
+      value  = zen.state.settings.maxTempDurationMinsUserInput
       update = (action
         (dispatch-set)
-        zen.state.preferences
+        zen.state.settings
         'maxTempDurationMinsUserInput'
         'maxTempDurationMinsUserInput'
       )
@@ -160,10 +160,10 @@
     <button
       {{action
         (dispatch-action)
-        zen.state.settings
+        zen.state.settingsData
         'setGlobalBakingConfig'
         'maxTempDurationMins'
-        zen.state.preferences.maxTempDurationMinsUserInput
+        zen.state.settings.maxTempDurationMinsUserInput
       }}
     >
       {{t 'domain.forms.update'}}
@@ -174,9 +174,9 @@
 
 
 
-<div class='route-preferences-settingsGroup _system'>
+<div class='route-settings-settingsGroup _system'>
 
-  <h2 class='route-preferences-settingsGroup-title'>
+  <h2 class='route-settings-settingsGroup-title'>
     System
   </h2>
 
@@ -185,21 +185,21 @@
     label       = (t 'routes.settings.fields.locale.label')
     description = (t 'routes.settings.fields.locale.description')
 
-    requestIsPending  = zen.state.settings.localeIsPending
-    requestIsRejected = zen.state.settings.localeIsRejected
+    requestIsPending  = zen.state.settingsData.localeIsPending
+    requestIsRejected = zen.state.settingsData.localeIsRejected
 
     errorLabel = (t
       'routes.settings.error'
       field='locale'
-      error=(or zen.state.settings.localeError.error_text zen.state.settings.localeError)
+      error=(or zen.state.settingsData.localeError.error_text zen.state.settingsData.localeError)
     )
   }}
     {{#power-select
-      class    = 'route-preferences-setting-field'
+      class    = 'route-settings-setting-field'
       tagName  = 'div'
-      selected = zen.state.settings.localeResponse
+      selected = zen.state.settingsData.localeResponse
       options  = intl.locales
-      onchange = (action (dispatch-action) zen.state.settings 'setLocale')
+      onchange = (action (dispatch-action) zen.state.settingsData 'setLocale')
       as |locale|
     }}
       {{t (concat 'domain.locale.' locale)}}
@@ -212,21 +212,21 @@
     fieldName   = 'timezone'
     label       = (t 'routes.settings.fields.timezone.label')
 
-    requestIsPending  = zen.state.settings.timezoneIsPending
-    requestIsRejected = zen.state.settings.timezoneIsRejected
+    requestIsPending  = zen.state.settingsData.timezoneIsPending
+    requestIsRejected = zen.state.settingsData.timezoneIsRejected
 
     errorLabel = (t
       'routes.settings.error'
       field='timezone'
-      error=(or zen.state.settings.timezoneError.error_text zen.state.settings.timezoneError)
+      error=(or zen.state.settingsData.timezoneError.error_text zen.state.settingsData.timezoneError)
     )
   }}
     {{#power-select
-      class    = 'route-preferences-setting-field'
+      class    = 'route-settings-setting-field'
       tagName  = 'div'
-      selected = zen.state.settings.timezoneResponse
+      selected = zen.state.settingsData.timezoneResponse
       options  = timezones
-      onchange = (action (dispatch-action) zen.state.settings 'setTimezone')
+      onchange = (action (dispatch-action) zen.state.settingsData 'setTimezone')
       as |timezone|
     }}
       {{timezone}}
@@ -239,40 +239,40 @@
     fieldName   = 'password'
     label       = (t 'domain.login.password')
 
-    requestIsPending  = zen.state.settings.passwordIsPending
-    requestIsRejected = zen.state.settings.passwordIsRejected
+    requestIsPending  = zen.state.settingsData.passwordIsPending
+    requestIsRejected = zen.state.settingsData.passwordIsRejected
 
     errorLabel = (t
       'routes.settings.error'
       field='password'
-      error=(or zen.state.settings.passwordError.error_text zen.state.settings.passwordError)
+      error=(or zen.state.settingsData.passwordError.error_text zen.state.settingsData.passwordError)
     )
   }}
-    <label class='route-preferences-setting-label'>
+    <label class='route-settings-setting-label'>
       {{t 'domain.login.old-password'}}
     </label>
 
     {{one-way-input
       type   = 'password'
-      value  = zen.state.preferences.oldPasswordUserInput
+      value  = zen.state.settings.oldPasswordUserInput
       update = (action
         (dispatch-set)
-        zen.state.preferences
+        zen.state.settings
         'old password user input'
         'oldPasswordUserInput'
       )
     }}
 
-    <label class='route-preferences-setting-label'>
+    <label class='route-settings-setting-label'>
       {{t 'domain.login.new-password'}}
     </label>
 
     {{one-way-input
       type   = 'password'
-      value  = zen.state.preferences.newPasswordUserInput
+      value  = zen.state.settings.newPasswordUserInput
       update = (action
         (dispatch-set)
-        zen.state.preferences
+        zen.state.settings
         'new password user input'
         'newPasswordUserInput'
       )
@@ -281,10 +281,10 @@
     <button
       {{action
         (dispatch-action)
-        zen.state.settings
+        zen.state.settingsData
         'setPassword'
-        zen.state.preferences.oldPasswordUserInput
-        zen.state.preferences.newPasswordUserInput
+        zen.state.settings.oldPasswordUserInput
+        zen.state.settings.newPasswordUserInput
       }}
     >
       {{t 'domain.forms.update'}}

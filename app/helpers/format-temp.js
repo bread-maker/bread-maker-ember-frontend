@@ -60,7 +60,7 @@ export function formatTemp (temp, locale, precision = 2) {
 export default Helper.extend({
   zen : service(),
 
-  locale : writable('zen.state.settings.locale'),
+  locale : writable('zen.state.settingsData.locale'),
 
   recomputeOnLocaleChange : observer('locale', function () {
     this.recompute()

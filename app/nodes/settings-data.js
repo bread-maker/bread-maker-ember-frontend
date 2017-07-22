@@ -161,7 +161,7 @@ export default Node.extend({
 
     setGlobalBakingConfig (attr, value) {
       const ajax      = this.get('ajax')
-      const prefsNode = this.get('zen.state.preferences')
+      const prefsNode = this.get('zen.state.settings')
 
       /* eslint-disable indent */
       const key =

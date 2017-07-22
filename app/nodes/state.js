@@ -10,10 +10,10 @@ export default Node.extend({
 
   // ----- Arguments -----
   attrs : {
-    session     : nodeAttr,
-    settings    : nodeAttr,
-    stats       : nodeAttr,
-    preferences : nodeAttr,
+    session      : nodeAttr,
+    settingsData : nodeAttr,
+    stats        : nodeAttr,
+    settings  : nodeAttr,
   },
 
 })

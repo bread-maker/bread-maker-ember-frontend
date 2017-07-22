@@ -3521,7 +3521,7 @@ ember-wormhole@^0.5.1:
 
 ember-zen@lolmaus/ember-zen#gen-2:
   version "0.0.0"
-  resolved "https://codeload.github.com/lolmaus/ember-zen/tar.gz/b44243ebba6f1aeda32ee7a8cf6d751cb22e4a67"
+  resolved "https://codeload.github.com/lolmaus/ember-zen/tar.gz/20a99b6497877900ee46df25ee75cd8cb4a4c551"
   dependencies:
     ember-cli-babel "^6.3.0"
     ember-macro-helpers "^0.16.0"

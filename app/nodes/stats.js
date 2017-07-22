@@ -67,7 +67,7 @@ export default Node.extend({
   currentIntervalOption : findBy('intervalOptions', raw('interval'), 'interval'),
 
   statsChartData : computed(
-    'stats',    'currentIntervalOption.multiplier', 'intl', 'moment',       'zen.state.settings.locale', 'zen.state.settings.timezone',
+    'stats',    'currentIntervalOption.multiplier', 'intl', 'moment',       'zen.state.settingsData.locale', 'zen.state.settingsData.timezone',
     (stats = [], multiplier,                         intl,   momentService,  locale) => {
       const limit      = 500
       const lastTime   = stats[stats.length - 1].time
