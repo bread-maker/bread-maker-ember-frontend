@@ -137,10 +137,13 @@ export default AjaxService.extend({
 
   setGlobalBakingConfig (config, params = {}) {
     config = this._mapKeys(config, this._globalBakingConfigMapping)
+    config = this._decamelizeKeys_(config)
 
     return this
       .postMethod('config.baking.global.set', {config, ...params})
       .then(({config}) => config)
+      .then(this._camelizeKeys_)
+      .then(config => this._mapKeysReverse(config, this._globalBakingConfigMapping))
   },
 
   confirmAuth (params = {}) {

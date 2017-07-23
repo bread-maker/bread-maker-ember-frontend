@@ -167,7 +167,8 @@ export default Node.extend({
 
       return this.dispatchPromise('globalBakingConfig', () => {
         return ajax
-          .setGlobalBakingConfig({[key] : efficientValue})
+          .setGlobalBakingConfig({[attr] : value})
+          .then(response => (console.log({response}), response))
           .then(response => (prefsNode.reset(attr), response))
       })
     },
