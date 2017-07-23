@@ -43,7 +43,7 @@ export default Base.extend({
     return zen
       .dispatchPromise('state.session', 'authentication', () => {
         return ajax
-          .getMethod('config.timezone.get', {token})
+          .confirmAuth({token})
           .then(() => ({token}))
       })
   },

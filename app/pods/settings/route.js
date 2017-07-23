@@ -3,6 +3,7 @@ import Route from 'ember-route'
 // import service from 'ember-service/inject'
 
 // ----- Ember addons -----
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin'
 
 // ----- Third-party libraries -----
 // import RSVP from 'rsvp'
@@ -11,7 +12,7 @@ import Route from 'ember-route'
 
 
 
-export default Route.extend({
+export default Route.extend(AuthenticatedRouteMixin, {
 
   // ----- Services -----
 

@@ -1,6 +1,8 @@
 // ----- Ember modules -----
 import {reads} from 'ember-computed'
 import service from 'ember-service/inject'
+import {camelize, decamelize} from 'ember-string'
+import get from 'ember-metal/get'
 
 // ----- Ember Addon modules -----
 import AjaxService from 'ember-ajax/services/ajax'
@@ -55,23 +57,37 @@ export default AjaxService.extend({
 
   getMethod (method, params = {}) {
     const token = this.get('zen.state.session.token')
-    params = {...params, method}
-    if (token) params.token = token
+
+    params = {
+      method,
+      ...params,
+      ...(token ? {token} : {}),
+    }
+
+    params = this._decamelizeKeys_(params)
+
     const finalUrl = this.buildUrlQueryParams(params)
 
     return this
       .request(finalUrl)
+      .then(this._camelizeKeys_)
       .catch(error => this._logOutOnTokenExpired(error))
   },
 
   postMethod (method, data = {}) {
     const finalUrl = this.buildUrlQueryParams({method})
     const token = this.get('zen.state.session.token')
-    data = {...data}
-    if (token) data.token = token
+
+    data = {
+      ...data,
+      ...(token ? {token} : {}),
+    }
+
+    data = this._decamelizeKeys_(data)
 
     return this
       .post(finalUrl, {data})
+      .then(this._camelizeKeys_)
       .catch(error => this._logOutOnTokenExpired(error))
   },
 
@@ -104,16 +120,31 @@ export default AjaxService.extend({
     return this.postMethod('auth.passwd', {password, new_password, params})
   },
 
+  _globalBakingConfigMapping : {
+    maxTempBeforeTimer  : 'maxTempA',
+    maxTempBeforeBaking : 'maxTempB',
+    maxTempAfterBaking  : 'warmTemp',
+    maxTempDuration     : 'maxWarmTime',
+  },
+
   getGlobalBakingConfig (params = {}) {
     return this
       .getMethod('config.baking.global.get', params)
       .then(({config}) => config)
+      .then(this._camelizeKeys_)
+      .then(config => this._mapKeysReverse(config, this._globalBakingConfigMapping))
   },
 
   setGlobalBakingConfig (config, params = {}) {
+    config = this._mapKeys(config, this._globalBakingConfigMapping)
+
     return this
       .postMethod('config.baking.global.set', {config, ...params})
       .then(({config}) => config)
+  },
+
+  confirmAuth (params = {}) {
+    return this.getGlobalBakingConfig(params)
   },
 
 
@@ -134,6 +165,22 @@ export default AjaxService.extend({
 
   _setEmuTemp (temp, params = {}) {
     return this.postMethod('emu.temp', {temp, ...params})
+  },
+
+  _camelizeKeys_ (obj) {
+    return _.mapKeys(obj, (value, key) => camelize(key))
+  },
+
+  _decamelizeKeys_ (obj) {
+    return _.mapKeys(obj, (value, key) => decamelize(key))
+  },
+
+  _mapKeys (obj, mapping) {
+    return _.mapKeys(obj, (value, key) => mapping[key])
+  },
+
+  _mapKeysReverse (obj, mapping) {
+    return _.mapKeys(obj, (value, key) => _.findKey(mapping, value => value === key))
   },
 
 

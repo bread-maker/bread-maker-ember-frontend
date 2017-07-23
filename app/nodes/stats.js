@@ -62,7 +62,7 @@ export default Node.extend({
 
   // ----- Computed properties -----
   stats      : writable('statsResponse.stats'),
-  lastStatus : writable('statsResponse.last_status'),
+  lastStatus : writable('statsResponse.lastStatus'),
 
   currentIntervalOption : findBy('intervalOptions', raw('interval'), 'interval'),
 

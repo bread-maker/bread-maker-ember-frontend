@@ -43,10 +43,10 @@ export default Node.extend({
   temp     : writable('tempResponse'),
   timezone : writable('timezoneResponse'),
 
-  maxTempBeforeTimer  : writable('globalBakingConfigResponse.max_temp_a'),
-  maxTempBeforeBaking : writable('globalBakingConfigResponse.max_temp_b'),
-  maxTempAfterBaking  : writable('globalBakingConfigResponse.warm_temp'),
-  maxTempDuration     : writable('globalBakingConfigResponse.max_warm_time'),
+  maxTempBeforeTimer  : writable('globalBakingConfigResponse.maxTempBeforeTimer'),
+  maxTempBeforeBaking : writable('globalBakingConfigResponse.maxTempBeforeBaking'),
+  maxTempAfterBaking  : writable('globalBakingConfigResponse.maxTempAfterBaking'),
+  maxTempDuration     : writable('globalBakingConfigResponse.maxTempDuration'),
   maxTempDurationMins : divide('maxTempDuration', 60),
 
 
@@ -163,18 +163,7 @@ export default Node.extend({
       const ajax      = this.get('ajax')
       const prefsNode = this.get('zen.state.settings')
 
-      /* eslint-disable indent */
-      const key =
-        attr === 'maxTempBeforeTimer'  ? 'max_temp_a'    :
-        attr === 'maxTempBeforeBaking' ? 'max_temp_b'    :
-        attr === 'maxTempAfterBaking'  ? 'warm_temp'     :
-        attr === 'maxTempDurationMins' ? 'max_warm_time' :
-                                         attr
-
-      const efficientValue =
-        attr === 'maxTempDurationMins' ? value * 60 :
-                                         value
-      /* eslint-enable indent */
+      if (attr === 'maxTempDurationMins') value *= 60
 
       return this.dispatchPromise('globalBakingConfig', () => {
         return ajax
