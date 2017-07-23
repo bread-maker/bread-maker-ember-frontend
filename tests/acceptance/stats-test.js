@@ -20,7 +20,6 @@ describe('Acceptance | stats', function () {
 
 
   it('should display stats', async function () {
-    server.logging = true // ToDo: delete me!
     server.create('stat', {temp : 30})
 
     await page.visit()
