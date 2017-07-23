@@ -3,6 +3,9 @@ import { expect } from 'chai'
 import startApp from 'bread-maker-ember-frontend/tests/helpers/start-app'
 import destroyApp from 'bread-maker-ember-frontend/tests/helpers/destroy-app'
 import page from '../pages/application'
+import { pollTaskFor } from 'ember-lifeline/mixins/run'
+import {REQUEST_STATS_POLL_ID} from 'bread-maker-ember-frontend/constants'
+import {timeout} from 'ember-concurrency'
 
 
 
@@ -38,5 +41,23 @@ describe('Acceptance | stats', function () {
 
     m = "heat"
     expect(page.stats.heat.text, m).equal("off")
+  })
+
+
+
+  it('polling', async function () {
+    server.create('stat', {temp : 30})
+
+    await page.visit()
+
+    m = "#0 Initial: temp"
+    expect(page.stats.temp.text, m).equal("30°C")
+
+    server.create('stat', {temp : 20})
+    pollTaskFor(REQUEST_STATS_POLL_ID)
+    await timeout(0)
+
+    m = "#1 After polling: temp"
+    expect(page.stats.temp.text, m).equal("20°C")
   })
 })

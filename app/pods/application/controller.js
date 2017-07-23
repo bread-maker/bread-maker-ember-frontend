@@ -8,9 +8,7 @@ import computed from 'ember-macro-helpers/computed'
 import RunMixin from 'ember-lifeline/mixins/run'
 
 // ----- Own modules -----
-
-// ----- Constants -----
-const REQUEST_STATS_POLL_ID = 'controller:application#requestStats'
+import {REQUEST_STATS_POLL_ID} from 'bread-maker-ember-frontend/constants'
 
 
 
