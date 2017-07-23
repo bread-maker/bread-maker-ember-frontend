@@ -2,9 +2,9 @@
 // import service from 'ember-service/inject'
 
 // ----- Ember addons -----
-import Node from 'ember-zen/node'
+import {Node, nodeAttr} from 'ember-zen'
 // import computed from 'ember-macro-helpers/computed'
-import writable from 'ember-macro-helpers/writable'
+// import writable from 'ember-macro-helpers/writable'
 // import not from 'ember-awesome-macros/not'
 
 // ----- Third-party libraries -----
@@ -14,12 +14,12 @@ import writable from 'ember-macro-helpers/writable'
 // import timeout from 'bread-maker-ember-frontend/utils/timeout'
 
 // ----- Constants -----
-const RESETTABLE_ATTRS = {
-  maxTempBeforeTimerUserInput  : writable('zen.state.settingsData.maxTempBeforeTimer'),
-  maxTempBeforeBakingUserInput : writable('zen.state.settingsData.maxTempBeforeBaking'),
-  maxTempAfterBakingUserInput  : writable('zen.state.settingsData.maxTempAfterBaking'),
-  maxTempDurationMinsUserInput : writable('zen.state.settingsData.maxTempDurationMins'),
-}
+const RESETTABLE_NODES = [
+  'maxTempBeforeTimerComponent',
+  'maxTempBeforeBakingComponent',
+  'maxTempAfterBakingComponent',
+  'maxTempDurationMinsComponent',
+]
 
 
 
@@ -27,10 +27,13 @@ export default Node.extend({
 
   // ----- Attributes -----
   attrs : {
+    maxTempBeforeTimerComponent  : nodeAttr('components/settings-field-input-button'),
+    maxTempBeforeBakingComponent : nodeAttr('components/settings-field-input-button'),
+    maxTempAfterBakingComponent  : nodeAttr('components/settings-field-input-button'),
+    maxTempDurationMinsComponent : nodeAttr('components/settings-field-input-button'),
+
     oldPasswordUserInput : '',
     newPasswordUserInput : '',
-
-    ...RESETTABLE_ATTRS,
   },
 
 
@@ -44,21 +47,26 @@ export default Node.extend({
 
   // ----- Methods -----
   reset (attr) {
-    if (attr == null) {
-      this.dispatchSetProperties('reset', RESETTABLE_ATTRS)
+    if (attr) {
+      this.resetAttr(attr)
     } else {
-      const key = `${attr}UserInput`
-      const value = RESETTABLE_ATTRS[key]
-      if (!value) throw new Error(`Attempted to reset attr ${key}, but it does not exist`)
-      this.dispatchSet(`reset ${key}`, key, value)
+      this.resetAttrs()
     }
+  },
+
+  resetAttr (attr) {
+    const nodeName = `${attr}Component`
+    const node = this.get(nodeName)
+    node.dispatchAction('reset')
+  },
+
+  resetAttrs () {
+    RESETTABLE_NODES.forEach(attr => this.resetAttr(attr))
   },
 
 
 
   // ----- Actions -----
-  actions : {
-  },
+  // actions : {
+  // },
 })
-
-// ToDo: block buttons when promise is running

@@ -22,11 +22,11 @@ export default Node.extend({
 
   // ----- Attributes -----
   attrs : {
-    locale             : promiseAttr,
-    temp               : promiseAttr,
-    timezone           : promiseAttr,
-    password           : promiseAttr,
-    globalBakingConfig : promiseAttr,
+    locale             : promiseAttr(),
+    temp               : promiseAttr(),
+    timezone           : promiseAttr(),
+    password           : promiseAttr(),
+    globalBakingConfig : promiseAttr(),
   },
 
 
@@ -168,7 +168,6 @@ export default Node.extend({
       return this.dispatchPromise('globalBakingConfig', () => {
         return ajax
           .setGlobalBakingConfig({[attr] : value})
-          .then(response => (console.log({response}), response))
           .then(response => (prefsNode.reset(attr), response))
       })
     },

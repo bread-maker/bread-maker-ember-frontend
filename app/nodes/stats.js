@@ -33,7 +33,7 @@ export default Node.extend({
 
   // ----- Attributes -----
   attrs : {
-    stats : promiseAttr,
+    stats : promiseAttr(),
 
     polling  : true,
     interval : 'sec',

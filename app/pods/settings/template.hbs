@@ -12,8 +12,14 @@
 
 
 
-  {{#settings-field
-    fieldName   = 'maxTempBeforeTimer'
+
+  {{settings-field-input-button
+    node         = zen.state.settings.maxTempBeforeTimerComponent
+    defaultValue = zen.state.settingsData.maxTempBeforeTimer
+
+    fieldName = 'maxTempBeforeTimer'
+    type      = 'number'
+
     label       = (t 'routes.settings.fields.maxTempBeforeTimer.label')
     description = (t 'routes.settings.fields.maxTempBeforeTimer.description')
 
@@ -25,35 +31,24 @@
       field='globalBakingConfig'
       error=(or zen.state.settingsData.globalBakingConfigError.error_text zen.state.settingsData.globalBakingConfigError)
     )
-  }}
-    {{one-way-input
-      type   = 'number'
-      value  = zen.state.settings.maxTempBeforeTimerUserInput
-      update = (action
-        (dispatch-set)
-        zen.state.settings
-        'maxTempBeforeTimerUserInput'
-        'maxTempBeforeTimerUserInput'
-      )
-    }}
 
-    <button
-      {{action
-        (dispatch-action)
-        zen.state.settingsData
-        'setGlobalBakingConfig'
-        'maxTempBeforeTimer'
-        zen.state.settings.maxTempBeforeTimerUserInput
-      }}
-    >
-      {{t 'domain.forms.update'}}
-    </button>
-  {{/settings-field}}{{! maxTempBeforeTimer }}
+    submitAction = (action
+      (dispatch-action)
+      zen.state.settingsData
+      'setGlobalBakingConfig'
+      'maxTempBeforeTimer'
+    )
+  }}{{! maxTempBeforeTimer }}
 
 
 
-  {{#settings-field
-    fieldName   = 'maxTempBeforeBaking'
+  {{settings-field-input-button
+    node         = zen.state.settings.maxTempBeforeBakingComponent
+    defaultValue = zen.state.settingsData.maxTempBeforeBaking
+
+    fieldName = 'maxTempBeforeBaking'
+    type      = 'number'
+
     label       = (t 'routes.settings.fields.maxTempBeforeBaking.label')
     description = (t 'routes.settings.fields.maxTempBeforeBaking.description')
 
@@ -65,35 +60,24 @@
       field='globalBakingConfig'
       error=(or zen.state.settingsData.globalBakingConfigError.error_text zen.state.settingsData.globalBakingConfigError)
     )
-  }}
-    {{one-way-input
-      type   = 'number'
-      value  = zen.state.settings.maxTempBeforeBakingUserInput
-      update = (action
-        (dispatch-set)
-        zen.state.settings
-        'maxTempBeforeBakingUserInput'
-        'maxTempBeforeBakingUserInput'
-      )
-    }}
 
-    <button
-      {{action
-        (dispatch-action)
-        zen.state.settingsData
-        'setGlobalBakingConfig'
-        'maxTempBeforeBaking'
-        zen.state.settings.maxTempBeforeBakingUserInput
-      }}
-    >
-      {{t 'domain.forms.update'}}
-    </button>
-  {{/settings-field}}{{! maxTempBeforeBaking }}
+    submitAction = (action
+      (dispatch-action)
+      zen.state.settingsData
+      'setGlobalBakingConfig'
+      'maxTempBeforeBaking'
+    )
+  }}{{! maxTempBeforeBaking }}
 
 
 
-  {{#settings-field
-    fieldName   = 'maxTempAfterBaking'
+  {{settings-field-input-button
+    node         = zen.state.settings.maxTempAfterBakingComponent
+    defaultValue = zen.state.settingsData.maxTempAfterBaking
+
+    fieldName = 'maxTempAfterBaking'
+    type      = 'number'
+
     label       = (t 'routes.settings.fields.maxTempAfterBaking.label')
     description = (t 'routes.settings.fields.maxTempAfterBaking.description')
 
@@ -105,35 +89,24 @@
       field='globalBakingConfig'
       error=(or zen.state.settingsData.globalBakingConfigError.error_text zen.state.settingsData.globalBakingConfigError)
     )
-  }}
-    {{one-way-input
-      type   = 'number'
-      value  = zen.state.settings.maxTempAfterBakingUserInput
-      update = (action
-        (dispatch-set)
-        zen.state.settings
-        'maxTempAfterBakingUserInput'
-        'maxTempAfterBakingUserInput'
-      )
-    }}
 
-    <button
-      {{action
-        (dispatch-action)
-        zen.state.settingsData
-        'setGlobalBakingConfig'
-        'maxTempAfterBaking'
-        zen.state.settings.maxTempAfterBakingUserInput
-      }}
-    >
-      {{t 'domain.forms.update'}}
-    </button>
-  {{/settings-field}}{{! maxTempAfterBaking }}
+    submitAction = (action
+      (dispatch-action)
+      zen.state.settingsData
+      'setGlobalBakingConfig'
+      'maxTempAfterBaking'
+    )
+  }}{{! maxTempAfterBaking }}
 
 
 
-  {{#settings-field
-    fieldName   = 'maxTempDurationMins'
+  {{settings-field-input-button
+    node         = zen.state.settings.maxTempDurationMinsComponent
+    defaultValue = zen.state.settingsData.maxTempDurationMins
+
+    fieldName = 'maxTempDurationMins'
+    type      = 'number'
+
     label       = (t 'routes.settings.fields.maxTempDurationMins.label')
     description = (t 'routes.settings.fields.maxTempDurationMins.description')
 
@@ -145,30 +118,14 @@
       field='globalBakingConfig'
       error=(or zen.state.settingsData.globalBakingConfigError.error_text zen.state.settingsData.globalBakingConfigError)
     )
-  }}
-    {{one-way-input
-      type   = 'number'
-      value  = zen.state.settings.maxTempDurationMinsUserInput
-      update = (action
-        (dispatch-set)
-        zen.state.settings
-        'maxTempDurationMinsUserInput'
-        'maxTempDurationMinsUserInput'
-      )
-    }}
 
-    <button
-      {{action
-        (dispatch-action)
-        zen.state.settingsData
-        'setGlobalBakingConfig'
-        'maxTempDurationMins'
-        zen.state.settings.maxTempDurationMinsUserInput
-      }}
-    >
-      {{t 'domain.forms.update'}}
-    </button>
-  {{/settings-field}}{{! maxTempDurationMins }}
+    submitAction = (action
+      (dispatch-action)
+      zen.state.settingsData
+      'setGlobalBakingConfig'
+      'maxTempDurationMins'
+    )
+  }}{{! maxTempDurationMins }}
 
 </div>{{! settingsGroup _baking }}
 
@@ -287,7 +244,7 @@
         zen.state.settings.newPasswordUserInput
       }}
     >
-      {{t 'domain.forms.update'}}
+      {{t 'domain.forms.save'}}
     </button>
   {{/settings-field}}{{! password }}
 

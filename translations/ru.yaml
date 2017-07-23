@@ -100,7 +100,8 @@ domain:
     ru: Русский
 
   forms:
-    update: Обновить
+    save: Сохранить
+    saving: Сохраняем...
 
 
 

@@ -99,7 +99,8 @@ domain:
     ru: Русский
 
   forms:
-    update: Update
+    save: Save
+    saving: Saving...
 
 
 

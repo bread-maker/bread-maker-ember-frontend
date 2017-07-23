@@ -14,7 +14,7 @@ export default Node.extend({
 
   // ----- Attributes -----
   attrs : {
-    authentication : promiseAttr,
+    authentication : promiseAttr(),
   },
 
 

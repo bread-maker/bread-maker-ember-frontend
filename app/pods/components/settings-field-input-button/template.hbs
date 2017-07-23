@@ -1,0 +1,23 @@
+{{#settings-field
+  fieldName   = fieldName
+  label       = label
+  description = description
+
+  requestIsPending  = requestIsPending
+  requestIsRejected = requestIsRejected
+
+  errorLabel = errorLabel
+}}
+  {{one-way-input
+    type   = type
+    value  = (if (is-nully node.userInput) defaultValue node.userInput)
+    update = (action (dispatch-set) node 'userInput' 'userInput')
+  }}
+
+  <button
+    disabled = {{or requestIsPending (not node.userInput.length)}}
+    {{action submitAction node.userInput}}
+  >
+    {{t (if requestIsPending 'domain.forms.saving' 'domain.forms.save')}}
+  </button>
+{{/settings-field}}{{! maxTempBeforeTimer }}

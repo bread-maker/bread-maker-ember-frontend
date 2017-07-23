@@ -58,5 +58,9 @@ module.exports = function (environment) {
   //
   // }
 
+  ENV['ember-cli-mirage'] = {
+    enabled : environment === 'test',
+  }
+
   return ENV
 }
