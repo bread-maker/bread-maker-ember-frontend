@@ -13,7 +13,7 @@ export default Node.extend({
     session      : nodeAttr,
     settingsData : nodeAttr,
     stats        : nodeAttr,
-    settings  : nodeAttr,
+    settings     : nodeAttr,
   },
 
 })

@@ -9,6 +9,7 @@ module.exports = {
   },
 
   globals : {
-    sinon : true
+    sinon  : true,
+    server : true,
   },
 };

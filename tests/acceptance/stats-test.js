@@ -3,26 +3,25 @@ import { expect } from 'chai'
 import startApp from 'bread-maker-ember-frontend/tests/helpers/start-app'
 import destroyApp from 'bread-maker-ember-frontend/tests/helpers/destroy-app'
 import page from '../pages/application'
-import PROGRAMS from '../fixtures/programs'
 
 
 
-describe('Acceptance | application', function () {
-  let application, ajax, session, m
+describe('Acceptance | stats', function () {
+  let application, m
 
   beforeEach(function () {
     application = startApp()
-    ajax = application.__container__.lookup('service:ajax')
-    session = application.__container__.lookup('service:session')
   })
 
   afterEach(function () {
     destroyApp(application)
   })
 
+
+
   it('should display stats', async function () {
-    await ajax._setAutorun(false, {forceauth : true})
-    await ajax._setEmuTemp(30,    {forceauth : true})
+    server.logging = true // ToDo: delete me!
+    server.create('stat', {temp : 30})
 
     await page.visit()
 
@@ -39,6 +38,6 @@ describe('Acceptance | application', function () {
     expect(page.stats.motor.text, m).equal("off")
 
     m = "heat"
-    expect(page.stats.heat.text, m).equal("false")
+    expect(page.stats.heat.text, m).equal("off")
   })
 })

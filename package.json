@@ -34,6 +34,7 @@
     "ember-cli-htmlbars-inline-precompile": "^0.4.1",
     "ember-cli-inject-live-reload": "^1.4.1",
     "ember-cli-lolmaus-blueprints": "^0.1.5",
+    "ember-cli-mirage": "^0.3.4",
     "ember-cli-mocha": "^0.14.4",
     "ember-cli-mocha-reporter": "lolmaus/ember-cli-mocha-reporter#patch-1",
     "ember-cli-moment-shim": "^3.3.3",

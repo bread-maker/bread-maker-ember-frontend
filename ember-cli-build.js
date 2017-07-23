@@ -8,11 +8,11 @@ const fs       = require('fs')
 // Dot-env file
 const environment   = process.env.EMBER_ENV || 'development'
 const defaultTarget = environment === 'production' ? 'prod' : 'localhost-4200'
-const target        = process.env.HB_DEPLOY_TARGET || defaultTarget
+const target        = process.env.BM_DEPLOY_TARGET || defaultTarget
 const dotEnvFile    = `./.env-${target}`
 
 if (!fs.existsSync(dotEnvFile)) {
-  if (process.env.HB_DEPLOY_TARGET) {
+  if (process.env.BM_DEPLOY_TARGET) {
     throw new Error(`dot-env file specified but not found: ${dotEnvFile}`)
   } else {
     console.warn(`default dot-env file not found: ${dotEnvFile}, assuming env vars are passed manually`)
@@ -48,6 +48,7 @@ module.exports = function (defaults) {
   if (fs.existsSync(dotEnvFile)) {
     options.dotEnv = {
       clientAllowedKeys : [
+        'BM_DEPLOY_TARGET',
         'BM_BACKEND_URL',
       ],
       path : dotEnvFile,
