@@ -100,3 +100,8 @@ domain:
 
   forms:
     update: Update
+
+
+
+errors:
+  11: Invalid password

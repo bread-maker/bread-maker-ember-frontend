@@ -1,17 +1,41 @@
+/* global server */
+import { Response } from 'ember-cli-mirage'
+
 const LIMIT = 500
 
-const methods = {
-  stats (server, {db}, request) {
+const getMethods = {
+
+  "auth.login" ({db}, {queryParams: {password}}) {
+    const passwordRecord = _.last(db.passwords)
+
+    if (!passwordRecord || passwordRecord.value !== password) {
+      return new Response(401, {}, {error : {error_code : 11}})
+    }
+
+    const token = server.create('token')
+
+    return {token : token.value}
+  },
+
+  stats ({db}/*, request*/) {
     const stats =
       db.stats.length
         ? _.takeRight(db.stats, LIMIT)
-        : null
+        : [server.create('stat')]
 
     return {
       stats,
       last_program : null,
       last_status  : _.last(stats),
     }
+  },
+
+
+
+  "config.baking.global.get" ({db}/*, request*/) {
+    const config = db.globalConfigs[0] || server.create('global-config')
+
+    return {config}
   },
 }
 
@@ -46,6 +70,9 @@ export default function () {
 
   this.get('api/', function (schema, request) {
     const method = request.queryParams.method
-    return methods[method](this, schema, request)
+
+    if (!getMethods[method]) throw new Error(`Mirage API endpoint "${method}" is not defined`)
+
+    return getMethods[method](schema, request)
   })
 }

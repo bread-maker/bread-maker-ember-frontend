@@ -101,3 +101,8 @@ domain:
 
   forms:
     update: Обновить
+
+
+
+errors:
+  11: Неверный пароль

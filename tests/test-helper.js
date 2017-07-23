@@ -5,4 +5,5 @@ import Reporter from './helpers/ember-cli-mocha-reporter'
 
 setResolver(resolver)
 mocha.reporter(Reporter)
-mocha.timeout(10000)
+mocha.slow(10000)
+mocha.timeout(30000)

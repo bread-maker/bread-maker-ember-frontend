@@ -1,39 +1,49 @@
-<div class = "route-login">
+<div class = 'route-login'>
 
-  <h1 class = "route-login-title">
+  <h1 class = 'route-login-title'>
     {{t 'domain.login.login'}}
   </h1>
 
-  {{#if zen.state.session.authenticationIsPending}}
-    {{t 'domain.login.logging-in'}}
-  {{else}}
-    <label>
-      {{t 'domain.login.password'}}:
-    </label>
+  <div class = 'route-login-form'>
+    {{#if zen.state.session.authenticationIsPending}}
 
-    {{input
-      value          = password
-      type           = 'password'
-      insert-newline = (action 'login')
-    }}
+      <span class = 'route-login-form-pendingMessage'>
+        {{t 'domain.login.logging-in'}}
+      </span>
 
-    <button
-      {{action 'login'}}
-    >
-      {{t 'domain.login.log-in'}}
-    </button>
-  {{/if}}
+    {{else}}
 
-  {{#if (and
-    (not zen.state.session.authenticationIsPending)
-    zen.state.session.authenticationError
-  )}}
-    <p>
-      {{or
-        zen.state.session.authenticationError.payload.error.error_text
-        zen.state.session.authenticationError.message
+      <label>
+        {{t 'domain.login.password'}}:
+      </label>
+
+      {{input
+        class = 'route-login-form-passwordField'
+        type  = 'password'
+        value = password
+
+        insert-newline = (action 'login')
       }}
-    </p>
-  {{/if}}
+
+      <button
+        class = 'route-login-form-submitButton'
+        {{action 'login'}}
+      >
+        {{t 'domain.login.log-in'}}
+      </button>
+    {{/if}}{{! authentication promise }}
+
+    {{#if (and
+      (not zen.state.session.authenticationIsPending)
+      zen.state.session.authenticationError
+    )}}
+      <p class = 'route-login-form-error'>
+        {{or
+          (t (concat 'errors.' zen.state.session.authenticationError.payload.error.error_code))
+          zen.state.session.authenticationError.message
+        }}
+      </p>
+    {{/if}}{{! error }}
+  </div>{{! form }}
 
 </div>
