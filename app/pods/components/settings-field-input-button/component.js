@@ -3,13 +3,13 @@ import Component from 'ember-component'
 import service from 'ember-service/inject'
 
 // ----- Ember addons -----
-import raw from 'ember-macro-helpers/raw'
+// import raw from 'ember-macro-helpers/raw'
 import tag from 'ember-awesome-macros/tag'
 
 // ----- Third-party libraries -----
 
 // ----- Own modules -----
-import t from 'bread-maker-ember-frontend/macros/t'
+// import t from 'bread-maker-ember-frontend/macros/t'
 
 
 

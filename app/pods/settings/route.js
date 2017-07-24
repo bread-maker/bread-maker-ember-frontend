@@ -37,8 +37,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
       .requestGlobalBakingConfig()
   },
 
-  deactivate () {
-    this.get('zen.state.settings').reset()
+  resetController (controller, isExiting) {
+    if (isExiting) this.get('zen.state.settings').reset()
   },
 
 

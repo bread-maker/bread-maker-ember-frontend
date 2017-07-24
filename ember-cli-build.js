@@ -7,7 +7,14 @@ const fs       = require('fs')
 
 // Dot-env file
 const environment   = process.env.EMBER_ENV || 'development'
-const defaultTarget = environment === 'production' ? 'prod' : 'localhost-4200'
+
+/* eslint-disable indent */
+const defaultTarget =
+  environment === 'production' ? 'prod' :
+  environment === 'test'       ? 'mirage' :
+                                 'localhost-4200'
+/* eslint-enable indent */
+
 const target        = process.env.BM_DEPLOY_TARGET || defaultTarget
 const dotEnvFile    = `./.env-${target}`
 
