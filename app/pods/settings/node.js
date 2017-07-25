@@ -15,10 +15,10 @@ import {Node, nodeAttr} from 'ember-zen'
 
 // ----- Constants -----
 const RESETTABLE_NODES = [
-  'maxTempBeforeTimerComponent',
-  'maxTempBeforeBakingComponent',
-  'maxTempAfterBakingComponent',
-  'maxTempDurationMinsComponent',
+  'maxTempBeforeTimer',
+  'maxTempBeforeBaking',
+  'maxTempAfterBaking',
+  'maxTempDurationMins',
 ]
 
 

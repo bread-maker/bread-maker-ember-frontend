@@ -9,12 +9,14 @@
   errorLabel = errorLabel
 }}
   {{one-way-input
+    class  = 'settingsFieldInputButton-input'
     type   = type
     value  = (if (is-nully node.userInput) defaultValue node.userInput)
     update = (action (dispatch-set) node 'userInput' 'userInput')
   }}
 
   <button
+    class    = 'settingsFieldInputButton-submit'
     disabled = {{or requestIsPending (not node.userInput.length)}}
     {{action submitAction node.userInput}}
   >

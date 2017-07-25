@@ -3,7 +3,9 @@ import { Response } from 'ember-cli-mirage'
 
 const LIMIT = 500
 
-const getMethods = {
+
+
+const methods = {
 
   "auth.login" ({db}, {queryParams: {password}}) {
     const passwordRecord = _.last(db.passwords)
@@ -37,6 +39,30 @@ const getMethods = {
 
     return {config}
   },
+
+
+
+  "config.baking.global.set" ({db}, params/*, request*/) {
+    let config = _.last(db.globalConfigs) || server.create('global-config')
+    const newValues = _.mapValues(params.config, value => parseInt(value, 10))
+    config = db.globalConfigs.update(config.id, newValues)
+    return {config}
+  },
+}
+
+
+
+function parseParams (str) {
+  if (!str) return
+
+  return str
+    .split('&')
+    .map(substr => substr.split('=').map(decodeURIComponent))
+    .reduce((result, [key, value]) => {
+      const path = key.replace(/\[/g, '.').replace(/\]/g, '')
+      _.set(result, path, value)
+      return result
+    }, {})
 }
 
 
@@ -71,8 +97,18 @@ export default function () {
   this.get('api/', function (schema, request) {
     const method = request.queryParams.method
 
-    if (!getMethods[method]) throw new Error(`Mirage API endpoint "${method}" is not defined`)
+    if (!methods[method]) throw new Error(`Mirage API endpoint "${method}" is not defined`)
 
-    return getMethods[method](schema, request)
+    return methods[method](schema, request)
+  })
+
+  this.post('api/', function (schema, request) {
+    const method = request.queryParams.method
+
+    if (!methods[method]) throw new Error(`Mirage API endpoint "${method}" is not defined`)
+
+    const params = parseParams(request.requestBody)
+
+    return methods[method](schema, params, request)
   })
 }

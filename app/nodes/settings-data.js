@@ -163,11 +163,12 @@ export default Node.extend({
       const ajax      = this.get('ajax')
       const prefsNode = this.get('zen.state.settings')
 
-      if (attr === 'maxTempDurationMins') value *= 60
+      const effectiveValue = attr === 'maxTempDurationMins' ? value * 60 : value
+      const effectiveAttr  = attr === 'maxTempDurationMins' ? 'maxTempDuration' : attr
 
       return this.dispatchPromise('globalBakingConfig', () => {
         return ajax
-          .setGlobalBakingConfig({[attr] : value})
+          .setGlobalBakingConfig({[effectiveAttr] : effectiveValue})
           .then(response => (prefsNode.reset(attr), response))
       })
     },

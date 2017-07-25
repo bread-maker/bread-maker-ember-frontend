@@ -24,6 +24,7 @@
     "ember-chrome-devtools": "^0.1.1",
     "ember-cli": "~2.14.0",
     "ember-cli-app-version": "^3.0.0",
+    "ember-cli-asset-sizes-shim": "^0.1.2",
     "ember-cli-babel": "^6.3.0",
     "ember-cli-chai": "^0.4.2",
     "ember-cli-chart": "^3.3.0",
