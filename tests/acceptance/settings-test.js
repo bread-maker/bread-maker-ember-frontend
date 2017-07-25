@@ -70,8 +70,6 @@ describe('Acceptance | settings', function () {
     m = `#1 After updating fields: Field maxTempDurationMins content`
     expect(page.maxTempDurationMins.input.value, m).equal('2')
 
-    console.log(server.db.globalConfigs)
-
     m = "Server globalConfig"
     expect(_.last(server.db.globalConfigs), m).superset({
       max_temp_a    : 51,
