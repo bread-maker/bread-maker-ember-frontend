@@ -3,7 +3,8 @@ import { describe, it, beforeEach, afterEach } from 'mocha'
 import { expect } from 'chai'
 import startApp from 'bread-maker-ember-frontend/tests/helpers/start-app'
 import destroyApp from 'bread-maker-ember-frontend/tests/helpers/destroy-app'
-import { authenticateSession, currentSession } from 'bread-maker-ember-frontend/tests/helpers/ember-simple-auth'
+import { currentSession } from 'bread-maker-ember-frontend/tests/helpers/ember-simple-auth'
+import createTokenAndAuthenticateSession from 'bread-maker-ember-frontend/tests/helpers/session'
 import page from '../pages/login'
 import ignoreError from '../helpers/ignore-error'
 import {isUnauthorizedError} from 'ember-ajax/errors'
@@ -42,7 +43,7 @@ describe('Acceptance | login', function () {
 
 
   it('should not redirect to login from settings when authenticated', async function () {
-    authenticateSession(application)
+    await createTokenAndAuthenticateSession({server, application})
     await visit('/settings')
 
     m = 'Current URL'

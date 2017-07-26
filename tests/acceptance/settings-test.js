@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import startApp from 'bread-maker-ember-frontend/tests/helpers/start-app'
 import destroyApp from 'bread-maker-ember-frontend/tests/helpers/destroy-app'
 import page from '../pages/settings'
-import { authenticateSession } from 'bread-maker-ember-frontend/tests/helpers/ember-simple-auth'
+import createTokenAndAuthenticateSession from 'bread-maker-ember-frontend/tests/helpers/session'
 // import {timeout} from 'ember-concurrency'
 
 
@@ -15,6 +15,7 @@ describe('Acceptance | settings', function () {
 
   beforeEach(function () {
     application = startApp()
+    createTokenAndAuthenticateSession({server, application})
   })
 
   afterEach(function () {
@@ -31,7 +32,6 @@ describe('Acceptance | settings', function () {
       max_warm_time : 60,
     })
 
-    authenticateSession(application)
     await page.visit()
 
     m = `#0 Initial: Field maxTempBeforeTimer content`
