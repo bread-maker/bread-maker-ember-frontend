@@ -38,10 +38,7 @@
       zen.state.session.authenticationError
     )}}
       <p class = 'route-login-form-error'>
-        {{or
-          (t (concat 'errors.' zen.state.session.authenticationError.payload.error.error_code))
-          zen.state.session.authenticationError.message
-        }}
+        {{error zen.state.session.authenticationError}}
       </p>
     {{/if}}{{! error }}
   </div>{{! form }}

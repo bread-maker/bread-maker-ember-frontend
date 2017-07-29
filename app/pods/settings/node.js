@@ -32,6 +32,8 @@ export default Node.extend({
     maxTempAfterBakingComponent  : nodeAttr('components/settings-field-input-button'),
     maxTempDurationMinsComponent : nodeAttr('components/settings-field-input-button'),
 
+    lastUpdatedGBCAttr : undefined,
+
     oldPasswordUserInput : '',
     newPasswordUserInput : '',
   },

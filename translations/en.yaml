@@ -5,6 +5,7 @@ product:
     info: '<strong>{product}</strong> will cost <em>{price, number, USD}</em> if ordered by {deadline, date, time}'
 
 
+
 routes:
   application:
     menu:
@@ -105,4 +106,18 @@ domain:
 
 
 errors:
+  unknown: Something wrong happened
+  10: Authorization required
   11: Invalid password
+  12: Invalid authorization token
+  13: Authorization token expired
+  14: Method name required
+  15: Invalid method name
+  16: Missed argument
+  17: Invalid argument
+  18: Remote error
+  19: Invalid baking state
+  20: Communication timeout
+  21: Baking program corrupted
+  22: Internal exception
+  23: Timeout

@@ -12,8 +12,8 @@ export async function authenticateSession (app, sessionData) {
 
 
 
-export default function createTokenAndAuthenticateSession ({server, application}) {
-  const token = server.create('token').value
+export default function createTokenAndAuthenticateSession (server, application, data = {}) {
+  const token = server.create('token', data).value
   return authenticateSession(application, {token})
 }
 

@@ -5,8 +5,8 @@ const LIMIT = 500
 
 
 
-function respondUnauthorized () {
-  return new Response(401, {}, {error : {error_code : 11}})
+function respondUnauthorized (error_code = 11) {
+  return new Response(401, {}, {error : {error_code}})
 }
 
 
@@ -102,6 +102,9 @@ export default function () {
   */
 
   this.get('api/', function (schema, request) {
+    const error = schema.db.errors[0]
+    if (error) return new Response(error.status_code, {}, {error})
+
     const {method, token} = request.queryParams
 
     if (anonMethods[method]) return anonMethods[method](schema, request)
@@ -110,12 +113,16 @@ export default function () {
 
     const storeToken = _.last(schema.db.tokens)
 
-    if (!token || !storeToken || token !== storeToken.value) return respondUnauthorized()
+    if (!token || !storeToken || token !== storeToken.value) return respondUnauthorized(11)
+    if (storeToken.expired) return respondUnauthorized(13)
 
     return authMethods[method](schema, request)
   })
 
   this.post('api/', function (schema, request) {
+    const error = schema.db.errors[0]
+    if (error) return new Response(error.status_code, {}, {error})
+
     const {method} = request.queryParams
     const params = parseParams(request.requestBody)
     const {token} = params
@@ -126,7 +133,8 @@ export default function () {
 
     const storeToken = _.last(schema.db.tokens)
 
-    if (!token || !storeToken || token !== storeToken.value) return respondUnauthorized()
+    if (!token || !storeToken || token !== storeToken.value) return respondUnauthorized(11)
+    if (storeToken.expired) return respondUnauthorized(13)
 
     return authMethods[method](schema, params, request)
   })

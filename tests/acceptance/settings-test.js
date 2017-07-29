@@ -5,6 +5,7 @@ import destroyApp from 'bread-maker-ember-frontend/tests/helpers/destroy-app'
 import page from '../pages/settings'
 import createTokenAndAuthenticateSession from 'bread-maker-ember-frontend/tests/helpers/session'
 // import {timeout} from 'ember-concurrency'
+import ignoreError from '../helpers/ignore-error'
 
 
 
@@ -15,7 +16,7 @@ describe('Acceptance | settings', function () {
 
   beforeEach(function () {
     application = startApp()
-    createTokenAndAuthenticateSession({server, application})
+    createTokenAndAuthenticateSession(server, application)
   })
 
   afterEach(function () {
@@ -77,5 +78,51 @@ describe('Acceptance | settings', function () {
       warm_temp     : 71,
       max_warm_time : 120,
     })
+  })
+
+  it('treating errors', async function () {
+    server.logging = true
+    server.create('global-config', {
+      max_temp_a    : 50,
+      max_temp_b    : 60,
+      warm_temp     : 70,
+      max_warm_time : 60,
+    })
+
+    await page.visit()
+
+    server.create('error')
+
+    await ignoreError(
+      error => _.get(error, 'status') == 500, // eslint-disable-line eqeqeq
+      async () => {
+        await page.maxTempBeforeTimer.input.fill('51')
+        await page.maxTempBeforeTimer.submit.click()
+      }
+    )
+    m = `Field maxTempBeforeTimer content`
+    expect(page.maxTempBeforeTimer.input.value, m).equal('51')
+
+    m = `Field maxTempBeforeBaking content`
+    expect(page.maxTempBeforeBaking.input.value, m).equal('60')
+
+    m = `Field maxTempAfterBaking content`
+    expect(page.maxTempAfterBaking.input.value, m).equal('70')
+
+    m = `Field maxTempDurationMins content`
+    expect(page.maxTempDurationMins.input.value, m).equal('1')
+
+    m = `Field maxTempBeforeTimer status text`
+    expect(page.maxTempBeforeTimer.status.text, m)
+      .equal('Failed to update globalBakingConfig: Internal exception')
+
+    m = `Field maxTempBeforeBaking status existence`
+    expect(page.maxTempBeforeBaking.status.exists, m).false
+
+    m = `Field maxTempAfterBaking status existence`
+    expect(page.maxTempAfterBaking.status.exists, m).false
+
+    m = `Field maxTempDurationMins status existence`
+    expect(page.maxTempDurationMins.status.exists, m).false
   })
 })

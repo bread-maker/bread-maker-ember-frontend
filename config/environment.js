@@ -2,6 +2,7 @@
 const _ = require('lodash')
 
 const envVars = _.pick(process.env, [
+  'BM_DEPLOY_TARGET',
   'BM_BACKEND_URL',
 ])
 
@@ -59,7 +60,8 @@ module.exports = function (environment) {
   // }
 
   ENV['ember-cli-mirage'] = {
-    enabled : environment === 'test',
+    enabled : environment === 'test' || envVars.BM_DEPLOY_TARGET === 'mirage',
+    // enabled : true,
   }
 
   return ENV

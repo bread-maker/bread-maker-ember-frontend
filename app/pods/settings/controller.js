@@ -49,6 +49,11 @@ export default Controller.extend({
 
 
   // ----- Actions -----
-  // actions : {
-  // },
+  actions : {
+    setGlobalBakingConfig (attr, value) {
+      const zen = this.get('zen')
+      zen.dispatchSet('state.settings', 'lastUpdatedGBCAttr', 'lastUpdatedGBCAttr', attr)
+      zen.dispatchAction('state.settingsData', 'setGlobalBakingConfig', attr, value)
+    },
+  },
 })

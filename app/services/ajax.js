@@ -6,7 +6,6 @@ import {camelize, decamelize} from 'ember-string'
 
 // ----- Ember Addon modules -----
 import AjaxService from 'ember-ajax/services/ajax'
-import {isUnauthorizedError} from 'ember-ajax/errors'
 
 // ----- Third-party modules -----
 import RSVP from 'rsvp'
@@ -36,6 +35,13 @@ export default AjaxService.extend({
 
 
   // ----- Overridden Methods -----
+  normalizeErrorResponse (status, headers, payload) {
+    return {
+      payload,
+      headers,
+      status,
+    }
+  },
 
 
 
@@ -72,6 +78,7 @@ export default AjaxService.extend({
       .request(finalUrl)
       .then(this._camelizeKeys_)
       .catch(error => this._logOutOnTokenExpired(error))
+      .catch(error => RSVP.reject(this._formatError(error)))
   },
 
   postMethod (method, data = {}) {
@@ -89,6 +96,7 @@ export default AjaxService.extend({
       .post(finalUrl, {data})
       .then(this._camelizeKeys_)
       .catch(error => this._logOutOnTokenExpired(error))
+      .catch(error => RSVP.reject(this._formatError(error)))
   },
 
 
@@ -154,11 +162,26 @@ export default AjaxService.extend({
 
   // ----- Private methods -----
   _logOutOnTokenExpired (error) {
-    if (isUnauthorizedError(error) && this.get('session.isAuthenticated')) {
+    if (this.isUnauthorizedError(error) && this.get('session.isAuthenticated')) {
       this.get('session').invalidate()
     }
 
     return RSVP.reject(error)
+  },
+
+  _formatError (error) {
+    const payload =
+      error.payload.payload.error
+        ? this._camelizeKeys_(error.payload.payload.error)
+        : error.payload.payload.error
+
+    return {
+      payload,
+      message : error.message,
+      stack   : error.stack,
+      status  : error.payload.status,
+      headers : error.payload.headers,
+    }
   },
 
   _setAutorun (enabled, params = {}) {

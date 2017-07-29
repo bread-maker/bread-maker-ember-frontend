@@ -2,7 +2,7 @@
 // import service from 'ember-service/inject'
 
 // ----- Ember addons -----
-import Node from 'ember-zen/node'
+import {Node} from 'ember-zen'
 // import computed from 'ember-macro-helpers/computed'
 // import writable from 'ember-macro-helpers/writable'
 // import not from 'ember-awesome-macros/not'

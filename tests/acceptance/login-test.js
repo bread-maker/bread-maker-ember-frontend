@@ -7,8 +7,6 @@ import { currentSession } from 'bread-maker-ember-frontend/tests/helpers/ember-s
 import createTokenAndAuthenticateSession from 'bread-maker-ember-frontend/tests/helpers/session'
 import page from '../pages/login'
 import ignoreError from '../helpers/ignore-error'
-import {isUnauthorizedError} from 'ember-ajax/errors'
-
 
 
 let application, m
@@ -43,7 +41,7 @@ describe('Acceptance | login', function () {
 
 
   it('should not redirect to login from settings when authenticated', async function () {
-    await createTokenAndAuthenticateSession({server, application})
+    await createTokenAndAuthenticateSession(server, application)
     await visit('/settings')
 
     m = 'Current URL'
@@ -86,6 +84,7 @@ describe('Acceptance | login', function () {
     server.create('password', {value : 'foo'})
 
     await ignoreError(
+      error => _.get(error, 'status') == 401, // eslint-disable-line eqeqeq
       async () => {
         await page.visit()
         await page.passwordField.fill('bar')
@@ -96,8 +95,22 @@ describe('Acceptance | login', function () {
 
         m = 'Error text'
         expect(page.error.text, m).equal('Invalid password')
-      },
-      exception => isUnauthorizedError(exception)
+      }
     )
   })
+
+
+
+  // it('asdf', async function () {
+  //   await createTokenAndAuthenticateSession(server, application, {expired : true})
+  //
+  //   await ignoreError(
+  //     error => _.get(error, 'status') == 401, // eslint-disable-line eqeqeq
+  //     async () => {
+  //       await visit('/settings')
+  //
+  //       // await new Promise(() => {})
+  //     }
+  //   )
+  // })
 })
