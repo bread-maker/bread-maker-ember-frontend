@@ -27,7 +27,7 @@ function parseParams (str) {
 
 
 function respond (schema, request) {
-  const error = schema.db.errors[0]
+  const error = _.last(schema.db.errors)
   if (error) return new Response(error.status_code, {}, {error})
 
   const params = {
@@ -88,7 +88,7 @@ const anonMethods = {
 
 const authMethods = {
   "config.baking.global.get" ({db}/*, request*/) {
-    const config = db.globalConfigs[0] || server.create('global-config')
+    const config = d_.last(db.globalConfigs) || server.create('global-config')
 
     return {config}
   },
