@@ -26,9 +26,40 @@ function parseParams (str) {
 
 
 
+function respond (schema, request) {
+  const error = schema.db.errors[0]
+  if (error) return new Response(error.status_code, {}, {error})
+
+  const params = {
+    ...request.queryParams,
+    ...parseParams(request.requestBody),
+  }
+
+  const {method, token} = params
+
+  let callback
+
+  if (anonMethods[method]) {
+    callback = anonMethods[method]
+  } else {
+    if (!authMethods[method]) throw new Error(`Mirage API endpoint "${method}" is not defined`)
+
+    const storeToken = _.last(schema.db.tokens)
+
+    if (!token || !storeToken || token !== storeToken.value) return respondUnauthorized(11)
+    if (storeToken.expired) return respondUnauthorized(13)
+
+    callback = authMethods[method]
+  }
+
+  return callback(schema, request, params)
+}
+
+
+
 const anonMethods = {
 
-  "auth.login" ({db}, {queryParams: {password}}) {
+  "auth.login" ({db}, request, {password}) {
     const passwordRecord = _.last(db.passwords)
 
     if (!passwordRecord || passwordRecord.value !== password) {
@@ -40,7 +71,7 @@ const anonMethods = {
     return {token : token.value}
   },
 
-  stats ({db}/*, request*/) {
+  stats ({db}/*, request, params*/) {
     const stats =
       db.stats.length
         ? _.takeRight(db.stats, LIMIT)
@@ -64,7 +95,7 @@ const authMethods = {
 
 
 
-  "config.baking.global.set" ({db}, params/*, request*/) {
+  "config.baking.global.set" ({db}, request, params) {
     let config = _.last(db.globalConfigs) || server.create('global-config')
     const newValues = _.mapValues(params.config, value => parseInt(value, 10))
     config = db.globalConfigs.update(config.id, newValues)
@@ -102,40 +133,10 @@ export default function () {
   */
 
   this.get('api/', function (schema, request) {
-    const error = schema.db.errors[0]
-    if (error) return new Response(error.status_code, {}, {error})
-
-    const {method, token} = request.queryParams
-
-    if (anonMethods[method]) return anonMethods[method](schema, request)
-
-    if (!authMethods[method]) throw new Error(`Mirage API endpoint "${method}" is not defined`)
-
-    const storeToken = _.last(schema.db.tokens)
-
-    if (!token || !storeToken || token !== storeToken.value) return respondUnauthorized(11)
-    if (storeToken.expired) return respondUnauthorized(13)
-
-    return authMethods[method](schema, request)
+    return respond(schema, request)
   })
 
   this.post('api/', function (schema, request) {
-    const error = schema.db.errors[0]
-    if (error) return new Response(error.status_code, {}, {error})
-
-    const {method} = request.queryParams
-    const params = parseParams(request.requestBody)
-    const {token} = params
-
-    if (anonMethods[method]) return anonMethods[method](schema, params, request)
-
-    if (!authMethods[method]) throw new Error(`Mirage API endpoint "${method}" is not defined`)
-
-    const storeToken = _.last(schema.db.tokens)
-
-    if (!token || !storeToken || token !== storeToken.value) return respondUnauthorized(11)
-    if (storeToken.expired) return respondUnauthorized(13)
-
-    return authMethods[method](schema, params, request)
+    return respond(schema, request)
   })
 }

@@ -26,6 +26,8 @@ describe('Acceptance | settings', function () {
 
 
   it('interacting with fields', async function () {
+    server.logging = true
+
     server.create('global-config', {
       max_temp_a    : 50,
       max_temp_b    : 60,
@@ -100,6 +102,7 @@ describe('Acceptance | settings', function () {
         await page.maxTempBeforeTimer.submit.click()
       }
     )
+
     m = `Field maxTempBeforeTimer content`
     expect(page.maxTempBeforeTimer.input.value, m).equal('51')
 
