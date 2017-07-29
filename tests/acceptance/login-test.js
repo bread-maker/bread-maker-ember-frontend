@@ -101,16 +101,17 @@ describe('Acceptance | login', function () {
 
 
 
-  // it('asdf', async function () {
-  //   await createTokenAndAuthenticateSession(server, application, {expired : true})
-  //
-  //   await ignoreError(
-  //     error => _.get(error, 'status') == 401, // eslint-disable-line eqeqeq
-  //     async () => {
-  //       await visit('/settings')
-  //
-  //       // await new Promise(() => {})
-  //     }
-  //   )
-  // })
+  it('should log out on expired token', async function () {
+    await createTokenAndAuthenticateSession(server, application, {expired : true})
+
+    await ignoreError(
+      error => _.get(error, 'status') == 401, // eslint-disable-line eqeqeq
+      async () => {
+        await visit('/settings')
+
+        m = "session.isAuthenticated"
+        expect(currentSession(application).get('isAuthenticated'), m).false
+      }
+    )
+  })
 })
