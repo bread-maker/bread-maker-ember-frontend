@@ -88,7 +88,7 @@ const anonMethods = {
 
 const authMethods = {
   "config.baking.global.get" ({db}/*, request*/) {
-    const config = d_.last(db.globalConfigs) || server.create('global-config')
+    const config = _.last(db.globalConfigs) || server.create('global-config')
 
     return {config}
   },
