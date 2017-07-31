@@ -19,5 +19,6 @@ export default create({
   maxTempAfterBaking  : {...input, scope : '.route-settings-field._maxTempAfterBaking'},
   maxTempDurationMins : {...input, scope : '.route-settings-field._maxTempDurationMins'},
 
-  locale : {...select, scope : '.route-settings-field._locale'},
+  locale   : {...select, scope : '.route-settings-field._locale'},
+  timezone : {...select, scope : '.route-settings-field._timezone'},
 })

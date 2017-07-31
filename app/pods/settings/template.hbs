@@ -80,22 +80,24 @@
 
 
   {{#settings-field-select
+    class = "route-settings-field"
+
     fieldName   = 'timezone'
     label       = (t 'routes.settings.fields.timezone.label')
 
-    requestIsPending  = zen.state.settingsData.timezoneIsPending
-    requestIsRejected = zen.state.settingsData.timezoneIsRejected
+    requestIsPending  = zen.state.settingsData.miscConfigIsPending
+    requestIsRejected = zen.state.settingsData.miscConfigIsRejected
 
-    selected = zen.state.settingsData.timezoneResponse
+    selected = zen.state.settingsData.timezone
     options  = timezones
 
     errorLabel = (t
       'routes.settings.error'
       field='timezone'
-      error=(or zen.state.settingsData.timezoneError.error_text zen.state.settingsData.timezoneError)
+      error=(error zen.state.settingsData.miscConfigError)
     )
 
-    updateAction = (action (dispatch-action) zen.state.settingsData 'setTimezone')
+    updateAction = (action (dispatch-action) zen.state.settingsData 'setMiscConfig' 'timezone')
     as |timezone|
   }}
     {{timezone}}

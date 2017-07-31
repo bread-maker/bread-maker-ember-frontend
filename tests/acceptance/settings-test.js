@@ -136,7 +136,7 @@ describe('Acceptance | settings', function () {
 
     await page.locale.openPicker()
 
-    m = '#0 Initial: Local field label'
+    m = '#0 Initial: Locale field label'
     expect(page.locale.label.text, m).equal('Language')
 
     m = '#0 Initial: Selected item text'
@@ -154,5 +154,44 @@ describe('Acceptance | settings', function () {
     expect(_.last(server.db.miscConfigs), m).superset({
       locale : 'ru',
     })
+  })
+
+
+
+  it('setting timezone', async function () {
+    server.create('misc-config', {locale : 'en-gb', timezone : 'UTC'})
+
+    await page.visit()
+
+    await page.timezone.openPicker()
+
+    m = '#0 Initial: Selected item text'
+    expect(page.timezone.selectedItem.text, m).equal('UTC')
+
+    m = '#0 Initial: Timezones count'
+    expect(page.timezone.options().count, m).gt(500)
+
+    await page.timezone.pickOption('Etc/GMT+3')
+
+    m = 'Server miscConfig'
+    expect(_.last(server.db.miscConfigs), m).superset({
+      timezone : 'Etc/GMT+3',
+    })
+  })
+
+
+
+  it('missing misc settings', async function () {
+    server.create('misc-config', {locale : undefined, timezone : undefined})
+
+    await page.visit()
+
+    await page.timezone.openPicker()
+
+    m = 'Locale'
+    expect(page.locale.selectedItem.text, m).equal('English (Europe)')
+
+    m = 'Timezone'
+    expect(page.timezone.selectedItem.text, m).equal('UTC')
   })
 })
