@@ -154,6 +154,28 @@ export default AjaxService.extend({
       .then(config => this._mapKeysReverse(config, this._globalBakingConfigMapping))
   },
 
+  getMiscConfig (params = {}) {
+    return this
+      .getMethod('config.misc.get', params)
+      .then(({config}) => config)
+      .then(this._camelizeKeys_)
+
+      // ToDo: deal with this on the backend side
+      .then(config => ({
+        ...config,
+        locale : config.locale && config.locale.toLowerCase(),
+      }))
+  },
+
+  setMiscConfig (key, value, params = {}) {
+    key = decamelize(key)
+
+    return this
+      .postMethod('config.misc.set', {key, value, params})
+      .then(({config}) => config)
+      .then(this._camelizeKeys_)
+  },
+
   confirmAuth (params = {}) {
     return this.getGlobalBakingConfig(params)
   },

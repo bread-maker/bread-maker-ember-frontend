@@ -53,23 +53,25 @@
   </h2>
 
   {{#settings-field-select
+    class = "route-settings-field"
+
     fieldName   = 'locale'
     label       = (t 'routes.settings.fields.locale.label')
     description = (t 'routes.settings.fields.locale.description')
 
-    requestIsPending  = zen.state.settingsData.localeIsPending
-    requestIsRejected = zen.state.settingsData.localeIsRejected
+    requestIsPending  = zen.state.settingsData.miscConfigIsPending
+    requestIsRejected = zen.state.settingsData.miscConfigIsRejected
 
-    selected = zen.state.settingsData.localeResponse
+    selected = zen.state.settingsData.locale
     options  = intl.locales
 
     errorLabel = (t
       'routes.settings.error'
       field='locale'
-      error=(error zen.state.settingsData.localeError)
+      error=(error zen.state.settingsData.miscConfigError)
     )
 
-    updateAction = (action (dispatch-action) zen.state.settingsData 'setLocale')
+    updateAction = (action (dispatch-action) zen.state.settingsData 'setMiscConfig' 'locale')
     as |locale|
   }}
     {{t (concat 'domain.locale.' locale)}}

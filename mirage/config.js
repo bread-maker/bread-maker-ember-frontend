@@ -83,6 +83,12 @@ const anonMethods = {
       last_status  : _.last(stats),
     }
   },
+
+  "config.misc.get" ({db}/*, request*/) {
+    const config = _.last(db.miscConfigs) || server.create('misc-config')
+
+    return {config}
+  },
 }
 
 
@@ -93,12 +99,17 @@ const authMethods = {
     return {config}
   },
 
-
-
   "config.baking.global.set" ({db}, request, params) {
     let config = _.last(db.globalConfigs) || server.create('global-config')
     const newValues = _.mapValues(params.config, value => parseInt(value, 10))
     config = db.globalConfigs.update(config.id, newValues)
+    return {config}
+  },
+
+  "config.misc.set" ({db}, request, params) {
+    let config = _.last(db.miscConfigs) || server.create('misc-config')
+    const {key, value} = params
+    config = db.miscConfigs.update(config.id, {[key] : value})
     return {config}
   },
 }

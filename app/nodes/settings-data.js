@@ -23,10 +23,10 @@ export default Node.extend({
   // ----- Attributes -----
   attrs : {
     locale             : promiseAttr(),
-    temp               : promiseAttr(),
     timezone           : promiseAttr(),
     password           : promiseAttr(),
     globalBakingConfig : promiseAttr(),
+    miscConfig         : promiseAttr(),
   },
 
 
@@ -39,8 +39,7 @@ export default Node.extend({
 
 
   // ----- Computed properties -----
-  locale   : writable('localeResponse'),
-  temp     : writable('tempResponse'),
+  locale   : writable('miscConfigResponse.locale'),
   timezone : writable('timezoneResponse'),
 
   maxTempBeforeTimer  : writable('globalBakingConfigResponse.maxTempBeforeTimer'),
@@ -52,26 +51,16 @@ export default Node.extend({
 
 
   // ----- Methods -----
-  requestLocale () {
-    const key    = `${LS_PREFIX}locale`
-    const locale = localStorage.getItem(key) || 'en-gb'
-
-    return this.dispatchPromise('locale', () => {
-      return timeout(1000)
-        .then(() => locale)
-        .then(locale => this.updateLocale(locale))
-    })
-  },
-
-  requestTemp () {
-    const key  = `${LS_PREFIX}temp`
-    const temp = localStorage.getItem(key) || 'celsius'
-
-    return this.dispatchPromise('temp', () => {
-      return timeout(1000)
-        .then(() => temp)
-    })
-  },
+  // requestLocale () {
+  //   const key    = `${LS_PREFIX}locale`
+  //   const locale = localStorage.getItem(key) || 'en-gb'
+  //
+  //   return this.dispatchPromise('locale', () => {
+  //     return timeout(1000)
+  //       .then(() => locale)
+  //       .then(locale => this.updateLocale(locale))
+  //   })
+  // },
 
   requestTimezone () {
     const key = `${LS_PREFIX}timezone`
@@ -86,8 +75,7 @@ export default Node.extend({
 
   request () {
     return RSVP.hash({
-      locale   : this.requestLocale(),
-      temp     : this.requestTemp(),
+      misc     : this.requestMiscConfig(),
       timezone : this.requestTimezone(),
     })
   },
@@ -100,13 +88,27 @@ export default Node.extend({
     })
   },
 
-  updateLocale (locale) {
+  requestMiscConfig () {
+    const ajax = this.get('ajax')
+
+    return this.dispatchPromise('miscConfig', () => {
+      return ajax
+        .getMiscConfig()
+        .then(config => this.applyMiscConfig(config))
+    })
+  },
+
+  applyMiscConfig (config) {
+    this.useLocale(config.locale || 'en-gb')
+    return config
+  },
+
+  useLocale (locale) {
     const intl   = this.get('intl')
     const moment = this.get('moment')
 
     intl.setLocale(locale)
     moment.setLocale(locale)
-    return locale
   },
 
   updateTimezone (timezone) {
@@ -119,26 +121,16 @@ export default Node.extend({
 
 
   actions : {
-    setLocale (locale) {
-      const key = `${LS_PREFIX}locale`
-      localStorage.setItem(key, locale)
-
-      return this.dispatchPromise('locale', () => {
-        return timeout(1000)
-          .then(() => locale)
-          .then(() => this.updateLocale(locale))
-      })
-    },
-
-    setTemp (temp) {
-      const key = `${LS_PREFIX}temp`
-      localStorage.setItem(key, temp)
-
-      return this.dispatchPromise('temp', () => {
-        return timeout(1000)
-          .then(() => temp)
-      })
-    },
+    // setLocale (locale) {
+    //   const key = `${LS_PREFIX}locale`
+    //   localStorage.setItem(key, locale)
+    //
+    //   return this.dispatchPromise('locale', () => {
+    //     return timeout(1000)
+    //       .then(() => locale)
+    //       .then(() => this.updateLocale(locale))
+    //   })
+    // },
 
     setTimezone (timezone) {
       const key = `${LS_PREFIX}timezone`
@@ -170,6 +162,16 @@ export default Node.extend({
         return ajax
           .setGlobalBakingConfig({[effectiveAttr] : effectiveValue})
           .then(response => (prefsNode.reset(attr), response))
+      })
+    },
+
+    setMiscConfig (attr, value) {
+      const ajax      = this.get('ajax')
+
+      return this.dispatchPromise('miscConfig', () => {
+        return ajax
+          .setMiscConfig(attr, value)
+          .then(config => this.applyMiscConfig(config))
       })
     },
   },

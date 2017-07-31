@@ -25,9 +25,7 @@ describe('Acceptance | settings', function () {
 
 
 
-  it('interacting with fields', async function () {
-    server.logging = true
-
+  it('interacting with global config fields', async function () {
     server.create('global-config', {
       max_temp_a    : 50,
       max_temp_b    : 60,
@@ -73,7 +71,7 @@ describe('Acceptance | settings', function () {
     m = `#1 After updating fields: Field maxTempDurationMins content`
     expect(page.maxTempDurationMins.input.value, m).equal('2')
 
-    m = "Server globalConfig"
+    m = 'Server globalConfig'
     expect(_.last(server.db.globalConfigs), m).superset({
       max_temp_a    : 51,
       max_temp_b    : 61,
@@ -127,5 +125,34 @@ describe('Acceptance | settings', function () {
 
     m = `Field maxTempDurationMins status existence`
     expect(page.maxTempDurationMins.status.exists, m).false
+  })
+
+
+
+  it('setting locale', async function () {
+    server.create('misc-config', {locale : 'en-gb'})
+
+    await page.visit()
+
+    await page.locale.openPicker()
+
+    m = '#0 Initial: Local field label'
+    expect(page.locale.label.text, m).equal('Language')
+
+    m = '#0 Initial: Selected item text'
+    expect(page.locale.selectedItem.text, m).equal('English (Europe)')
+
+    m = '#0 Initial: Locales count'
+    expect(page.locale.options().count, m).equal(3)
+
+    await page.locale.pickOption('Русский')
+
+    m = '#1 After changing locale: Local field label'
+    expect(page.locale.label.text, m).equal('Язык')
+
+    m = 'Server miscConfig'
+    expect(_.last(server.db.miscConfigs), m).superset({
+      locale : 'ru',
+    })
   })
 })

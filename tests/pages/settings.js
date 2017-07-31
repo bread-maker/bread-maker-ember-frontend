@@ -5,6 +5,7 @@ import {
 
 // import c from './components/_component'
 import input from './components/settings-field-input-button'
+import select from './components/settings-field-select'
 
 
 
@@ -17,4 +18,6 @@ export default create({
   maxTempBeforeBaking : {...input, scope : '.route-settings-field._maxTempBeforeBaking'},
   maxTempAfterBaking  : {...input, scope : '.route-settings-field._maxTempAfterBaking'},
   maxTempDurationMins : {...input, scope : '.route-settings-field._maxTempDurationMins'},
+
+  locale : {...select, scope : '.route-settings-field._locale'},
 })

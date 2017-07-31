@@ -95,7 +95,7 @@ domain:
     new-password: Новый пароль
 
   locale:
-    en: English (US)
+    en-us: English (US)
     en-gb: English (Europe)
     ru: Русский
 
