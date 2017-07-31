@@ -1,0 +1,21 @@
+{{#settings-field
+  fieldName   = fieldName
+  label       = label
+  description = description
+
+  requestIsPending  = requestIsPending
+  requestIsRejected = requestIsRejected
+
+  errorLabel = errorLabel
+}}
+  {{#power-select
+    class    = 'settingsFieldSelect-select'
+    tagName  = 'div'
+    selected = selected
+    options  = options
+    onchange = (action updateAction)
+    as |item|
+  }}
+    {{yield item}}
+  {{/power-select}}
+{{/settings-field}}

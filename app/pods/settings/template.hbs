@@ -10,8 +10,6 @@
     System
   </h2>
 
-
-
   {{#each (array
     'maxTempBeforeTimer'
     'maxTempBeforeBaking'
@@ -44,82 +42,6 @@
       submitAction = (action 'setGlobalBakingConfig' fieldName)
     }}
   {{/each}}{{! fieldName}}
-
-
-{{!--
-  {{settings-field-input-button
-    class     = "route-settings-field"
-    fieldName = 'maxTempBeforeBaking'
-    type      = 'number'
-
-    node         = zen.state.settings.maxTempBeforeBakingComponent
-    defaultValue = zen.state.settingsData.maxTempBeforeBaking
-
-    label       = (t 'routes.settings.fields.maxTempBeforeBaking.label')
-    description = (t 'routes.settings.fields.maxTempBeforeBaking.description')
-
-    requestIsPending  = zen.state.settingsData.globalBakingConfigIsPending
-    requestIsRejected = zen.state.settingsData.globalBakingConfigIsRejected
-
-    errorLabel = (t
-      'routes.settings.error'
-      field='globalBakingConfig'
-      error=(error zen.state.settingsData.globalBakingConfigError)
-    )
-
-    submitAction = (action 'setGlobalBakingConfig' 'maxTempBeforeBaking')
-  }}{{! maxTempBeforeBaking }}
-
-
-
-  {{settings-field-input-button
-    class     = "route-settings-field"
-    fieldName = 'maxTempAfterBaking'
-    type      = 'number'
-
-    node         = zen.state.settings.maxTempAfterBakingComponent
-    defaultValue = zen.state.settingsData.maxTempAfterBaking
-
-    label       = (t 'routes.settings.fields.maxTempAfterBaking.label')
-    description = (t 'routes.settings.fields.maxTempAfterBaking.description')
-
-    requestIsPending  = zen.state.settingsData.globalBakingConfigIsPending
-    requestIsRejected = zen.state.settingsData.globalBakingConfigIsRejected
-
-    errorLabel = (t
-      'routes.settings.error'
-      field='globalBakingConfig'
-      error=(error zen.state.settingsData.globalBakingConfigError)
-    )
-
-    submitAction = (action 'setGlobalBakingConfig' 'maxTempAfterBaking')
-  }}{{! maxTempAfterBaking }}
-
-
-
-  {{settings-field-input-button
-    class     = "route-settings-field"
-    fieldName = 'maxTempDurationMins'
-    type      = 'number'
-
-    node         = zen.state.settings.maxTempDurationMinsComponent
-    defaultValue = zen.state.settingsData.maxTempDurationMins
-
-    label       = (t 'routes.settings.fields.maxTempDurationMins.label')
-    description = (t 'routes.settings.fields.maxTempDurationMins.description')
-
-    requestIsPending  = zen.state.settingsData.globalBakingConfigIsPending
-    requestIsRejected = zen.state.settingsData.globalBakingConfigIsRejected
-
-    errorLabel = (t
-      'routes.settings.error'
-      field='globalBakingConfig'
-      error=(error zen.state.settingsData.globalBakingConfigError)
-    )
-
-    submitAction = (action 'setGlobalBakingConfig' 'maxTempDurationMins')
-  }}{{! maxTempDurationMins }}
---}}
 </div>{{! settingsGroup _baking }}
 
 
@@ -130,7 +52,7 @@
     System
   </h2>
 
-  {{#settings-field
+  {{#settings-field-select
     fieldName   = 'locale'
     label       = (t 'routes.settings.fields.locale.label')
     description = (t 'routes.settings.fields.locale.description')
@@ -138,50 +60,44 @@
     requestIsPending  = zen.state.settingsData.localeIsPending
     requestIsRejected = zen.state.settingsData.localeIsRejected
 
+    selected = zen.state.settingsData.localeResponse
+    options  = intl.locales
+
     errorLabel = (t
       'routes.settings.error'
       field='locale'
-      error=(or zen.state.settingsData.localeError.error_text zen.state.settingsData.localeError)
+      error=(error zen.state.settingsData.localeError)
     )
+
+    updateAction = (action (dispatch-action) zen.state.settingsData 'setLocale')
+    as |locale|
   }}
-    {{#power-select
-      class    = 'route-settings-setting-field'
-      tagName  = 'div'
-      selected = zen.state.settingsData.localeResponse
-      options  = intl.locales
-      onchange = (action (dispatch-action) zen.state.settingsData 'setLocale')
-      as |locale|
-    }}
-      {{t (concat 'domain.locale.' locale)}}
-    {{/power-select}}
-  {{/settings-field}}{{! locale }}
+    {{t (concat 'domain.locale.' locale)}}
+  {{/settings-field-select}}{{! locale }}
 
 
 
-  {{#settings-field
+  {{#settings-field-select
     fieldName   = 'timezone'
     label       = (t 'routes.settings.fields.timezone.label')
 
     requestIsPending  = zen.state.settingsData.timezoneIsPending
     requestIsRejected = zen.state.settingsData.timezoneIsRejected
 
+    selected = zen.state.settingsData.timezoneResponse
+    options  = timezones
+
     errorLabel = (t
       'routes.settings.error'
       field='timezone'
       error=(or zen.state.settingsData.timezoneError.error_text zen.state.settingsData.timezoneError)
     )
+
+    updateAction = (action (dispatch-action) zen.state.settingsData 'setTimezone')
+    as |timezone|
   }}
-    {{#power-select
-      class    = 'route-settings-setting-field'
-      tagName  = 'div'
-      selected = zen.state.settingsData.timezoneResponse
-      options  = timezones
-      onchange = (action (dispatch-action) zen.state.settingsData 'setTimezone')
-      as |timezone|
-    }}
-      {{timezone}}
-    {{/power-select}}
-  {{/settings-field}}{{! timezone }}
+    {{timezone}}
+  {{/settings-field-select}}{{! timezone }}
 
 
 

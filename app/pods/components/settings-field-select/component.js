@@ -1,6 +1,6 @@
 // ----- Ember modules -----
 import Component from 'ember-component'
-import service from 'ember-service/inject'
+// import service from 'ember-service/inject'
 
 // ----- Ember addons -----
 // import raw from 'ember-macro-helpers/raw'
@@ -16,36 +16,28 @@ import tag from 'ember-awesome-macros/tag'
 export default Component.extend({
 
   // ----- Arguments -----
-  node         : undefined,
-  defaultValue : '',
+  fieldName   : undefined,
+  label       : undefined,
+  description : undefined,
 
-
-  fieldName : undefined,
-  type      : 'text',
-
-  userInputNode  : undefined,
-  userInputField : undefined,
-
-
-  label             : undefined,
-  description       : undefined,
   requestIsPending  : false,
   requestIsRejected : false,
-  errorLabel        : undefined,
-  value             : undefined,
 
-  submitAction : undefined,
+  selected : undefined,
+  options  : undefined,
+
+  updateAction : undefined,
 
 
 
   // ----- Services -----
-  intl : service(),
+  // intl : service(),
 
 
 
   // ----- Overridden properties -----
   classNameBindings : [
-    ':settingsFieldInputButton',
+    ':settingsFieldSelect',
     'fieldNameClass',
   ],
 
