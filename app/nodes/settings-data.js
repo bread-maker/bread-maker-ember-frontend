@@ -9,7 +9,7 @@ import divide from 'ember-awesome-macros/divide'
 import or from 'ember-awesome-macros/or'
 
 // ----- Third-party libraries -----
-import RSVP from 'rsvp'
+// import RSVP from 'rsvp'
 
 // ----- Own modules -----
 
