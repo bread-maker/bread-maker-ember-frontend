@@ -4,7 +4,7 @@
   </p>
 {{else if zen.state.stats.statsError}}
   <p>
-    {{t 'routes.index.error' error=zen.state.stats.statsError}}
+    {{t 'routes.index.error' error=(error zen.state.stats.statsError)}}
   </p>
 {{else if zen.state.stats.statsResponse}}
   {{stats-chart

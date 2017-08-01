@@ -2,7 +2,7 @@
 import {reads} from 'ember-computed'
 import service from 'ember-service/inject'
 import {camelize, decamelize} from 'ember-string'
-// import get from 'ember-metal/get'
+import get from 'ember-metal/get'
 
 // ----- Ember Addon modules -----
 import AjaxService from 'ember-ajax/services/ajax'
@@ -200,17 +200,25 @@ export default AjaxService.extend({
   },
 
   _formatError (error) {
+    const errorObj = get(error, 'payload.payload.error')
+
     const payload =
-      error.payload.payload.error
-        ? this._camelizeKeys_(error.payload.payload.error)
-        : error.payload.payload.error
+        errorObj
+          ? this._camelizeKeys_(error.payload.payload.error)
+          : (
+            errorObj
+            || error && error.payload && error.payload.payload
+            || error && error.payload
+            || error
+          )
 
     return {
       payload,
+      name    : error.name,
       message : error.message,
       stack   : error.stack,
-      status  : error.payload.status,
-      headers : error.payload.headers,
+      status  : get(error, 'payload.status'),
+      headers : get(error, 'payload.headers'),
     }
   },
 

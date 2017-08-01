@@ -49,7 +49,7 @@
         </p>
       {{else if zen.state.stats.statsError}}
         <p>
-          {{t 'routes.application.sidebar.stats-error' error=zen.state.stats.statsError}}
+          {{t 'routes.application.sidebar.stats-error' error=(error zen.state.stats.statsError)}}
         </p>
       {{else if zen.state.stats.statsResponse}}
         {{stats-x status=zen.state.stats.lastStatus}}
