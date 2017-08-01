@@ -205,12 +205,7 @@ export default AjaxService.extend({
     const payload =
         errorObj
           ? this._camelizeKeys_(error.payload.payload.error)
-          : (
-            errorObj
-            || error && error.payload && error.payload.payload
-            || error && error.payload
-            || error
-          )
+          : get(error, 'payload.payload')
 
     return {
       payload,
