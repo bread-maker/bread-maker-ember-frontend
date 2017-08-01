@@ -3,7 +3,8 @@ import {
   visitable,
 } from 'ember-cli-page-object'
 
-// import c from './components/_component'
+import c from './components/_component'
+import field from './components/settings-field'
 import input from './components/settings-field-input-button'
 import select from './components/settings-field-select'
 
@@ -21,4 +22,12 @@ export default create({
 
   locale   : {...select, scope : '.route-settings-field._locale'},
   timezone : {...select, scope : '.route-settings-field._timezone'},
+
+  password : {
+    ...field,
+    scope  : '.route-settings-field._password',
+    old    : c('.route-settings-field-password-old'),
+    new    : c('.route-settings-field-password-new'),
+    submit : c('.route-settings-field-password-submit'),
+  },
 })

@@ -106,6 +106,7 @@
 
 
   {{#settings-field
+    class       = 'route-settings-field'
     fieldName   = 'password'
     label       = (t 'domain.login.password')
 
@@ -115,7 +116,7 @@
     errorLabel = (t
       'routes.settings.error'
       field='password'
-      error=(or zen.state.settingsData.passwordError.error_text zen.state.settingsData.passwordError)
+      error=(error zen.state.settingsData.passwordError)
     )
   }}
     <label class='route-settings-setting-label'>
@@ -123,6 +124,7 @@
     </label>
 
     {{one-way-input
+      class  = 'route-settings-field-password-old'
       type   = 'password'
       value  = zen.state.settings.oldPasswordUserInput
       update = (action
@@ -138,6 +140,7 @@
     </label>
 
     {{one-way-input
+      class  = 'route-settings-field-password-new'
       type   = 'password'
       value  = zen.state.settings.newPasswordUserInput
       update = (action
@@ -149,6 +152,7 @@
     }}
 
     <button
+      class  = 'route-settings-field-password-submit'
       {{action
         (dispatch-action)
         zen.state.settingsData

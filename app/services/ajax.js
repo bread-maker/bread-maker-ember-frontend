@@ -61,7 +61,7 @@ export default AjaxService.extend({
     return `?${serializedParams}`
   },
 
-  getMethod (method, params = {}) {
+  getMethod (method, params = {}, options = {}) {
     const token = this.get('zen.state.session.token')
 
     params = {
@@ -77,11 +77,11 @@ export default AjaxService.extend({
     return this
       .request(finalUrl)
       .then(this._camelizeKeys_)
-      .catch(error => this._logOutOnTokenExpired(error))
+      .catch(error => this._logOutOnTokenExpired(error, options.preventLogoutOnAuthError))
       .catch(error => RSVP.reject(this._formatError(error)))
   },
 
-  postMethod (method, data = {}) {
+  postMethod (method, data = {}, options = {}) {
     const finalUrl = this.buildUrlQueryParams({method})
     const token = this.get('zen.state.session.token')
 
@@ -95,7 +95,7 @@ export default AjaxService.extend({
     return this
       .post(finalUrl, {data})
       .then(this._camelizeKeys_)
-      .catch(error => this._logOutOnTokenExpired(error))
+      .catch(error => this._logOutOnTokenExpired(error, options.preventLogoutOnAuthError))
       .catch(error => RSVP.reject(this._formatError(error)))
   },
 
@@ -125,7 +125,11 @@ export default AjaxService.extend({
   },
 
   setPassword (password, new_password, params = {}) {
-    return this.postMethod('auth.passwd', {password, new_password, params})
+    return this.postMethod(
+      'auth.passwd',
+      {password, new_password, ...params},
+      {preventLogoutOnAuthError : true}
+    )
   },
 
   _globalBakingConfigMapping : {
@@ -183,8 +187,12 @@ export default AjaxService.extend({
 
 
   // ----- Private methods -----
-  _logOutOnTokenExpired (error) {
-    if (this.isUnauthorizedError(error) && this.get('session.isAuthenticated')) {
+  _logOutOnTokenExpired (error, preventLogout = false) {
+    if (
+      !preventLogout
+      && this.isUnauthorizedError(error)
+      && this.get('session.isAuthenticated')
+    ) {
       this.get('session').invalidate()
     }
 

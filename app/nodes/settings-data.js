@@ -84,7 +84,7 @@ export default Node.extend({
   },
 
   applyTimezone (timezone) {
-    timezone = timezone || this.get('locale')
+    timezone = timezone || this.get('timezone')
 
     const moment = this.get('moment')
     moment.setTimeZone(timezone)
@@ -97,7 +97,7 @@ export default Node.extend({
       const ajax = this.get('ajax')
 
       return this.dispatchPromise('password', () => {
-        return ajax.setPassword({password, newPassword})
+        return ajax.setPassword(password, newPassword)
       })
     },
 

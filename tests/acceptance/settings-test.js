@@ -194,4 +194,39 @@ describe('Acceptance | settings', function () {
     m = 'Timezone'
     expect(page.timezone.selectedItem.text, m).equal('UTC')
   })
+
+
+
+  it('changing password', async function () {
+    server.create('password', {value : 'breadtime'})
+
+    await page.visit()
+    await page.password.old.fill('breadtime')
+    await page.password.new.fill('foo')
+    await page.password.submit.click()
+
+    m = 'Server password'
+    expect(_.last(server.db.passwords).value, m).equal('foo')
+  })
+
+
+
+  it('invalid password', async function () {
+    server.create('password', {value : 'breadtime'})
+
+    await page.visit()
+    await page.password.old.fill('foo')
+    await page.password.new.fill('bar')
+
+    await ignoreError(
+      error => _.get(error, 'status') == 401, // eslint-disable-line eqeqeq
+      async () => page.password.submit.click()
+    )
+
+    m = 'Server password'
+    expect(_.last(server.db.passwords).value, m).equal('breadtime')
+
+    m = 'Status'
+    expect(page.password.status.text, m).contains('Invalid password')
+  })
 })

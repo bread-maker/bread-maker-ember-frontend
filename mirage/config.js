@@ -93,6 +93,13 @@ const anonMethods = {
 
 
 const authMethods = {
+  "auth.passwd" ({db}, request, params) {
+    const [password] = db.passwords.where({value : params.password})
+    if (!password) return respondUnauthorized()
+    db.passwords.update(password.id, {value : params.new_password})
+    return {result : true}
+  },
+
   "config.baking.global.get" ({db}/*, request*/) {
     const config = _.last(db.globalConfigs) || server.create('global-config')
 
