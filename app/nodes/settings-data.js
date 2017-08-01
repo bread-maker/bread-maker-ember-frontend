@@ -50,12 +50,6 @@ export default Node.extend({
 
 
   // ----- Methods -----
-  request () {
-    return RSVP.hash({
-      misc : this.requestMiscConfig(),
-    })
-  },
-
   requestGlobalBakingConfig () {
     const ajax = this.get('ajax')
 
@@ -74,15 +68,13 @@ export default Node.extend({
   },
 
   applyMiscConfig (config) {
-    this.useLocale()
-    this.useTimezone()
+    this.applyLocale()
+    this.applyTimezone()
     return config
   },
 
-  useLocale (locale) {
+  applyLocale (locale) {
     locale = locale || this.get('locale')
-
-    console.log('locale')
 
     const intl   = this.get('intl')
     const moment = this.get('moment')
@@ -91,7 +83,7 @@ export default Node.extend({
     moment.setLocale(locale)
   },
 
-  useTimezone (timezone) {
+  applyTimezone (timezone) {
     timezone = timezone || this.get('locale')
 
     const moment = this.get('moment')

@@ -27,7 +27,7 @@ export default Route.extend(ApplicationRouteMixin, {
   beforeModel () {
     return this
       .get('zen.state.settingsData')
-      .request()
+      .requestMiscConfig()
   },
 
 
