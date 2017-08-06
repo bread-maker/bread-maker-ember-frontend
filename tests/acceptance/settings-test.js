@@ -6,6 +6,7 @@ import page from '../pages/settings'
 import createTokenAndAuthenticateSession from 'bread-maker-ember-frontend/tests/helpers/session'
 // import {timeout} from 'ember-concurrency'
 import ignoreError from '../helpers/ignore-error'
+import errorPage from '../pages/error'
 
 
 
@@ -140,7 +141,7 @@ describe('Acceptance | settings', function () {
     expect(page.locale.label.text, m).equal('Language')
 
     m = '#0 Initial: Selected item text'
-    expect(page.locale.selectedItem.text, m).equal('English (Europe)')
+    expect(page.locale.selectedItem.text, m).equal('English (World)')
 
     m = '#0 Initial: Locales count'
     expect(page.locale.options().count, m).equal(3)
@@ -189,7 +190,7 @@ describe('Acceptance | settings', function () {
     await page.timezone.openPicker()
 
     m = 'Locale'
-    expect(page.locale.selectedItem.text, m).equal('English (Europe)')
+    expect(page.locale.selectedItem.text, m).equal('English (World)')
 
     m = 'Timezone'
     expect(page.timezone.selectedItem.text, m).equal('UTC')
@@ -228,5 +229,24 @@ describe('Acceptance | settings', function () {
 
     m = 'Status'
     expect(page.password.status.text, m).contains('Invalid password')
+  })
+
+
+
+  it('server error', async function () {
+    server.create('error')
+
+    await ignoreError(
+      error => _.get(error, 'status') == 500, // eslint-disable-line eqeqeq
+      async () => {
+        await page.visit()
+      }
+    )
+
+    m = "Error type"
+    expect(errorPage.type.text, m).equal("server")
+
+    m = "Error status"
+    expect(errorPage.status.text, m).equal("500")
   })
 })

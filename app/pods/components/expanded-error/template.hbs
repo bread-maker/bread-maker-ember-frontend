@@ -1,0 +1,41 @@
+<h2 class="expandedError-title">
+  {{t 'components.expanded-error.title'}}
+</h2>
+
+{{#if error.message}}
+  <p class="expandedError-field _message">
+    {{t 'components.expanded-error.message'}}:
+
+    <span class="expandedError-field-value">
+      {{error.message}}
+    </span>
+  </p>
+{{/if}}
+
+{{#if error.type}}
+  <p class="expandedError-field _type">
+    {{t 'components.expanded-error.type'}}:
+
+    <span class="expandedError-field-value">
+      {{error.type}}
+    </span>
+  </p>
+{{/if}}
+
+{{#if error.status}}
+  <p class="expandedError-field _status">
+    {{t 'components.expanded-error.status'}}:
+
+    <span class="expandedError-field-value">
+      {{error.status}}
+    </span>
+  </p>
+{{/if}}
+
+{{#if error.payload}}
+  <p class="expandedError-field _payload">
+    {{t 'components.expanded-error.payload'}}:
+
+    <pre class="expandedError-field-value">{{stringify error.payload}}</pre>
+  </p>
+{{/if}}

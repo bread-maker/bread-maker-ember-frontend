@@ -46,8 +46,8 @@ export default AjaxService.extend({
 
 
   // ----- Custom Methods -----
-  buildUrlQueryParams (params) {
-    if (!params || !Object.keys(params).length) return ''
+  buildUrlQueryParams (params = {}) {
+    if (!Object.keys(params).length) return ''
 
     const serializedParams =
       _
@@ -214,6 +214,19 @@ export default AjaxService.extend({
       stack   : error.stack,
       status  : get(error, 'payload.status'),
       headers : get(error, 'payload.headers'),
+
+      /* eslint-disable indent */
+      type :
+        this.isUnauthorizedError(error) ? 'unauthorized' :
+        this.isForbiddenError(error)    ? 'forbidden' :
+        this.isInvalidError(error)      ? 'invalid' :
+        this.isBadRequestError(error)   ? 'bad request' :
+        this.isNotFoundError(error)     ? 'not found' :
+        this.isAbortError(error)        ? 'abort' :
+        this.isConflictError(error)     ? 'conflict' :
+        this.isServerError(error)       ? 'server' :
+                                          'unknown',
+      /* eslint-enable indent */
     }
   },
 
