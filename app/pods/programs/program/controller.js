@@ -1,9 +1,9 @@
 // ----- Ember modules -----
 import Controller from 'ember-controller'
-import service from 'ember-service/inject'
+// import service from 'ember-service/inject'
 
 // ----- Ember addons -----
-import computed from 'ember-macro-helpers/computed'
+// import computed from 'ember-macro-helpers/computed'
 
 // ----- Third-party libraries -----
 

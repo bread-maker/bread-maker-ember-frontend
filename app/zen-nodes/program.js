@@ -1,6 +1,6 @@
 // ----- Ember modules -----
 import service from 'ember-service/inject'
-import {assert} from 'ember-metal/utils'
+// import {assert} from 'ember-metal/utils'
 
 // ----- Ember addons -----
 import {attr} from 'ember-zen'

@@ -17,7 +17,7 @@ export default Node.extend({
 
     // ----- Routes -----
     programsProgram : attr('node', {nodeType : 'programs/program'}),
-    settings      : attr('node'),
+    settings        : attr('node'),
   },
 
 })
