@@ -10,10 +10,14 @@ export default Node.extend({
 
   // ----- Arguments -----
   attrs : {
+    programsData : attr('node'),
     session      : attr('node'),
     settingsData : attr('node'),
     stats        : attr('node'),
-    settings     : attr('node'),
+
+    // ----- Routes -----
+    programsProgram : attr('node', {nodeType : 'programs/program'}),
+    settings      : attr('node'),
   },
 
 })

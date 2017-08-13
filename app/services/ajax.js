@@ -104,6 +104,12 @@ export default AjaxService.extend({
     return this.getMethod('auth.login', {password, ...params})
   },
 
+
+  logout (params = {}) {
+    const token = this.get('zen.state.session.token')
+    return this.getMethod('auth.logout', {token, ...params})
+  },
+
   getStats (interval = '', params = {}) {
     return this.getMethod('stats', {interval, ...params})
   },
@@ -112,16 +118,6 @@ export default AjaxService.extend({
     return this
       .getMethod('config.timezone.get', params)
       .then(({timezone}) => timezone)
-  },
-
-  setProgram (program_id, crust_id, program, params = {}) {
-    return this
-      .postMethod('config.baking.stages.set', {
-        program_id,
-        crust_id,
-        program,
-        ...params,
-      })
   },
 
   setPassword (password, new_password, params = {}) {
@@ -133,17 +129,16 @@ export default AjaxService.extend({
   },
 
   _globalBakingConfigMapping : {
-    maxTempBeforeTimer  : 'maxTempA',
-    maxTempBeforeBaking : 'maxTempB',
-    maxTempAfterBaking  : 'warmTemp',
-    maxTempDuration     : 'maxWarmTime',
+    maxTempBeforeTimer  : 'max_temp_a',
+    maxTempBeforeBaking : 'max_temp_b',
+    maxTempAfterBaking  : 'warm_temp',
+    maxTempDuration     : 'max_warm_time',
   },
 
   getGlobalBakingConfig (params = {}) {
     return this
       .getMethod('config.baking.global.get', params)
       .then(({config}) => config)
-      .then(this._camelizeKeys_)
       .then(config => this._mapKeysReverse(config, this._globalBakingConfigMapping))
   },
 
@@ -154,21 +149,84 @@ export default AjaxService.extend({
     return this
       .postMethod('config.baking.global.set', {config, ...params})
       .then(({config}) => config)
-      .then(this._camelizeKeys_)
       .then(config => this._mapKeysReverse(config, this._globalBakingConfigMapping))
   },
+
+  _programMapping : {
+    programId : 'program_id',
+    crustId   : 'crust_id',
+    name      : 'program_name',
+
+    maxTempA    : 'max_temp_a',
+    maxTempB    : 'max_temp_b',
+    warmTemp    : 'warm_temp',
+    maxWarmTime : 'max_warm_time',
+
+    stages : 'stages',
+    beeps  : 'beeps',
+  },
+
+  _stageMapping : {
+    stageName : 'stage_name',
+    temp      : 'temp',
+    motor     : 'motor',
+    duration  : 'duration',
+  },
+
+  _beepMapping : {
+    stage : 'stage',
+    time  : 'time',
+    count : 'count',
+  },
+
+  _deserializeProgram (payload) {
+    const program = this._mapKeysReverse(payload, this._programMapping)
+
+    return {
+      ...program,
+      stages : program.stages.map(stage => this._mapKeysReverse(stage, this._stageMapping)),
+      beeps  : program.beeps .map(beep  => this._mapKeysReverse(beep,  this._beepMapping)),
+      id     : `${program.programId}-${program.crustId}`,
+    }
+  },
+
+  getProgram (program_id, crust_id, params = {}) {
+    return this
+      .getMethod('config.baking.stages.get', {program_id, crust_id, ...params})
+      .then(({program}) => this._deserializeProgram(program))
+  },
+
+  getPrograms (params = {}) {
+    return this
+      .getMethod('config.baking.stages.get.all', params)
+      .then(({programs}) => programs.map(program => this._deserializeProgram(program)))
+  },
+
+  setProgram (program, params = {}) {
+    const program_id = program.get('programId')
+    const crust_id   = program.get('crustId')
+
+    return this
+      .postMethod('config.baking.stages.set', {program_id, crust_id, ...params})
+      .then(({program}) => this._deserializeProgram(program))
+  },
+
+  // setGlobalBakingConfig (config, params = {}) {
+  //   config = this._mapKeys(config, this._globalBakingConfigMapping)
+  //   config = this._decamelizeKeys_(config)
+  //
+  //   return this
+  //     .postMethod('config.baking.global.set', {config, ...params})
+  //     .then(({config}) => config)
+  //     .then(this._camelizeKeys_)
+  //     .then(config => this._mapKeysReverse(config, this._globalBakingConfigMapping))
+  // },
 
   getMiscConfig (params = {}) {
     return this
       .getMethod('config.misc.get', params)
       .then(({config}) => config)
       .then(this._camelizeKeys_)
-
-      // ToDo: deal with this on the backend side
-      .then(config => ({
-        ...config,
-        locale : config.locale && config.locale.toLowerCase(),
-      }))
   },
 
   setMiscConfig (key, value, params = {}) {
@@ -180,8 +238,8 @@ export default AjaxService.extend({
       .then(this._camelizeKeys_)
   },
 
-  confirmAuth (params = {}) {
-    return this.getGlobalBakingConfig(params)
+  confirmAuth (token, params = {}) {
+    return this.getGlobalBakingConfig({token, ...params})
   },
 
 

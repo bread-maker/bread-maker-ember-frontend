@@ -10,6 +10,7 @@ routes:
   application:
     menu:
       chart: Chart
+      programs: Programs
       settings: Settings
     sidebar:
       auto-update: Auto-update

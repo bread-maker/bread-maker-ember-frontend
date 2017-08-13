@@ -17,6 +17,10 @@
         }}
 
         {{#if zen.state.session.isAuthenticated}}
+          {{link-to (t 'routes.application.menu.programs') 'programs'
+            class = "route-application-menu-item _programs"
+          }}
+
           {{link-to (t 'routes.application.menu.settings') 'settings'
             class = "route-application-menu-item _settings"
           }}

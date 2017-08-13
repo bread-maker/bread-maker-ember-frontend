@@ -43,7 +43,7 @@ export default Base.extend({
     return zen
       .dispatchAction('state.session', 'run', () => {
         return ajax
-          .confirmAuth({token})
+          .confirmAuth(token)
           .then(() => ({token}))
       })
   },

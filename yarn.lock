@@ -3645,16 +3645,9 @@ ember-wormhole@^0.5.1:
     ember-cli-babel "^6.0.0"
     ember-cli-htmlbars "^1.1.1"
 
-ember-zen@lolmaus/ember-zen#gen-2:
-  version "0.0.0"
-  resolved "https://codeload.github.com/lolmaus/ember-zen/tar.gz/66842e6c7020f0030d1f60a8289a153596bca5d0"
-  dependencies:
-    ember-cli-babel "^6.0.0"
-    ember-macro-helpers "^0.15.1"
-
 ember-zen@lolmaus/ember-zen#gen-3:
   version "0.0.0"
-  resolved "https://codeload.github.com/lolmaus/ember-zen/tar.gz/001e0130f11d7c0d2ab3e13694a942ac3e4f2ea6"
+  resolved "https://codeload.github.com/lolmaus/ember-zen/tar.gz/dbe0be93b8e2dec49b016b968b90e7145695b31e"
   dependencies:
     ember-awesome-macros "^0.38.3"
     ember-cli-babel "^6.7.2"
