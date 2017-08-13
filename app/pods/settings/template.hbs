@@ -27,16 +27,16 @@
       label       = (t (concat 'routes.settings.fields.' fieldName '.label'))
       description = (t (concat 'routes.settings.fields.' fieldName '.description'))
 
-      requestIsPending  = zen.state.settingsData.globalBakingConfigIsPending
+      requestIsPending  = zen.state.settingsData.globalBakingConfig.isPending
       requestIsRejected = (and
         (eq zen.state.settings.lastUpdatedGBCAttr fieldName)
-        zen.state.settingsData.globalBakingConfigIsRejected
+        zen.state.settingsData.globalBakingConfig.isRejected
       )
 
       errorLabel = (t
         'routes.settings.error'
         field='globalBakingConfig'
-        error=(error zen.state.settingsData.globalBakingConfigError)
+        error=(error zen.state.settingsData.globalBakingConfig.reason)
       )
 
       submitAction = (action 'setGlobalBakingConfig' fieldName)
@@ -59,8 +59,8 @@
     label       = (t 'routes.settings.fields.locale.label')
     description = (t 'routes.settings.fields.locale.description')
 
-    requestIsPending  = zen.state.settingsData.miscConfigIsPending
-    requestIsRejected = zen.state.settingsData.miscConfigIsRejected
+    requestIsPending  = zen.state.settingsData.miscConfig.isPending
+    requestIsRejected = zen.state.settingsData.miscConfig.isRejected
 
     selected = zen.state.settingsData.locale
     options  = intl.locales
@@ -68,7 +68,7 @@
     errorLabel = (t
       'routes.settings.error'
       field='locale'
-      error=(error zen.state.settingsData.miscConfigError)
+      error=(error zen.state.settingsData.miscConfig.reason)
     )
 
     updateAction = (action (dispatch-action) zen.state.settingsData 'setMiscConfig' 'locale')
@@ -85,8 +85,8 @@
     fieldName   = 'timezone'
     label       = (t 'routes.settings.fields.timezone.label')
 
-    requestIsPending  = zen.state.settingsData.miscConfigIsPending
-    requestIsRejected = zen.state.settingsData.miscConfigIsRejected
+    requestIsPending  = zen.state.settingsData.miscConfig.isPending
+    requestIsRejected = zen.state.settingsData.miscConfig.isRejected
 
     selected = zen.state.settingsData.timezone
     options  = timezones
@@ -94,7 +94,7 @@
     errorLabel = (t
       'routes.settings.error'
       field='timezone'
-      error=(error zen.state.settingsData.miscConfigError)
+      error=(error zen.state.settingsData.miscConfig.reason)
     )
 
     updateAction = (action (dispatch-action) zen.state.settingsData 'setMiscConfig' 'timezone')
@@ -110,13 +110,13 @@
     fieldName   = 'password'
     label       = (t 'domain.login.password')
 
-    requestIsPending  = zen.state.settingsData.passwordIsPending
-    requestIsRejected = zen.state.settingsData.passwordIsRejected
+    requestIsPending  = zen.state.settingsData.password.isPending
+    requestIsRejected = zen.state.settingsData.password.isRejected
 
     errorLabel = (t
       'routes.settings.error'
       field='password'
-      error=(error zen.state.settingsData.passwordError)
+      error=(error zen.state.settingsData.password.reason)
     )
   }}
     <label class='route-settings-setting-label'>

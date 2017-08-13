@@ -5,7 +5,7 @@
   </h1>
 
   <div class = 'route-login-form'>
-    {{#if zen.state.session.authenticationIsPending}}
+    {{#if zen.state.session.isPending}}
 
       <span class = 'route-login-form-pendingMessage'>
         {{t 'domain.login.logging-in'}}
@@ -31,14 +31,14 @@
       >
         {{t 'domain.login.log-in'}}
       </button>
-    {{/if}}{{! authentication promise }}
+    {{/if}}{{! zen.state.session.isPending }}
 
     {{#if (and
-      (not zen.state.session.authenticationIsPending)
-      zen.state.session.authenticationError
+      (not zen.state.session.isPending)
+      zen.state.session.reason
     )}}
       <p class = 'route-login-form-error'>
-        {{error zen.state.session.authenticationError}}
+        {{error zen.state.session.reason}}
       </p>
     {{/if}}{{! error }}
   </div>{{! form }}

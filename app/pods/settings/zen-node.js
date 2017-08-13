@@ -2,7 +2,7 @@
 // import service from 'ember-service/inject'
 
 // ----- Ember addons -----
-import {Node, nodeAttr} from 'ember-zen'
+import {Node, attr} from 'ember-zen'
 // import computed from 'ember-macro-helpers/computed'
 // import writable from 'ember-macro-helpers/writable'
 // import not from 'ember-awesome-macros/not'
@@ -27,15 +27,15 @@ export default Node.extend({
 
   // ----- Attributes -----
   attrs : {
-    maxTempBeforeTimerComponent  : nodeAttr('components/settings-field-input-button'),
-    maxTempBeforeBakingComponent : nodeAttr('components/settings-field-input-button'),
-    maxTempAfterBakingComponent  : nodeAttr('components/settings-field-input-button'),
-    maxTempDurationMinsComponent : nodeAttr('components/settings-field-input-button'),
+    maxTempBeforeTimerComponent  : attr('node', {nodeType : 'components/settings-field-input-button'}),
+    maxTempBeforeBakingComponent : attr('node', {nodeType : 'components/settings-field-input-button'}),
+    maxTempAfterBakingComponent  : attr('node', {nodeType : 'components/settings-field-input-button'}),
+    maxTempDurationMinsComponent : attr('node', {nodeType : 'components/settings-field-input-button'}),
 
-    lastUpdatedGBCAttr : undefined,
+    lastUpdatedGBCAttr : attr('string', {allowNully : true}),
 
-    oldPasswordUserInput : '',
-    newPasswordUserInput : '',
+    oldPasswordUserInput : attr('string'),
+    newPasswordUserInput : attr('string'),
   },
 
 

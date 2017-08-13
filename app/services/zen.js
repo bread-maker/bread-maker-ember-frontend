@@ -15,7 +15,10 @@ export default Zen.extend({
 
   // ----- Static properties -----
   state : computed(function () {
-    return this.createNode('state')
+    return this.createNode({
+      nodeName : 'state',
+      nodeType : 'state',
+    })
   }),
 
 

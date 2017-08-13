@@ -23,7 +23,7 @@ export default Base.extend({
     const ajax = this.get('ajax')
 
     return zen
-      .dispatchPromise('state.session', 'authentication', () => ajax.login(password))
+      .dispatchAction('state.session', 'run', () => ajax.login(password))
   },
 
 
@@ -41,7 +41,7 @@ export default Base.extend({
     const ajax = this.get('ajax')
 
     return zen
-      .dispatchPromise('state.session', 'authentication', () => {
+      .dispatchAction('state.session', 'run', () => {
         return ajax
           .confirmAuth({token})
           .then(() => ({token}))

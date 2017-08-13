@@ -43,15 +43,15 @@
   <div class="route-application-main">
 
     <aside class="route-application-sidebar">
-      {{#if (and (not zen.state.stats.statsResponse) zen.state.stats.statsIsPending)}}
+      {{#if zen.state.stats.isPending}}
         <p>
           {{t 'routes.application.sidebar.stats-loading'}}
         </p>
-      {{else if zen.state.stats.statsError}}
+      {{else if zen.state.stats.isRejected}}
         <p>
           {{t 'routes.application.sidebar.stats-error' error=(error zen.state.stats.statsError)}}
         </p>
-      {{else if zen.state.stats.statsResponse}}
+      {{else if zen.state.stats.isFulfilled}}
         {{stats-x status=zen.state.stats.lastStatus}}
       {{/if}}
 

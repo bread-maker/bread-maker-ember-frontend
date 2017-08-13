@@ -252,7 +252,11 @@ export default AjaxService.extend({
   },
 
   _mapKeysReverse (obj, mapping) {
-    return _.mapKeys(obj, (value, key) => _.findKey(mapping, value => value === key))
+    return Object.keys(obj).reduce((result, key) => {
+      const resultingKey = _.findKey(mapping, value => value === key)
+      if (resultingKey) result[resultingKey] = obj[key]
+      return result
+    }, {})
   },
 
 

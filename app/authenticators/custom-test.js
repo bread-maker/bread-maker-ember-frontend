@@ -18,16 +18,9 @@ export default Base.extend({
 
   // ----- Overridden methods -----
   authenticate (sessionData) {
-    const zen = this.get('zen')
-
-    zen.dispatchSetProperties('state.session', 'authenticate from test adapter', {
-      authenticationIsPending   : false,
-      authenticationIsFulfilled : true,
-      authenticationIsRejected  : false,
-      authenticationIsSettled   : false,
-      authenticationResponse    : sessionData,
-      authenticationError       : null,
-    })
+    this
+      .get('zen.state.session')
+      .dispatchAction('authenticate', sessionData)
 
     return RSVP.resolve(sessionData)
   },

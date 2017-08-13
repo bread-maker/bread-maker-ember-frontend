@@ -2,7 +2,7 @@
 import service from 'ember-service/inject'
 
 // ----- Ember addons -----
-import {Node, promiseAttr} from 'ember-zen'
+import {Node, attr} from 'ember-zen'
 // import computed from 'ember-macro-helpers/computed'
 import writable from 'ember-macro-helpers/writable'
 import divide from 'ember-awesome-macros/divide'
@@ -19,10 +19,9 @@ export default Node.extend({
 
   // ----- Attributes -----
   attrs : {
-    locale             : promiseAttr(),
-    password           : promiseAttr(),
-    globalBakingConfig : promiseAttr(),
-    miscConfig         : promiseAttr(),
+    password           : attr('node', {nodeType : 'promise'}),
+    globalBakingConfig : attr('node', {nodeType : 'promise'}),
+    miscConfig         : attr('node', {nodeType : 'promise'}),
   },
 
 
@@ -38,13 +37,13 @@ export default Node.extend({
   localeDefault   : 'en-gb',
   timezoneDefault : 'UTC',
 
-  locale   : or('miscConfigResponse.locale',   'localeDefault'),
-  timezone : or('miscConfigResponse.timezone', 'timezoneDefault'),
+  locale   : or('miscConfig.content.locale',   'localeDefault'),
+  timezone : or('miscConfig.content.timezone', 'timezoneDefault'),
 
-  maxTempBeforeTimer  : writable('globalBakingConfigResponse.maxTempBeforeTimer'),
-  maxTempBeforeBaking : writable('globalBakingConfigResponse.maxTempBeforeBaking'),
-  maxTempAfterBaking  : writable('globalBakingConfigResponse.maxTempAfterBaking'),
-  maxTempDuration     : writable('globalBakingConfigResponse.maxTempDuration'),
+  maxTempBeforeTimer  : writable('globalBakingConfig.content.maxTempBeforeTimer'),
+  maxTempBeforeBaking : writable('globalBakingConfig.content.maxTempBeforeBaking'),
+  maxTempAfterBaking  : writable('globalBakingConfig.content.maxTempAfterBaking'),
+  maxTempDuration     : writable('globalBakingConfig.content.maxTempDuration'),
   maxTempDurationMins : divide('maxTempDuration', 60),
 
 
@@ -53,7 +52,7 @@ export default Node.extend({
   requestGlobalBakingConfig () {
     const ajax = this.get('ajax')
 
-    return this.dispatchPromise('globalBakingConfig', () => {
+    return this.get('globalBakingConfig').dispatchAction('run', () => {
       return ajax.getGlobalBakingConfig()
     })
   },
@@ -61,7 +60,7 @@ export default Node.extend({
   requestMiscConfig () {
     const ajax = this.get('ajax')
 
-    return this.dispatchPromise('miscConfig', () => {
+    return this.get('miscConfig').dispatchAction('run', () => {
       return ajax.getMiscConfig()
     })
       .then(config => this.applyMiscConfig(config))
@@ -75,7 +74,6 @@ export default Node.extend({
 
   applyLocale (locale) {
     locale = locale || this.get('locale')
-
     const intl   = this.get('intl')
     const moment = this.get('moment')
 
@@ -96,7 +94,7 @@ export default Node.extend({
     setPassword (password, newPassword) {
       const ajax = this.get('ajax')
 
-      return this.dispatchPromise('password', () => {
+      return this.get('password').dispatchAction('run', () => {
         return ajax.setPassword(password, newPassword)
       })
     },
@@ -108,7 +106,7 @@ export default Node.extend({
       const effectiveValue = attr === 'maxTempDurationMins' ? value * 60 : value
       const effectiveAttr  = attr === 'maxTempDurationMins' ? 'maxTempDuration' : attr
 
-      return this.dispatchPromise('globalBakingConfig', () => {
+      return this.get('globalBakingConfig').dispatchAction('run', () => {
         return ajax
           .setGlobalBakingConfig({[effectiveAttr] : effectiveValue})
           .then(response => (prefsNode.reset(attr), response))
@@ -118,7 +116,7 @@ export default Node.extend({
     setMiscConfig (attr, value) {
       const ajax = this.get('ajax')
 
-      return this.dispatchPromise('miscConfig', () => {
+      return this.get('miscConfig').dispatchAction('run', () => {
         return ajax.setMiscConfig(attr, value)
       })
         .then(config => this.applyMiscConfig(config))

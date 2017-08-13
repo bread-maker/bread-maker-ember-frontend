@@ -1,12 +1,12 @@
-{{#if (and (not zen.state.stats.statsResponse) zen.state.stats.statsIsPending)}}
+{{#if zen.state.stats.isPending}}
   <p>
     {{t 'routes.index.loading'}}
   </p>
-{{else if zen.state.stats.statsError}}
+{{else if zen.state.stats.isRejected}}
   <p>
-    {{t 'routes.index.error' error=(error zen.state.stats.statsError)}}
+    {{t 'routes.index.error' error=(error zen.state.stats.reason)}}
   </p>
-{{else if zen.state.stats.statsResponse}}
+{{else if zen.state.stats.content}}
   {{stats-chart
     data   = zen.state.stats.statsChartData
     locale = zen.state.settingsData.locale

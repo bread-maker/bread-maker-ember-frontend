@@ -8,7 +8,8 @@ import writable from 'ember-macro-helpers/writable'
 import raw from 'ember-macro-helpers/raw'
 import findBy from 'ember-awesome-macros/array/find-by'
 import tag from 'ember-awesome-macros/tag'
-import {Node, promiseAttr} from 'ember-zen'
+import PromiseNode from 'ember-zen/nodes/promise'
+import {attr} from 'ember-zen'
 
 // ----- Third-party libraries -----
 
@@ -29,14 +30,12 @@ const IntervalOption = EmberObject.extend({
 
 
 
-export default Node.extend({
+export default PromiseNode.extend({
 
   // ----- Attributes -----
   attrs : {
-    stats : promiseAttr(),
-
-    polling  : true,
-    interval : 'sec',
+    polling  : attr('boolean', {initialValue : true}),
+    interval : attr('string',  {initialValue : 'sec'}),
   },
 
 
@@ -61,8 +60,8 @@ export default Node.extend({
 
 
   // ----- Computed properties -----
-  stats      : writable('statsResponse.stats'),
-  lastStatus : writable('statsResponse.lastStatus'),
+  stats      : writable('content.stats'),
+  lastStatus : writable('content.lastStatus'),
 
   currentIntervalOption : findBy('intervalOptions', raw('interval'), 'interval'),
 
@@ -142,7 +141,7 @@ export default Node.extend({
     const ajax = this.get('ajax')
     interval = interval || this.get('zen.state.stats.interval')
 
-    return this.dispatchPromise('stats', () => ajax.getStats(interval))
+    return this.dispatchAction('run', () => ajax.getStats(interval))
   },
 
 
