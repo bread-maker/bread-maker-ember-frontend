@@ -31,7 +31,14 @@ export default Route.extend({
 
   // ----- Overridden Methods -----
   model ({id}) {
-    this.get('zen.state.programsProgram').dispatchSet('program id URL segment', 'currentProgramId', id)
+    const items = this.get('zen.state.programsData.items')
+    const currentProgram = items.findBy('id', id)
+
+    if (!currentProgram) this.transitionTo('programs.index')
+
+    this
+      .get('zen.state.programsProgram')
+      .dispatchSet('current program id from URL segment', 'currentProgramId', id)
   },
 
   // resetController (controller, isExiting) {

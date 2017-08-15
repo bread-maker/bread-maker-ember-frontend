@@ -1,0 +1,22 @@
+<div class = 'route-programs'>
+
+
+  <ul class = 'route-programs-menu'>
+    {{#each zen.state.programsData.items as |program|}}
+      <li class = 'route-programs-menu-item'>
+        {{#link-to 'programs.program' program.id}}
+          {{inc program.programId}}-{{inc program.crustId}}
+          {{program.name}}
+        {{/link-to}}
+      </li>{{! menu-item' }}
+    {{/each}}
+  </ul>{{! menu }}
+
+
+  <div class = 'route-programs-content'>
+    {{outlet}}
+  </div>{{! content }}
+
+
+
+</div>{{! route-programs }}

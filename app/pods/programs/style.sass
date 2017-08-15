@@ -1,0 +1,17 @@
+////------------------------------------------
+.route-programs
+  //------------------------------------------
+
+  // ----- RWD -----
+  +to(l)
+    .route-programs-menu
+      margin-bottom : config-get('bm.layout.container.padding')
+
+  +from(xl)
+    display : flex
+
+    .route-programs-menu
+      margin-right : config-get('bm.layout.container.padding')
+
+    .route-programs-content
+      flex-grow : 1

@@ -19,13 +19,8 @@ export default Component.extend({
   node         : undefined,
   defaultValue : '',
 
-
   fieldName : undefined,
   type      : 'text',
-
-  userInputNode  : undefined,
-  userInputField : undefined,
-
 
   label             : undefined,
   description       : undefined,

@@ -157,10 +157,10 @@ export default AjaxService.extend({
     crustId   : 'crust_id',
     name      : 'program_name',
 
-    maxTempA    : 'max_temp_a',
-    maxTempB    : 'max_temp_b',
-    warmTemp    : 'warm_temp',
-    maxWarmTime : 'max_warm_time',
+    maxTempBeforeTimer  : 'max_temp_a',
+    maxTempBeforeBaking : 'max_temp_b',
+    maxTempAfterBaking  : 'warm_temp',
+    maxTempDuration     : 'max_warm_time',
 
     stages : 'stages',
     beeps  : 'beeps',
@@ -179,13 +179,23 @@ export default AjaxService.extend({
     count : 'count',
   },
 
+  _serializeProgram (sourceProgram) {
+    const program = this._mapKeys(sourceProgram, this._programMapping)
+
+    return {
+      ...program,
+      stages : program.stages && program.stages.map(stage => this._mapKeysReverse(stage, this._stageMapping)),
+      beeps  : program.beeps  && program.beeps .map(beep  => this._mapKeysReverse(beep,  this._beepMapping)),
+    }
+  },
+
   _deserializeProgram (payload) {
     const program = this._mapKeysReverse(payload, this._programMapping)
 
     return {
       ...program,
-      stages : program.stages.map(stage => this._mapKeysReverse(stage, this._stageMapping)),
-      beeps  : program.beeps .map(beep  => this._mapKeysReverse(beep,  this._beepMapping)),
+      stages : program.stages && program.stages.map(stage => this._mapKeysReverse(stage, this._stageMapping)),
+      beeps  : program.beeps  && program.beeps .map(beep  => this._mapKeysReverse(beep,  this._beepMapping)),
       id     : `${program.programId}-${program.crustId}`,
     }
   },
@@ -202,12 +212,13 @@ export default AjaxService.extend({
       .then(({programs}) => programs.map(program => this._deserializeProgram(program)))
   },
 
-  setProgram (program, params = {}) {
-    const program_id = program.get('programId')
-    const crust_id   = program.get('crustId')
+  setProgram (sourceProgram, params = {}) {
+    const program_id = get(sourceProgram, 'programId')
+    const crust_id   = get(sourceProgram, 'crustId')
+    const program    = this._serializeProgram(sourceProgram)
 
     return this
-      .postMethod('config.baking.stages.set', {program_id, crust_id, ...params})
+      .postMethod('config.baking.stages.set', {program_id, crust_id, program, ...params})
       .then(({program}) => this._deserializeProgram(program))
   },
 
@@ -306,7 +317,11 @@ export default AjaxService.extend({
   },
 
   _mapKeys (obj, mapping) {
-    return _.mapKeys(obj, (value, key) => mapping[key])
+    return Object.keys(mapping).reduce((result, key) => {
+      const resultingKey = mapping[key]
+      if (obj.hasOwnProperty(key)) result[resultingKey] = obj[key]
+      return result
+    }, {})
   },
 
   _mapKeysReverse (obj, mapping) {

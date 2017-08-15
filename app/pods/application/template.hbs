@@ -47,7 +47,9 @@
   <div class="route-application-main">
 
     <aside class="route-application-sidebar">
-      {{#if zen.state.stats.isPending}}
+      {{#if zen.state.stats.content}}
+        {{stats-x status=zen.state.stats.lastStatus}}
+      {{else if zen.state.stats.isPending}}
         <p>
           {{t 'routes.application.sidebar.stats-loading'}}
         </p>
@@ -55,8 +57,6 @@
         <p>
           {{t 'routes.application.sidebar.stats-error' error=(error zen.state.stats.statsError)}}
         </p>
-      {{else if zen.state.stats.isFulfilled}}
-        {{stats-x status=zen.state.stats.lastStatus}}
       {{/if}}
 
       <label class="route-application-autoUpdate">

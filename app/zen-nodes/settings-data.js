@@ -5,8 +5,8 @@ import service from 'ember-service/inject'
 import {Node, attr} from 'ember-zen'
 // import computed from 'ember-macro-helpers/computed'
 import writable from 'ember-macro-helpers/writable'
-import divide from 'ember-awesome-macros/divide'
-import or from 'ember-awesome-macros/or'
+
+import {divide, or} from 'ember-awesome-macros'
 
 // ----- Third-party libraries -----
 // import RSVP from 'rsvp'

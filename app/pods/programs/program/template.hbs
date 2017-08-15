@@ -1,1 +1,53 @@
-{{zen.state.programsProgram.program.name}}
+<div class = 'route-programsProgram'>
+
+
+
+  <h1 class = 'route-programsProgram-title'>
+    {{currentProgram.name}}
+  </h1>{{! title }}
+
+
+
+  <div class = 'route-programsProgram-fields'>
+
+    {{#with
+      (array
+        (hash name='name'                type='text')
+        (hash name='maxTempBeforeTimer'  type='number')
+        (hash name='maxTempBeforeBaking' type='number')
+        (hash name='maxTempAfterBaking'  type='number')
+        (hash name='maxTempDurationMins' type='number')
+      )
+      as |fields|
+    }}
+      {{#each fields as |field|}}
+        {{#with (concat field.name 'UserInput') as |userInputFieldName|}}
+          {{#settings-field
+            class     = 'route-programsProgram-fields-field'
+            fieldName = field.name
+            label     = (t (concat 'routes.programs-program.fields.' field.name '.label'))
+          }}
+            {{one-way-input
+              class    = 'route-programsProgram-fields-field-input'
+              disabled = currentProgram.isPending
+              type     = field.type
+              value    = (if (is-nully (get node userInputFieldName)) (get currentProgram field.name) (get node userInputFieldName))
+              update   = (action (dispatch-set) node userInputFieldName userInputFieldName)
+            }}
+          {{/settings-field}}{{! maxTempBeforeTimer }}
+        {{/with}}
+      {{/each}}
+    {{/with}}
+
+  </div>{{! fields }}
+
+  <button
+    {{action (dispatch-action) node 'save'}}
+    disabled = {{isPristine}}
+  >
+    Save
+  </button>
+
+
+
+</div>{{! route-programsProgram }}

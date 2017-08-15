@@ -21,6 +21,13 @@ routes:
     loading: Загружаем график...
     error: "Не удалось загрузить состояние: {error}"
 
+  programs-program:
+    error: "Не удалось обновить {field}: {error}"
+
+    fields:
+      name:
+        label: Название
+
   settings:
     title: Настройки
     updating: Обновляем...

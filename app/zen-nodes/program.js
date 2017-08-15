@@ -7,7 +7,7 @@ import {attr} from 'ember-zen'
 import PromiseNode from 'ember-zen/nodes/promise'
 // import computed from 'ember-macro-helpers/computed'
 // import writable from 'ember-macro-helpers/writable'
-import tag from 'ember-awesome-macros/tag'
+import {divide, tag} from 'ember-awesome-macros'
 
 // ----- Own modules -----
 
@@ -17,15 +17,17 @@ export default PromiseNode.extend({
 
   // ----- Attributes -----
   attrs : {
-    crustId     : attr('number'),
-    programId   : attr('number'),
-    name        : attr('string'),
-    maxTempA    : attr('number', {allowNully : true}),
-    maxTempB    : attr('number', {allowNully : true}),
-    maxWarmTime : attr('number', {allowNully : true}),
-    warmTemp    : attr('number', {allowNully : true}),
-    beeps       : [],
-    stages      : [],
+    crustId   : attr('number'),
+    programId : attr('number'),
+    name      : attr('string'),
+
+    maxTempBeforeTimer  : attr('number', {allowNully : true}),
+    maxTempBeforeBaking : attr('number', {allowNully : true}),
+    maxTempAfterBaking  : attr('number', {allowNully : true}),
+    maxTempDuration     : attr('number', {allowNully : true}),
+
+    beeps  : [],
+    stages : [],
   },
 
 
@@ -36,17 +38,23 @@ export default PromiseNode.extend({
 
 
   // ----- Computed properties -----
-  id : tag`${'programId'}-${'crustId'}`,
+  id                  : tag`${'programId'}-${'crustId'}`,
+  maxTempDurationMins : divide('maxTempDuration', 60),
 
 
 
   actions : {
-    requestAll () {
-      const ajax = this.get('ajax')
+    update (obj) {
+      const ajax          = this.get('ajax')
+      const previousState = this.serialize()
+      const newState      = {...previousState, ...obj}
 
-      this.dispatchAction('run', () => {
-        return ajax.getPrograms()
-      })
+      return this
+        .dispatchAction('run', () => ajax.setProgram(newState))
+
+        .then(response => {
+          this.dispatchPopulate('update program node after updating program on server', response)
+        })
     },
   },
 })

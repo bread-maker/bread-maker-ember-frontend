@@ -35,7 +35,7 @@ export default PromiseNode.extend({
     requestAll () {
       const ajax = this.get('ajax')
 
-      this
+      return this
         .dispatchAction('run', () => ajax.getPrograms())
         .then(programs => {
           this.dispatch('update programs', () => {

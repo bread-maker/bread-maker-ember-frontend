@@ -1,12 +1,4 @@
-{{#if zen.state.stats.isPending}}
-  <p>
-    {{t 'routes.index.loading'}}
-  </p>
-{{else if zen.state.stats.isRejected}}
-  <p>
-    {{t 'routes.index.error' error=(error zen.state.stats.reason)}}
-  </p>
-{{else if zen.state.stats.content}}
+{{#if zen.state.stats.content}}
   {{stats-chart
     data   = zen.state.stats.statsChartData
     locale = zen.state.settingsData.locale
@@ -16,4 +8,12 @@
 
     updateIntervalAction = (action 'updateInterval')
   }}
+{{else if zen.state.stats.isPending}}
+  <p>
+    {{t 'routes.index.loading'}}
+  </p>
+{{else if zen.state.stats.isRejected}}
+  <p>
+    {{t 'routes.index.error' error=(error zen.state.stats.reason)}}
+  </p>
 {{/if}}

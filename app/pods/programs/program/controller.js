@@ -3,7 +3,7 @@ import Controller from 'ember-controller'
 // import service from 'ember-service/inject'
 
 // ----- Ember addons -----
-// import computed from 'ember-macro-helpers/computed'
+import writable from 'ember-macro-helpers/writable'
 
 // ----- Third-party libraries -----
 
@@ -14,7 +14,7 @@ import Controller from 'ember-controller'
 export default Controller.extend({
 
   // ----- Services -----
-  // intl : service(),
+  // ajax : service(),
 
 
 
@@ -27,6 +27,8 @@ export default Controller.extend({
 
 
   // ----- Computed properties -----
+  node           : writable('zen.state.programsProgram'),
+  currentProgram : writable('zen.state.programsProgram.currentProgram'),
 
 
 
@@ -47,6 +49,4 @@ export default Controller.extend({
 
 
   // ----- Actions -----
-  actions : {
-  },
 })

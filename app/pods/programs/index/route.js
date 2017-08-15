@@ -31,8 +31,12 @@ export default Route.extend({
 
   // ----- Overridden Methods -----
   beforeModel () {
-    const id = this.get('zen.state.programsData.items.firstObject.id')
-    this.transitionTo('programs.program', {id})
+    const items = this.get('zen.state.programsData.items')
+
+    if (items.get('length')) {
+      const id = items.get('firstObject.id')
+      this.transitionTo('programs.program', id)
+    }
   },
 
   // resetController (controller, isExiting) {
