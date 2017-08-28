@@ -4,6 +4,7 @@ import service from 'ember-service/inject'
 
 // ----- Ember addons -----
 import computed from 'ember-macro-helpers/computed'
+import writable from 'ember-macro-helpers/writable'
 
 // ----- Third-party libraries -----
 
@@ -15,8 +16,7 @@ import {convertTemp, getUnit} from 'bread-maker-ember-frontend/helpers/format-te
 export default Component.extend({
 
   // ----- Arguments -----
-  data   : undefined,
-  locale : undefined,
+  data : undefined,
 
   currentIntervalOption : undefined,
   intervalOptions       : undefined,
@@ -40,6 +40,8 @@ export default Component.extend({
 
 
   // ----- Computed properties -----
+  locale : writable('intl.locale'),
+
   options : computed(
     'locale', 'intl',
     (locale,   intl) => {

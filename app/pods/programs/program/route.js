@@ -38,7 +38,7 @@ export default Route.extend({
 
     this
       .get('zen.state.programsProgram')
-      .dispatchSet('current program id from URL segment', 'currentProgramId', id)
+      .dispatchAction('reset', id)
   },
 
   // resetController (controller, isExiting) {

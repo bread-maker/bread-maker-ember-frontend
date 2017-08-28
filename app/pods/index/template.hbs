@@ -1,19 +1,18 @@
-{{#if zen.state.stats.content}}
+{{#if status.statsContentCache}}
   {{stats-chart
-    data   = zen.state.stats.statsChartData
-    locale = zen.state.settingsData.locale
+    data = status.statsChartData
 
-    currentIntervalOption = zen.state.stats.currentIntervalOption
-    intervalOptions       = zen.state.stats.intervalOptions
+    currentIntervalOption = status.currentIntervalOption
+    intervalOptions       = status.intervalOptions
 
     updateIntervalAction = (action 'updateInterval')
   }}
-{{else if zen.state.stats.isPending}}
+{{else if status.statsProxy.isPending}}
   <p>
     {{t 'routes.index.loading'}}
   </p>
-{{else if zen.state.stats.isRejected}}
+{{else if status.statsProxy.isRejected}}
   <p>
-    {{t 'routes.index.error' error=(error zen.state.stats.reason)}}
+    {{t 'routes.index.error' error=(error status.statsProxy.reason)}}
   </p>
 {{/if}}

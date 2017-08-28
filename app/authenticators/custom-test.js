@@ -12,7 +12,6 @@ import RSVP from 'rsvp'
 export default Base.extend({
 
   // ----- Services -----
-  zen : service(),
 
 
 

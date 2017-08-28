@@ -27,6 +27,18 @@ routes:
     fields:
       name:
         label: Название
+      maxTempBeforeTimer:
+        label: Макс. температура A
+        description: Максимальная температура перед запуском таймера отсрочки
+      maxTempBeforeBaking:
+        label: Макс. температура B
+        description: Максимальная температура перед началом выпечки
+      maxTempAfterBaking:
+        label: Температура поддержания
+        description: Температура, которая поддерживается после выпечки
+      maxTempDurationMins:
+        label: Макс. время поддержания
+        description: Максимальное время, в течении которого поддерживается температура (в минутах)
 
   settings:
     title: Настройки

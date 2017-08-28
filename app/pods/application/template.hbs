@@ -16,7 +16,7 @@
           class = "route-application-menu-item _chart"
         }}
 
-        {{#if zen.state.session.isAuthenticated}}
+        {{#if session.isAuthenticated}}
           {{link-to (t 'routes.application.menu.programs') 'programs'
             class = "route-application-menu-item _programs"
           }}
@@ -47,21 +47,21 @@
   <div class="route-application-main">
 
     <aside class="route-application-sidebar">
-      {{#if zen.state.stats.content}}
-        {{stats-x status=zen.state.stats.lastStatus}}
-      {{else if zen.state.stats.isPending}}
+      {{#if status.statsContent}}
+        {{stats-x status=status.statsContent.lastStatus}}
+      {{else if status.statsProxy.isPending}}
         <p>
           {{t 'routes.application.sidebar.stats-loading'}}
         </p>
-      {{else if zen.state.stats.isRejected}}
+      {{else if status.statsProxy.isRejected}}
         <p>
-          {{t 'routes.application.sidebar.stats-error' error=(error zen.state.stats.statsError)}}
+          {{t 'routes.application.sidebar.stats-error' error=(error status.statsProxy.reason)}}
         </p>
       {{/if}}
 
       <label class="route-application-autoUpdate">
         {{one-way-checkbox
-          checked = zen.state.stats.polling
+          checked = pollingEffective
           update  = (action 'updatePolling')
         }}
 

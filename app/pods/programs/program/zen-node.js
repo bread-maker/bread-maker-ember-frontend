@@ -37,13 +37,8 @@ export default Node.extend({
 
   // ----- Attributes -----
   attrs : {
-    currentProgramId : attr('string', {allowNully : true}),
-
-    nameUserInput                : attr('string', {allowNully : true}),
-    maxTempBeforeTimerUserInput  : attr('string', {allowNully : true}),
-    maxTempBeforeBakingUserInput : attr('string', {allowNully : true}),
-    maxTempAfterBakingUserInput  : attr('string', {allowNully : true}),
-    maxTempDurationMinsUserInput : attr('string', {allowNully : true}),
+    currentProgramId        : attr('string', {allowNully : true}),
+    currentProgramUserInput : attr('node',   {allowNully : true}),
   },
 
 
@@ -54,14 +49,6 @@ export default Node.extend({
   // ----- Computed properties -----
   currentProgram : findBy('zen.state.programsData.items', raw('id'), 'currentProgramId'),
 
-  isPristine : and(
-    eq('nameUserInput',                'currentProgram.name'),
-    eq('maxTempBeforeTimerUserInput',  'currentProgram.maxTempBeforeTimer'),
-    eq('maxTempBeforeBakingUserInput', 'currentProgram.maxTempBeforeBaking'),
-    eq('maxTempAfterBakingUserInput',  'currentProgram.maxTempAfterBaking'),
-    eq('maxTempDurationMinsUserInput', 'currentProgram.maxTempDurationMins'),
-  ),
-
 
 
   // ----- Methods -----
@@ -70,6 +57,20 @@ export default Node.extend({
 
   // ----- Actions -----
   actions : {
+    reset (currentProgramId) {
+      this.setAttr("currentProgramId", currentProgramId)
+
+      const payload = this.get("currentProgram").serialize()
+
+      const currentProgramUserInput = this.createChildNode({
+        nodeName : "currentProgramUserInput",
+        nodeType : "programs-data/program",
+        payload,
+      })
+
+      this.setAttr("currentProgramUserInput", currentProgramUserInput)
+    },
+
     save () {
       const programNode         = this.get('zen.state.programsProgram.currentProgram')
       const maxTempDurationMins = this.get('maxTempDurationMinsUserInput')

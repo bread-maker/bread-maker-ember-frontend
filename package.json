@@ -58,7 +58,6 @@
     "ember-source": "2.14.1",
     "ember-test-selectors": "^0.3.4",
     "ember-truth-helpers": "^1.3.0",
-    "ember-zen": "lolmaus/ember-zen#gen-3",
     "eslint": "^4.0.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.3.0",
@@ -74,5 +73,7 @@
     "node": ">= 4"
   },
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "ember-data": "^2.14.10"
+  }
 }

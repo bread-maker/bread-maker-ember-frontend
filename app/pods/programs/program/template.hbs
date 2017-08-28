@@ -8,7 +8,25 @@
 
 
 
-  <div class = 'route-programsProgram-fields'>
+  <div class = 'route-programsProgram-group _stages'>
+
+    <h2>
+      {{t 'routes.programs-program.stages'}}
+    </h2>
+
+    {{#each currentProgram.stages as |stage|}}
+
+    {{/each}}
+
+  </div>{{! group _stages }}
+
+
+
+  <div class = 'route-programsProgram-group _fields'>
+
+    <h2>
+      {{t 'routes.programs-program.settings'}}
+    </h2>
 
     {{#with
       (array
@@ -39,7 +57,7 @@
       {{/each}}
     {{/with}}
 
-  </div>{{! fields }}
+  </div>{{! group _fields }}
 
   <button
     {{action (dispatch-action) node 'save'}}

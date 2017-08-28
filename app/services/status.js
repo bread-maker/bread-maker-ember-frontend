@@ -1,21 +1,33 @@
 // ----- Ember modules -----
-import EmberObject from 'ember-object'
+import Service from 'ember-service'
 import service from 'ember-service/inject'
+// import {reads} from 'ember-computed'
+import EmberObject from 'ember-object'
+import observer from 'ember-metal/observer'
 
-// ----- Ember Addon modules -----
+// ----- Ember addon modules -----
 import computed from 'ember-macro-helpers/computed'
-import writable from 'ember-macro-helpers/writable'
 import raw from 'ember-macro-helpers/raw'
-import findBy from 'ember-awesome-macros/array/find-by'
-import tag from 'ember-awesome-macros/tag'
-import PromiseNode from 'ember-zen/nodes/promise'
-import {attr} from 'ember-zen'
+import writable from 'ember-macro-helpers/writable'
 
-// ----- Third-party libraries -----
+import {
+  and,
+  findBy,
+  tag,
+} from 'ember-awesome-macros'
+
+import RunMixin from 'ember-lifeline/mixins/run'
+
+// ----- Own modules -----
+import cache from 'bread-maker-ember-frontend/macros/cache'
+
+
 
 // ----- Own modules -----
 import t from 'bread-maker-ember-frontend/macros/t'
+import {REQUEST_STATS_POLL_ID} from 'bread-maker-ember-frontend/constants'
 import {convertTemp} from 'bread-maker-ember-frontend/helpers/format-temp'
+import promiseProxy from 'bread-maker-ember-frontend/macros/promise-proxy'
 
 
 
@@ -29,24 +41,25 @@ const IntervalOption = EmberObject.extend({
 
 
 
-
-export default PromiseNode.extend({
-
-  // ----- Attributes -----
-  attrs : {
-    polling  : attr('boolean', {initialValue : true}),
-    interval : attr('string',  {initialValue : 'sec'}),
-  },
-
+export default Service.extend(RunMixin, {
 
   // ----- Services -----
-  ajax   : service(),
-  intl   : service(),
-  moment : service(),
+  ajax     : service(),
+  intl     : service(),
+  moment   : service(),
+  settings : service(),
+
+
+
+  // ----- Overridden properties -----
 
 
 
   // ----- Static properties -----
+  interval           : null,
+  polling            : null,
+  requestStatsTaskId : undefined,
+
   intervalOptions : computed('intl', intl => [
     /* eslint-disable key-spacing */
     IntervalOption.create({interval :   'sec', multiplier :  1, intl}),
@@ -59,14 +72,21 @@ export default PromiseNode.extend({
 
 
 
+  // ----- Promises -----
+  statsPromise      : null,
+  statsContentCache : null,
+  statsProxy        : promiseProxy('statsPromise'),
+  statsContent      : cache('statsProxy.content', 'statsContentCache'),
+  stats             : writable('statsContent.stats'),
+
+
+
   // ----- Computed properties -----
-  stats      : writable('content.stats'),
-  lastStatus : writable('content.lastStatus'),
 
   currentIntervalOption : findBy('intervalOptions', raw('interval'), 'interval'),
 
   statsChartData : computed(
-    'stats',    'currentIntervalOption.multiplier', 'intl', 'moment',       'zen.state.settingsData.locale', 'zen.state.settingsData.timezone',
+    'stats',    'currentIntervalOption.multiplier', 'intl', 'moment',       'settings.locale', 'settings.timezone',
     (stats = [], multiplier,                         intl,   momentService,  locale) => {
       const limit      = 500
       const lastTime   = stats[stats.length - 1].time
@@ -136,17 +156,45 @@ export default PromiseNode.extend({
 
 
 
-  // ----- Methods -----
-  request (interval) {
-    const ajax = this.get('ajax')
-    interval = interval || this.get('zen.state.stats.interval')
+  // ----- Overridden Methods -----
 
-    return this.dispatchAction('run', () => ajax.getStats(interval))
+
+
+  // ----- Custom Methods -----
+  requestStats () {
+    const ajax         = this.get('ajax')
+    const interval     = this.get('interval')
+    const statsPromise = ajax.getStats(interval)
+    this.setProperties({statsPromise})
+    return statsPromise
+  },
+
+  requestStatsPoll (next) {
+    this
+      .requestStats()
+      .finally(() => {
+        const requestStatsTaskId = this.runTask(next, 1000)
+        this.setProperties({requestStatsTaskId})
+      })
   },
 
 
 
-  // ----- Actions -----
-  actions : {
-  },
+  // ----- Events and observers -----
+  updatePolling : observer('polling', function () {
+    const polling = this.get('polling')
+
+    if (polling) {
+      this.pollTask('requestStatsPoll', REQUEST_STATS_POLL_ID)
+    } else {
+      const requestStatsTaskId = this.get('requestStatsTaskId')
+      this.cancelTask(requestStatsTaskId)
+      this.cancelPoll(REQUEST_STATS_POLL_ID)
+    }
+  }),
+
+
+
+  // ----- Tasks -----
+
 })

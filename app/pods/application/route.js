@@ -13,23 +13,18 @@ import RSVP from 'rsvp'
 export default Route.extend(ApplicationRouteMixin, {
 
   // ----- Services -----
-  zen : service(),
+  settings : service(),
 
 
 
   // ----- Overridden methods -----
-  init () {
-    this.get('zen').logStateChangeOnNode('state', '@@INIT')
-
-    this._super(...arguments)
-  },
-
   beforeModel () {
-    return this
-      .get('zen.state.settingsData')
+    const settings = this.get('settings')
+
+    return settings
       .requestMiscConfig()
       .catch(error => {
-        this.get('zen.state.settingsData').applyMiscConfig()
+        settings.applyMiscConfig()
         return RSVP.reject(error)
       })
   },

@@ -17,7 +17,6 @@ export default AjaxService.extend({
   // ----- Services -----
   config  : service(),
   session : service(),
-  zen     : service(),
 
 
 
@@ -62,7 +61,7 @@ export default AjaxService.extend({
   },
 
   getMethod (method, params = {}, options = {}) {
-    const token = this.get('zen.state.session.token')
+    const token = this.get('session.data.authenticated.token')
 
     params = {
       method,
@@ -83,7 +82,7 @@ export default AjaxService.extend({
 
   postMethod (method, data = {}, options = {}) {
     const finalUrl = this.buildUrlQueryParams({method})
-    const token = this.get('zen.state.session.token')
+    const token = this.get('session.data.authenticated.token')
 
     data = {
       ...data,
@@ -106,8 +105,7 @@ export default AjaxService.extend({
 
 
   logout (params = {}) {
-    const token = this.get('zen.state.session.token')
-    return this.getMethod('auth.logout', {token, ...params})
+    return this.getMethod('auth.logout', params)
   },
 
   getStats (interval = '', params = {}) {

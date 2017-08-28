@@ -5,7 +5,7 @@ import service from 'ember-service/inject'
 import Base from 'ember-simple-auth/authenticators/base'
 
 // ----- Third-party libraries -----
-import RSVP from 'rsvp'
+// import RSVP from 'rsvp'
 
 
 
@@ -13,43 +13,30 @@ export default Base.extend({
 
   // ----- Services -----
   ajax : service(),
-  zen  : service(),
 
 
 
   // ----- Overridden methods -----
   authenticate (password) {
-    const zen = this.get('zen')
     const ajax = this.get('ajax')
-
-    return zen
-      .dispatchAction('state.session', 'run', () => ajax.login(password))
+    return ajax.login(password)
   },
 
 
 
   invalidate () {
-    this.get('zen').dispatchAction('state.session', 'invalidate')
-
-    return RSVP.resolve()
+    const ajax = this.get('ajax')
+    return ajax.logout()
   },
 
 
 
   restore ({token}) {
-    const zen = this.get('zen')
     const ajax = this.get('ajax')
 
-    return zen
-      .dispatchAction('state.session', 'run', () => {
-        return ajax
-          .confirmAuth(token)
-          .then(() => ({token}))
-      })
+    return ajax
+      .confirmAuth(token)
+      .then(() => ({token}))
   },
-
-
-
-  // ----- Custom methods -----
 
 })

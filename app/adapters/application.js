@@ -1,9 +1,15 @@
-import Zen from 'ember-zen/service'
-import computed from 'ember-macro-helpers/computed'
+// ----- Ember modules -----
+import RESTAdapter from 'ember-data/adapters/rest'
+
+// ----- Ember addons -----
+
+// ----- Third-party libraries -----
+
+// ----- Own modules -----
 
 
 
-export default Zen.extend({
+export default RESTAdapter.extend({
 
   // ----- Services -----
 
@@ -14,12 +20,6 @@ export default Zen.extend({
 
 
   // ----- Static properties -----
-  state : computed(function () {
-    return this.createNode({
-      nodeName : 'state',
-      nodeType : 'state',
-    })
-  }),
 
 
 

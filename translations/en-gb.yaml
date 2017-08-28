@@ -21,6 +21,27 @@ routes:
     loading: Loading chart...
     error: "Failed to fetch stats: {error}"
 
+  programs-program:
+    stages: Stages
+    settings: Settings
+    error: "Failed to update {field}: {error}"
+
+    fields:
+      name:
+        label: Name
+      maxTempBeforeTimer:
+        label: Max Temp A
+        description: Max temperature before starting delay timer
+      maxTempBeforeBaking:
+        label: Max Temp B
+        description: Max temperature before starting baking
+      maxTempAfterBaking:
+        label: Warm Temp
+        description: Temperature sustained after baking
+      maxTempDurationMins:
+        label: Max Warm Time
+        description: Max time of sustaining temperature after baking (in minutes)
+
   settings:
     title: Settings
     updating: Updating...

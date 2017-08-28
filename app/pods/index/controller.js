@@ -16,9 +16,9 @@ import {alias} from 'ember-computed'
 export default Controller.extend({
 
   // ----- Services -----
-  zen : service(),
-
   applicationController : controller('application'),
+
+  status : service(),
 
 
 
@@ -31,7 +31,6 @@ export default Controller.extend({
 
 
   // ----- Computed properties -----
-  interval : alias('applicationController.interval'),
 
 
 
@@ -54,11 +53,8 @@ export default Controller.extend({
   // ----- Actions -----
   actions : {
     updateInterval ({interval}) {
-      this.setProperties({interval})
-
-      const polling = this.get('zen.state.stats.polling')
-
-      if (!polling) this.get('applicationController').requestStats()
+      const applicationController = this.get('applicationController')
+      applicationController.setProperties({interval})
     },
   },
 })
