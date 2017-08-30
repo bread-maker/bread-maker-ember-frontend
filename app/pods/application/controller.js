@@ -83,6 +83,7 @@ export default Controller.extend({
       const status   = this.get('status')
 
       status.setProperties({interval, polling})
+      if (!polling) status.requestStats()
     },
 
     updatePolling (autoUpdate) {

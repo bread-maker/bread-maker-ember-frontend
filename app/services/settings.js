@@ -1,11 +1,14 @@
 // ----- Ember modules -----
 import Service from 'ember-service'
 import service from 'ember-service/inject'
+import {next} from 'ember-runloop'
 // import {reads} from 'ember-computed'
 
 // ----- Ember addon modules -----
+import writable from 'ember-macro-helpers/writable'
+
 import {
-  and,
+  divide,
   or,
 } from 'ember-awesome-macros'
 
@@ -33,15 +36,31 @@ export default Service.extend({
 
 
 
-  // ----- Promises -----
+  // ----- Global baking config -----
+  globalBakingConfigPromise : null,
+  globalBakingConfigProxy   : promiseProxy('globalBakingConfigPromise'),
+  globalBakingConfig        : writable('globalBakingConfigProxy.content'),
+  maxTempBeforeTimer        : writable('globalBakingConfig.maxTempBeforeTimer'),
+  maxTempBeforeBaking       : writable('globalBakingConfig.maxTempBeforeBaking'),
+  maxTempAfterBaking        : writable('globalBakingConfig.maxTempAfterBaking'),
+  maxTempDuration           : writable('globalBakingConfig.maxTempDuration'),
+  maxTempDurationMins       : divide(or('maxTempDuration', 0), 60),
+
+  // ----- Misc config -----
   miscConfigPromise : null,
   miscConfigProxy   : promiseProxy('miscConfigPromise'),
+  miscConfig        : writable('miscConfigProxy.content'),
+  locale            : or('miscConfig.locale',   'localeDefault'),
+  timezone          : or('miscConfig.timezone', 'timezoneDefault'),
+
+  // ----- Misc config -----
+  passwordPromise : null,
+  passwordProxy   : promiseProxy('passwordPromise'),
 
 
 
   // ----- Computed properties -----
-  locale   : or('miscConfigProxy.content.locale',   'localeDefault'),
-  timezone : or('miscConfigProxy.content.timezone', 'timezoneDefault'),
+
 
 
 
@@ -51,25 +70,42 @@ export default Service.extend({
 
   // ----- Custom Methods -----
   requestGlobalBakingConfig () {
+    if (this.get('globalBakingConfigProxy.isPending')) {
+      throw new Error("Attempted to request global baking config while it's already in progress")
+    }
+
     const ajax = this.get('ajax')
-    return ajax.getGlobalBakingConfig()
+
+    const globalBakingConfigPromise = ajax.getGlobalBakingConfig()
+    this.setProperties({globalBakingConfigPromise})
+    return globalBakingConfigPromise
   },
 
 
 
   requestMiscConfig () {
+    if (this.get('miscConfigProxy.isPending')) {
+      throw new Error("Attempted to request misc config while it's already in progress")
+    }
+
     const ajax = this.get('ajax')
 
-    return ajax
-      .getMiscConfig()
-      .then(config => (this.applyMiscConfig(), config))
+    const miscConfigPromise =
+      ajax
+        .getMiscConfig()
+        .then(config => this.applyMiscConfig(config))
+
+    this.setProperties({miscConfigPromise})
+
+    return miscConfigPromise
   },
 
 
 
-  applyMiscConfig () {
-    this.applyLocale()
-    this.applyTimezone()
+  applyMiscConfig (config) {
+    this.applyLocale(config.locale)
+    this.applyTimezone(config.timezone)
+    return config
   },
 
 
@@ -95,33 +131,53 @@ export default Service.extend({
 
 
   setPassword (password, newPassword) {
+    if (this.get('passwordProxy.isPending')) {
+      throw new Error("Attempted to update password while it's already in progress")
+    }
+
     const ajax = this.get('ajax')
 
-    return ajax.setPassword(password, newPassword)
+    const passwordPromise =
+      ajax
+        .setPassword(password, newPassword)
+        .then(() => next(() => this.set('passwordPromise', null)))
+
+    this.setProperties({passwordPromise})
+    return passwordPromise
   },
 
 
 
   setGlobalBakingConfig (attr, value) {
-    const ajax      = this.get('ajax')
-    const prefsNode = this.get('zen.state.settings')
+    if (this.get('globalBakingConfigProxy.isPending')) {
+      throw new Error("Attempted to update global baking config while it's already in progress")
+    }
 
+    const ajax           = this.get('ajax')
     const effectiveValue = attr === 'maxTempDurationMins' ? value * 60 : value
     const effectiveAttr  = attr === 'maxTempDurationMins' ? 'maxTempDuration' : attr
 
-    return ajax
-      .setGlobalBakingConfig({[effectiveAttr] : effectiveValue})
-      .then(response => (prefsNode.reset(attr), response))
+    const globalBakingConfigPromise = ajax.setGlobalBakingConfig({[effectiveAttr] : effectiveValue})
+    this.setProperties({globalBakingConfigPromise})
+    return globalBakingConfigPromise
   },
 
 
 
   setMiscConfig (attr, value) {
+    if (this.get('miscConfigProxy.isPending')) {
+      throw new Error("Attempted to update misc config while it's already in progress")
+    }
+
     const ajax = this.get('ajax')
 
-    return ajax
-      .setMiscConfig(attr, value)
-      .then(config => this.applyMiscConfig(config))
+    const miscConfigPromise =
+      ajax
+        .setMiscConfig(attr, value)
+        .then(config => this.applyMiscConfig(config))
+
+    this.setProperties({miscConfigPromise})
+    return miscConfigPromise
   },
 
 

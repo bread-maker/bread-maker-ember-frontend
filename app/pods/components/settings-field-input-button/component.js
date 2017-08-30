@@ -16,7 +16,7 @@ import tag from 'ember-awesome-macros/tag'
 export default Component.extend({
 
   // ----- Arguments -----
-  node         : undefined,
+  userInput    : undefined,
   defaultValue : '',
 
   fieldName : undefined,

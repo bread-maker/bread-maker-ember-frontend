@@ -10,12 +10,24 @@ import moment from 'moment'
 
 // ----- Own modules -----
 
+// ----- Constants -----
+const RESETTABLE_ATTRS = [
+  'maxTempBeforeTimer',
+  'maxTempBeforeBaking',
+  'maxTempAfterBaking',
+  'maxTempDurationMins',
+  'oldPassword',
+  'newPassword',
+]
+
 
 
 export default Controller.extend({
 
   // ----- Services -----
-  intl : service(),
+  intl     : service(),
+  moment   : service(),
+  settings : service(),
 
 
 
@@ -24,6 +36,15 @@ export default Controller.extend({
 
 
   // ----- Static properties -----
+  maxTempBeforeTimer  : null,
+  maxTempBeforeBaking : null,
+  maxTempAfterBaking  : null,
+  maxTempDurationMins : null,
+  oldPassword         : null,
+  newPassword         : null,
+
+  lastUpdatedGBCAttr  : null,
+  lastUpdatedMiscAttr : null,
 
 
 
@@ -37,6 +58,13 @@ export default Controller.extend({
 
 
   // ----- Custom Methods -----
+  reset (attrs = RESETTABLE_ATTRS) {
+    attrs.forEach(attr => this.resetAttr(attr))
+  },
+
+  resetAttr (attr) {
+    this.set(attr, null)
+  },
 
 
 
@@ -51,9 +79,37 @@ export default Controller.extend({
   // ----- Actions -----
   actions : {
     setGlobalBakingConfig (attr, value) {
-      const zen = this.get('zen')
-      zen.dispatchSet('state.settings', 'lastUpdatedGBCAttr', 'lastUpdatedGBCAttr', attr)
-      zen.dispatchAction('state.settingsData', 'setGlobalBakingConfig', attr, value)
+      this.set('lastUpdatedGBCAttr', attr)
+
+      const settings = this.get('settings')
+
+      settings
+        .setGlobalBakingConfig(attr, value)
+        .then(() => this.resetAttr(attr))
+    },
+
+
+
+    setMiscConfig (attr, value) {
+      this.set('lastUpdatedMiscAttr', attr)
+
+      const settings = this.get('settings')
+
+      settings
+        .setMiscConfig(attr, value)
+        .then(() => this.resetAttr(attr))
+    },
+
+
+
+    setPassword () {
+      const settings    = this.get('settings')
+      const oldPassword = this.get('oldPassword')
+      const newPassword = this.get('newPassword')
+
+      settings
+        .setPassword(oldPassword, newPassword)
+        .then(() => this.reset(['oldPassword', 'newPassword']))
     },
   },
 })

@@ -5,6 +5,7 @@ import service from 'ember-service/inject'
 // ----- Ember Addon modules -----
 
 // ----- Own modules -----
+import promiseProxy from 'bread-maker-ember-frontend/macros/promise-proxy'
 
 
 
@@ -25,6 +26,8 @@ export default Controller.extend({
 
 
   // ----- Computed properties -----
+  authPromise : null,
+  authProxy   : promiseProxy('authPromise'),
 
 
 
@@ -46,9 +49,11 @@ export default Controller.extend({
 
   // ----- Actions -----
   actions : {
-    login () {
-      const password = this.get('password')
-      this.send('authenticateSession', password)
+    authenticateSession () {
+      const session     = this.get('session')
+      const password    = this.get('password')
+      const authPromise = session.authenticate('authenticator:custom', password)
+      this.setProperties({authPromise})
     },
   },
 })

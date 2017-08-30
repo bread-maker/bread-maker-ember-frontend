@@ -21,15 +21,15 @@
       fieldName = fieldName
       type      = 'number'
 
-      node         = (get zen.state.settings (concat fieldName 'Component'))
-      defaultValue = (get zen.state.settingsData fieldName)
+      userInput    = (get this fieldName)
+      defaultValue = (get settings fieldName)
 
       label       = (t (concat 'routes.settings.fields.' fieldName '.label'))
       description = (t (concat 'routes.settings.fields.' fieldName '.description'))
 
-      requestIsPending  = zen.state.settingsData.globalBakingConfig.isPending
+      requestIsPending  = settings.globalBakingConfig.isPending
       requestIsRejected = (and
-        (eq zen.state.settings.lastUpdatedGBCAttr fieldName)
+        (eq lastUpdatedGBCAttr fieldName)
         zen.state.settingsData.globalBakingConfig.isRejected
       )
 
@@ -44,8 +44,6 @@
   {{/each}}{{! fieldName}}
 </div>{{! settingsGroup _baking }}
 
-
-
 <div class='route-settings-settingsGroup _system'>
 
   <h2 class='route-settings-settingsGroup-title'>
@@ -59,10 +57,13 @@
     label       = (t 'routes.settings.fields.locale.label')
     description = (t 'routes.settings.fields.locale.description')
 
-    requestIsPending  = zen.state.settingsData.miscConfig.isPending
-    requestIsRejected = zen.state.settingsData.miscConfig.isRejected
+    requestIsPending  = settings.miscConfig.isPending
+    requestIsRejected = (and
+      (eq lastUpdatedMiscAttr 'locale')
+      settings.miscConfig.isRejected
+    )
 
-    selected = zen.state.settingsData.locale
+    selected = intl.locale
     options  = intl.locales
 
     errorLabel = (t
@@ -71,11 +72,12 @@
       error=(error zen.state.settingsData.miscConfig.reason)
     )
 
-    updateAction = (action (dispatch-action) zen.state.settingsData 'setMiscConfig' 'locale')
+    updateAction = (action 'setMiscConfig' 'locale')
     as |locale|
   }}
     {{t (concat 'domain.locale.' locale)}}
   {{/settings-field-select}}{{! locale }}
+
 
 
 
@@ -85,10 +87,13 @@
     fieldName   = 'timezone'
     label       = (t 'routes.settings.fields.timezone.label')
 
-    requestIsPending  = zen.state.settingsData.miscConfig.isPending
-    requestIsRejected = zen.state.settingsData.miscConfig.isRejected
+    requestIsPending  = settings.miscConfig.isPending
+    requestIsRejected = (and
+      (eq lastUpdatedMiscAttr 'timezone')
+      settings.miscConfig.isRejected
+    )
 
-    selected = zen.state.settingsData.timezone
+    selected = moment.timeZone
     options  = timezones
 
     errorLabel = (t
@@ -97,7 +102,7 @@
       error=(error zen.state.settingsData.miscConfig.reason)
     )
 
-    updateAction = (action (dispatch-action) zen.state.settingsData 'setMiscConfig' 'timezone')
+    updateAction = (action 'setMiscConfig' 'timezone')
     as |timezone|
   }}
     {{timezone}}
@@ -110,13 +115,13 @@
     fieldName   = 'password'
     label       = (t 'domain.login.password')
 
-    requestIsPending  = zen.state.settingsData.password.isPending
-    requestIsRejected = zen.state.settingsData.password.isRejected
+    requestIsPending  = settings.passwordProxy.isPending
+    requestIsRejected = settings.passwordProxy.isRejected
 
     errorLabel = (t
       'routes.settings.error'
       field='password'
-      error=(error zen.state.settingsData.password.reason)
+      error=(error settings.passwordProxy.reason)
     )
   }}
     <label class='route-settings-setting-label'>
@@ -126,13 +131,8 @@
     {{one-way-input
       class  = 'route-settings-field-password-old'
       type   = 'password'
-      value  = zen.state.settings.oldPasswordUserInput
-      update = (action
-        (dispatch-set)
-        zen.state.settings
-        'old password user input'
-        'oldPasswordUserInput'
-      )
+      value  = oldPassword
+      update = (action (mut oldPassword))
     }}
 
     <label class='route-settings-setting-label'>
@@ -142,24 +142,14 @@
     {{one-way-input
       class  = 'route-settings-field-password-new'
       type   = 'password'
-      value  = zen.state.settings.newPasswordUserInput
-      update = (action
-        (dispatch-set)
-        zen.state.settings
-        'new password user input'
-        'newPasswordUserInput'
-      )
+      value  = newPassword
+      update = (action (mut newPassword))
     }}
 
     <button
       class  = 'route-settings-field-password-submit'
-      {{action
-        (dispatch-action)
-        zen.state.settingsData
-        'setPassword'
-        zen.state.settings.oldPasswordUserInput
-        zen.state.settings.newPasswordUserInput
-      }}
+      disabled = {{not (and oldPassword.length newPassword.length)}}
+      {{action 'setPassword'}}
     >
       {{t 'domain.forms.save'}}
     </button>
@@ -168,4 +158,3 @@
 
 
 </div>{{! settingsGroup _system }}
-

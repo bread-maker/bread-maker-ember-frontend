@@ -5,7 +5,7 @@
   </h1>
 
   <div class = 'route-login-form'>
-    {{#if zen.state.session.isPending}}
+    {{#if authProxy.isPending}}
 
       <span class = 'route-login-form-pendingMessage'>
         {{t 'domain.login.logging-in'}}
@@ -22,23 +22,23 @@
         type  = 'password'
         value = password
 
-        insert-newline = (action 'login')
+        insert-newline = (action 'authenticateSession')
       }}
 
       <button
         class = 'route-login-form-submitButton'
-        {{action 'login'}}
+        {{action 'authenticateSession'}}
       >
         {{t 'domain.login.log-in'}}
       </button>
-    {{/if}}{{! zen.state.session.isPending }}
+    {{/if}}{{! authProxy.isPending }}
 
     {{#if (and
-      (not zen.state.session.isPending)
-      zen.state.session.reason
+      (not authProxy.isPending)
+      authProxy.reason
     )}}
       <p class = 'route-login-form-error'>
-        {{error zen.state.session.reason}}
+        {{error authProxy.reason}}
       </p>
     {{/if}}{{! error }}
   </div>{{! form }}

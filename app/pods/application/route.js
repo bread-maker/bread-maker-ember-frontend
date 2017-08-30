@@ -33,10 +33,6 @@ export default Route.extend(ApplicationRouteMixin, {
 
   // ----- Actions -----
   actions : {
-    authenticateSession (password) {
-      this.get('session').authenticate('authenticator:custom', password)
-    },
-
     invalidateSession () {
       this.get('session').invalidate()
     },

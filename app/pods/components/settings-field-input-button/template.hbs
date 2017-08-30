@@ -12,14 +12,14 @@
     class     = 'settingsFieldInputButton-input'
     disabled  = requestIsPending
     type      = type
-    value     = (if (is-nully node.userInput) defaultValue node.userInput)
-    update    = (action (dispatch-set) node 'userInput' 'userInput')
+    value     = (if (is-nully userInput) defaultValue userInput)
+    update    = (action (mut userInput))
   }}
 
   <button
     class    = 'settingsFieldInputButton-submit'
-    disabled = {{or requestIsPending (not node.userInput.length)}}
-    {{action submitAction node.userInput}}
+    disabled = {{or requestIsPending (not userInput.length)}}
+    {{action submitAction userInput}}
   >
     {{t (if requestIsPending 'domain.forms.saving' 'domain.forms.save')}}
   </button>
