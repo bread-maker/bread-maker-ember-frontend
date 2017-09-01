@@ -30,13 +30,13 @@
       requestIsPending  = settings.globalBakingConfig.isPending
       requestIsRejected = (and
         (eq lastUpdatedGBCAttr fieldName)
-        zen.state.settingsData.globalBakingConfig.isRejected
+        settings.globalBakingConfigProxy.isRejected
       )
 
       errorLabel = (t
         'routes.settings.error'
         field='globalBakingConfig'
-        error=(error zen.state.settingsData.globalBakingConfig.reason)
+        error=(error settings.globalBakingConfigProxy.reason)
       )
 
       submitAction = (action 'setGlobalBakingConfig' fieldName)
@@ -69,7 +69,7 @@
     errorLabel = (t
       'routes.settings.error'
       field='locale'
-      error=(error zen.state.settingsData.miscConfig.reason)
+      error=(error settings.miscConfigProxy.reason)
     )
 
     updateAction = (action 'setMiscConfig' 'locale')
@@ -99,7 +99,7 @@
     errorLabel = (t
       'routes.settings.error'
       field='timezone'
-      error=(error zen.state.settingsData.miscConfig.reason)
+      error=(error settings.miscConfigProxy.reason)
     )
 
     updateAction = (action 'setMiscConfig' 'timezone')

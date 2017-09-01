@@ -14,6 +14,7 @@ import {
 
 // ----- Own modules -----
 import promiseProxy from 'bread-maker-ember-frontend/macros/promise-proxy'
+import cache from 'bread-maker-ember-frontend/macros/cache'
 
 
 
@@ -38,8 +39,9 @@ export default Service.extend({
 
   // ----- Global baking config -----
   globalBakingConfigPromise : null,
+  globalBakingConfigCache   : null,
   globalBakingConfigProxy   : promiseProxy('globalBakingConfigPromise'),
-  globalBakingConfig        : writable('globalBakingConfigProxy.content'),
+  globalBakingConfig        : cache('globalBakingConfigProxy.content', 'globalBakingConfigCache'),
   maxTempBeforeTimer        : writable('globalBakingConfig.maxTempBeforeTimer'),
   maxTempBeforeBaking       : writable('globalBakingConfig.maxTempBeforeBaking'),
   maxTempAfterBaking        : writable('globalBakingConfig.maxTempAfterBaking'),
@@ -48,8 +50,9 @@ export default Service.extend({
 
   // ----- Misc config -----
   miscConfigPromise : null,
+  miscConfigCache   : null,
   miscConfigProxy   : promiseProxy('miscConfigPromise'),
-  miscConfig        : writable('miscConfigProxy.content'),
+  miscConfig        : cache('miscConfigProxy.content', 'miscConfigCache'),
   locale            : or('miscConfig.locale',   'localeDefault'),
   timezone          : or('miscConfig.timezone', 'timezoneDefault'),
 
@@ -102,7 +105,7 @@ export default Service.extend({
 
 
 
-  applyMiscConfig (config) {
+  applyMiscConfig (config = {}) {
     this.applyLocale(config.locale)
     this.applyTimezone(config.timezone)
     return config
@@ -111,7 +114,7 @@ export default Service.extend({
 
 
   applyLocale (locale) {
-    locale = locale || this.get('locale')
+    locale = locale || this.get('localeDefault')
     const intl   = this.get('intl')
     const moment = this.get('moment')
 
@@ -122,7 +125,7 @@ export default Service.extend({
 
 
   applyTimezone (timezone) {
-    timezone = timezone || this.get('timezone')
+    timezone = timezone || this.get('timezoneDefault')
 
     const moment = this.get('moment')
     moment.setTimeZone(timezone)

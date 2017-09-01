@@ -1,6 +1,6 @@
 // ----- Ember modules -----
 import Helper from 'ember-helper'
-import service from 'ember-service/inject'
+// import service from 'ember-service/inject'
 import observer from 'ember-metal/observer'
 
 // ----- Ember addons -----

@@ -11,7 +11,6 @@ import raw from 'ember-macro-helpers/raw'
 import writable from 'ember-macro-helpers/writable'
 
 import {
-  and,
   findBy,
   tag,
 } from 'ember-awesome-macros'

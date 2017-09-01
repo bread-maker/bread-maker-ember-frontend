@@ -2,7 +2,6 @@
 import Controller from 'ember-controller'
 import controller from 'ember-controller/inject'
 import service from 'ember-service/inject'
-import {alias} from 'ember-computed'
 
 // ----- Ember addons -----
 // import writable from 'ember-macro-helpers/writable'
