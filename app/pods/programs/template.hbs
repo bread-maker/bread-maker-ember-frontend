@@ -2,10 +2,10 @@
 
 
   <ul class = 'route-programs-menu'>
-    {{#each zen.state.programsData.items as |program|}}
+    {{#each model.programs as |program|}}
       <li class = 'route-programs-menu-item'>
         {{#link-to 'programs.program' program.id}}
-          {{inc program.programId}}-{{inc program.crustId}}
+          {{humanId}}
           {{program.name}}
         {{/link-to}}
       </li>{{! menu-item' }}

@@ -5,7 +5,7 @@ import Route from 'ember-route'
 // ----- Ember addons -----
 
 // ----- Third-party libraries -----
-// import RSVP from 'rsvp'
+import RSVP from 'rsvp'
 
 // ----- Own modules -----
 
@@ -31,19 +31,18 @@ export default Route.extend({
 
   // ----- Overridden Methods -----
   model ({id}) {
-    const items = this.get('zen.state.programsData.items')
-    const currentProgram = items.findBy('id', id)
+    const parentModel    = this.modelFor('programs')
+    const store          = this.get('store')
+    const currentProgram = store.peekRecord('program', id)
 
-    if (!currentProgram) this.transitionTo('programs.index')
+    if (!currentProgram) this.transitionTo('programs')
 
-    this
-      .get('zen.state.programsProgram')
-      .dispatchAction('reset', id)
+    return RSVP.hash({
+      ...parentModel,
+      currentProgramId : id,
+      currentProgram,
+    })
   },
-
-  // resetController (controller, isExiting) {
-  //   if (isExiting) this.get('zen.state.programs').reset()
-  // },
 
 
 

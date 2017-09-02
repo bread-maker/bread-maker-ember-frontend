@@ -1,10 +1,10 @@
 // ----- Ember modules -----
-import {reads} from 'ember-computed'
 import service from 'ember-service/inject'
 import {camelize, decamelize} from 'ember-string'
 import get from 'ember-metal/get'
 
 // ----- Ember Addon modules -----
+import writable from 'ember-macro-helpers/writable'
 import AjaxService from 'ember-ajax/services/ajax'
 
 // ----- Third-party modules -----
@@ -21,7 +21,7 @@ export default AjaxService.extend({
 
 
   // ----- Overridden properties -----
-  host : reads('config.backendUrl'),
+  host : writable('config.backendUrl'),
 
 
   // ----- Static properties -----

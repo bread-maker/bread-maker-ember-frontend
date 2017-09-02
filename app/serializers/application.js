@@ -1,5 +1,8 @@
+// ----- Ember Data modules -----
+import RESTSerializer from 'ember-data/serializers/rest'
+
 // ----- Ember modules -----
-import JSONAPISerializer from 'ember-data/serializers/json-api'
+import {decamelize} from 'ember-string'
 
 // ----- Ember addons -----
 
@@ -9,7 +12,7 @@ import JSONAPISerializer from 'ember-data/serializers/json-api'
 
 
 
-export default JSONAPISerializer.extend({
+export default RESTSerializer.extend({
 
   // ----- Services -----
 
@@ -28,6 +31,9 @@ export default JSONAPISerializer.extend({
 
 
   // ----- Overridden Methods -----
+  keyForAttribute (key/*, method*/) {
+    return decamelize(key)
+  },
 
 
 

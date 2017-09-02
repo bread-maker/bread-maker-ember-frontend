@@ -27,8 +27,6 @@ export default Controller.extend({
 
 
   // ----- Computed properties -----
-  node           : writable('zen.state.programsProgram'),
-  currentProgram : writable('zen.state.programsProgram.currentProgram'),
 
 
 

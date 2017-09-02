@@ -1,5 +1,6 @@
 // ----- Ember modules -----
 import Route from 'ember-route'
+import get from 'ember-metal/get'
 // import service from 'ember-service/inject'
 
 // ----- Ember addons -----
@@ -31,17 +32,13 @@ export default Route.extend({
 
   // ----- Overridden Methods -----
   beforeModel () {
-    const items = this.get('zen.state.programsData.items')
+    const programs = this.modelFor('programs').programs
 
-    if (items.get('length')) {
-      const id = items.get('firstObject.id')
+    if (get(programs, 'length')) {
+      const id = programs.get('firstObject.id')
       this.transitionTo('programs.program', id)
     }
   },
-
-  // resetController (controller, isExiting) {
-  //   if (isExiting) this.get('zen.state.programs').reset()
-  // },
 
 
 
