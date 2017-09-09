@@ -1,15 +1,18 @@
 // ----- Ember modules -----
-import Service from '@ember/service'
+import {decamelize} from 'ember-string'
+
+// ----- Ember Data modules -----
+import RESTSerializer from 'ember-data/serializers/rest'
 
 // ----- Ember addons -----
-import reads from 'ember-macro-helpers/reads'
+
+// ----- Third-party libraries -----
 
 // ----- Own modules -----
-import ENV from 'bread-maker-ember-frontend/config/environment'
 
 
 
-export default Service.extend({
+export default RESTSerializer.extend({
 
   // ----- Services -----
 
@@ -20,16 +23,17 @@ export default Service.extend({
 
 
   // ----- Static properties -----
-  envVars : ENV.envVars,
 
 
 
   // ----- Computed properties -----
-  backendUrl : reads('envVars.BM_BACKEND_URL'),
 
 
 
   // ----- Overridden Methods -----
+  keyForAttribute (key/*, method*/) {
+    return decamelize(key)
+  },
 
 
 
@@ -42,5 +46,4 @@ export default Service.extend({
 
 
   // ----- Tasks -----
-
 })

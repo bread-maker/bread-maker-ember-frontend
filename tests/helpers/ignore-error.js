@@ -1,4 +1,8 @@
+// ----- Ember modules -----
 import Ember from 'ember'
+
+// ----- Third-party libraries -----
+import _ from 'lodash'
 
 
 

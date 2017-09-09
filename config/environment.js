@@ -44,6 +44,7 @@ module.exports = function (environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
+  // here you can enable a production-specific feature
   if (environment === 'test') {
     // Testem prefers this...
     ENV.locationType = 'none'

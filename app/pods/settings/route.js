@@ -1,6 +1,6 @@
 // ----- Ember modules -----
-import Route from 'ember-route'
-// import service from 'ember-service/inject'
+import Route from '@ember/routing/route'
+import { inject as service } from '@ember/service'
 
 // ----- Ember addons -----
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin'
@@ -15,6 +15,7 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 export default Route.extend(AuthenticatedRouteMixin, {
 
   // ----- Services -----
+  settings : service(),
 
 
 
@@ -32,13 +33,12 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   // ----- Overridden Methods -----
   model () {
-    return this
-      .get('zen.state.settingsData')
-      .requestGlobalBakingConfig()
+    const settings = this.get('settings')
+    return settings.requestGlobalBakingConfig()
   },
 
   resetController (controller, isExiting) {
-    if (isExiting) this.get('zen.state.settings').reset()
+    if (isExiting) controller.reset()
   },
 
 

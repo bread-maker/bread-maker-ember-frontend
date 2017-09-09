@@ -1,6 +1,6 @@
 // ----- Ember modules -----
-import Route from 'ember-route'
-import service from 'ember-service/inject'
+import Route from '@ember/routing/route'
+import { inject as service } from '@ember/service'
 
 // ----- Ember addons -----
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin'
@@ -13,35 +13,40 @@ import RSVP from 'rsvp'
 export default Route.extend(ApplicationRouteMixin, {
 
   // ----- Services -----
-  zen : service(),
+  session  : service(),
+  settings : service(),
 
 
 
   // ----- Overridden methods -----
-  init () {
-    this.get('zen').logStateChangeOnNode('state', '@@INIT')
-
-    this._super(...arguments)
-  },
-
   beforeModel () {
-    return this
-      .get('zen.state.settingsData')
+    const settings = this.get('settings')
+
+    return settings
       .requestMiscConfig()
       .catch(error => {
-        this.get('zen.state.settingsData').applyMiscConfig()
+        settings.applyMiscConfig()
         return RSVP.reject(error)
       })
   },
+
+  // beforeModel () {
+  //   const session  = this.get('session')
+  //   const settings = this.get('settings')
+  //
+  //   return session
+  //     .restore()
+  //     .then(() => settings.requestMiscConfig())
+  //     .catch(error => {
+  //       settings.applyMiscConfig()
+  //       return RSVP.reject(error)
+  //     })
+  // },
 
 
 
   // ----- Actions -----
   actions : {
-    authenticateSession (password) {
-      this.get('session').authenticate('authenticator:custom', password)
-    },
-
     invalidateSession () {
       this.get('session').invalidate()
     },

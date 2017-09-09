@@ -12,6 +12,7 @@ import {
 import testSelector from "ember-test-selectors"
 
 import $ from "jquery"
+import _ from 'lodash'
 
 
 

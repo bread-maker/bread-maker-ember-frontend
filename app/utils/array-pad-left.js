@@ -3,6 +3,7 @@
 // ----- Ember addons -----
 
 // ----- Third-party libraries -----
+import _ from 'lodash'
 
 // ----- Own modules -----
 

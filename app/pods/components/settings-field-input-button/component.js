@@ -1,6 +1,6 @@
 // ----- Ember modules -----
-import Component from 'ember-component'
-import service from 'ember-service/inject'
+import Component from '@ember/component'
+import { inject as service } from '@ember/service'
 
 // ----- Ember addons -----
 // import raw from 'ember-macro-helpers/raw'
@@ -16,7 +16,7 @@ import tag from 'ember-awesome-macros/tag'
 export default Component.extend({
 
   // ----- Arguments -----
-  node         : undefined,
+  userInput    : undefined,
   defaultValue : '',
 
   fieldName : undefined,

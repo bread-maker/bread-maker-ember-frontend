@@ -1,5 +1,5 @@
 // ----- Ember modules -----
-import Route from 'ember-route'
+import Route from '@ember/routing/route'
 
 // ----- Ember addons -----
 

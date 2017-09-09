@@ -1,13 +1,15 @@
 // ----- Ember modules -----
-import {reads} from 'ember-computed'
-import service from 'ember-service/inject'
-import {camelize, decamelize} from 'ember-string'
-import get from 'ember-metal/get'
+import { inject as service } from '@ember/service'
+import {camelize, decamelize} from '@ember/string'
+import { get } from '@ember/object'
 
 // ----- Ember Addon modules -----
+import writable from 'ember-macro-helpers/writable'
 import AjaxService from 'ember-ajax/services/ajax'
 
 // ----- Third-party modules -----
+import _ from 'lodash'
+import $ from 'jquery'
 import RSVP from 'rsvp'
 
 
@@ -17,12 +19,11 @@ export default AjaxService.extend({
   // ----- Services -----
   config  : service(),
   session : service(),
-  zen     : service(),
 
 
 
   // ----- Overridden properties -----
-  host : reads('config.backendUrl'),
+  host : writable('config.backendUrl'),
 
 
   // ----- Static properties -----
@@ -48,21 +49,12 @@ export default AjaxService.extend({
   // ----- Custom Methods -----
   buildUrlQueryParams (params = {}) {
     if (!Object.keys(params).length) return ''
-
-    const serializedParams =
-      _
-        .map(params, (value, key) => {
-          value = encodeURIComponent(value)
-          key = encodeURIComponent(key)
-          return `${key}=${value}`
-        })
-        .join('&')
-
+    const serializedParams = $.param(params)
     return `?${serializedParams}`
   },
 
   getMethod (method, params = {}, options = {}) {
-    const token = this.get('zen.state.session.token')
+    const token = this.get('session.data.authenticated.token')
 
     params = {
       method,
@@ -83,7 +75,7 @@ export default AjaxService.extend({
 
   postMethod (method, data = {}, options = {}) {
     const finalUrl = this.buildUrlQueryParams({method})
-    const token = this.get('zen.state.session.token')
+    const token = this.get('session.data.authenticated.token')
 
     data = {
       ...data,
@@ -106,8 +98,7 @@ export default AjaxService.extend({
 
 
   logout (params = {}) {
-    const token = this.get('zen.state.session.token')
-    return this.getMethod('auth.logout', {token, ...params})
+    return this.getMethod('auth.logout', params)
   },
 
   getStats (interval = '', params = {}) {

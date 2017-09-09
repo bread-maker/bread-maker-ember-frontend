@@ -1,6 +1,5 @@
 /* eslint-env node */
 const EmberApp = require('ember-cli/lib/broccoli/ember-app')
-const Funnel   = require('broccoli-funnel')
 const fs       = require('fs')
 
 
@@ -40,13 +39,6 @@ module.exports = function (defaults) {
       includePolyfill : true,
     },
 
-    nodeModulesToVendor : [
-      new Funnel('node_modules/lodash', {
-        destDir : 'lodash',
-        files   : ['lodash.js'],
-      }),
-    ],
-
     sassOptions : {
       includePaths : ['app'],
     },
@@ -78,7 +70,6 @@ module.exports = function (defaults) {
   // modules that you would like to import into your application
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
-  app.import('vendor/lodash/lodash.js')
 
   return app.toTree()
 }

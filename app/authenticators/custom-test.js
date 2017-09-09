@@ -1,5 +1,5 @@
 // ----- Ember modules -----
-import service from 'ember-service/inject'
+// import { inject as service } from '@ember/service'
 
 // ----- Ember addons -----
 import Base from 'ember-simple-auth/authenticators/base'
@@ -12,17 +12,12 @@ import RSVP from 'rsvp'
 export default Base.extend({
 
   // ----- Services -----
-  zen : service(),
 
 
 
   // ----- Overridden methods -----
-  authenticate (sessionData) {
-    this
-      .get('zen.state.session')
-      .dispatchAction('authenticate', sessionData)
-
-    return RSVP.resolve(sessionData)
+  authenticate (data) {
+    return RSVP.resolve(data)
   },
 
   restore (data) {

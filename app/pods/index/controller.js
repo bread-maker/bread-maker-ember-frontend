@@ -1,8 +1,6 @@
 // ----- Ember modules -----
-import Controller from 'ember-controller'
-import controller from 'ember-controller/inject'
-import service from 'ember-service/inject'
-import {alias} from 'ember-computed'
+import Controller, { inject as controller } from '@ember/controller'
+import { inject as service } from '@ember/service'
 
 // ----- Ember addons -----
 // import writable from 'ember-macro-helpers/writable'
@@ -16,9 +14,9 @@ import {alias} from 'ember-computed'
 export default Controller.extend({
 
   // ----- Services -----
-  zen : service(),
-
   applicationController : controller('application'),
+
+  status : service(),
 
 
 
@@ -31,7 +29,6 @@ export default Controller.extend({
 
 
   // ----- Computed properties -----
-  interval : alias('applicationController.interval'),
 
 
 
@@ -54,11 +51,8 @@ export default Controller.extend({
   // ----- Actions -----
   actions : {
     updateInterval ({interval}) {
-      this.setProperties({interval})
-
-      const polling = this.get('zen.state.stats.polling')
-
-      if (!polling) this.get('applicationController').requestStats()
+      const applicationController = this.get('applicationController')
+      applicationController.setProperties({interval})
     },
   },
 })

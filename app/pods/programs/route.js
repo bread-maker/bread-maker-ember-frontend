@@ -1,12 +1,12 @@
 // ----- Ember modules -----
-import Route from 'ember-route'
-// import service from 'ember-service/inject'
+import Route from '@ember/routing/route'
+// import { inject as service } from '@ember/service'
 
 // ----- Ember addons -----
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin'
 
 // ----- Third-party libraries -----
-// import RSVP from 'rsvp'
+import RSVP from 'rsvp'
 
 // ----- Own modules -----
 
@@ -32,14 +32,12 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   // ----- Overridden Methods -----
   model () {
-    return this
-      .get('zen.state.programsData')
-      .dispatchAction('requestAll')
-  },
+    const store = this.get('store')
 
-  // resetController (controller, isExiting) {
-  //   if (isExiting) this.get('zen.state.programs').reset()
-  // },
+    return RSVP.hash({
+      programs : store.findAll('program'),
+    })
+  },
 
 
 
