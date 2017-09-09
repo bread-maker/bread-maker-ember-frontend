@@ -1,4 +1,8 @@
-import {helper} from 'ember-helper'
+// ----- Ember modules -----
+import { helper } from '@ember/component/helper'
+
+// ----- Third-party libraries -----
+import _ from 'lodash'
 
 
 

@@ -3,6 +3,7 @@
 // ----- Ember addons -----
 
 // ----- Third-party libraries -----
+import _ from 'lodash'
 
 // ----- Own modules -----
 import arrayPadLeft from 'bread-maker-ember-frontend/utils/array-pad-left'

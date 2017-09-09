@@ -1,7 +1,7 @@
 // ----- Ember modules -----
-import Controller from 'ember-controller'
-import service from 'ember-service/inject'
-import observer from 'ember-metal/observer'
+import Controller from '@ember/controller'
+import { inject as service } from '@ember/service'
+import { observer } from '@ember/object'
 
 // ----- Ember Addon modules -----
 import computed from 'ember-macro-helpers/computed'

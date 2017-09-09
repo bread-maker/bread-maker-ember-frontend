@@ -1,4 +1,5 @@
 import {use, Assertion} from 'chai'
+import _ from 'lodash'
 
 
 export function subset (/*chai , utils */) {

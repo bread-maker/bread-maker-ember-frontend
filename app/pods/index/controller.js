@@ -1,7 +1,6 @@
 // ----- Ember modules -----
-import Controller from 'ember-controller'
-import controller from 'ember-controller/inject'
-import service from 'ember-service/inject'
+import Controller, { inject as controller } from '@ember/controller'
+import { inject as service } from '@ember/service'
 
 // ----- Ember addons -----
 // import writable from 'ember-macro-helpers/writable'

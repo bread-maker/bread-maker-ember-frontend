@@ -1,13 +1,15 @@
 // ----- Ember modules -----
-import service from 'ember-service/inject'
-import {camelize, decamelize} from 'ember-string'
-import get from 'ember-metal/get'
+import { inject as service } from '@ember/service'
+import {camelize, decamelize} from '@ember/string'
+import { get } from '@ember/object'
 
 // ----- Ember Addon modules -----
 import writable from 'ember-macro-helpers/writable'
 import AjaxService from 'ember-ajax/services/ajax'
 
 // ----- Third-party modules -----
+import _ from 'lodash'
+import $ from 'jquery'
 import RSVP from 'rsvp'
 
 
@@ -47,16 +49,7 @@ export default AjaxService.extend({
   // ----- Custom Methods -----
   buildUrlQueryParams (params = {}) {
     if (!Object.keys(params).length) return ''
-
-    const serializedParams =
-      _
-        .map(params, (value, key) => {
-          value = encodeURIComponent(value)
-          key = encodeURIComponent(key)
-          return `${key}=${value}`
-        })
-        .join('&')
-
+    const serializedParams = $.param(params)
     return `?${serializedParams}`
   },
 

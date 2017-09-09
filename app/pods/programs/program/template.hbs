@@ -1,5 +1,3 @@
-{{!--
-
 <div class = 'route-programsProgram'>
 
 
@@ -41,29 +39,27 @@
       as |fields|
     }}
       {{#each fields as |field|}}
-        {{#with (concat field.name 'UserInput') as |userInputFieldName|}}
-          {{#settings-field
-            class     = 'route-programsProgram-fields-field'
-            fieldName = field.name
-            label     = (t (concat 'routes.programs-program.fields.' field.name '.label'))
+        {{#settings-field
+          class     = 'route-programsProgram-fields-field'
+          fieldName = field.name
+          label     = (t (concat 'routes.programs-program.fields.' field.name '.label'))
+        }}
+          {{one-way-input
+            class    = 'route-programsProgram-fields-field-input'
+            disabled = currentProgram.isSaving
+            type     = field.type
+            value    = (get currentProgram field.name)
+            update   = (action (mut (get currentProgram field.name)))
           }}
-            {{one-way-input
-              class    = 'route-programsProgram-fields-field-input'
-              disabled = currentProgram.isPending
-              type     = field.type
-              value    = (if (is-nully (get node userInputFieldName)) (get currentProgram field.name) (get node userInputFieldName))
-              update   = (action (dispatch-set) node userInputFieldName userInputFieldName)
-            }}
-          {{/settings-field}}{{! maxTempBeforeTimer }}
-        {{/with}}
+        {{/settings-field}}{{! maxTempBeforeTimer }}
       {{/each}}
     {{/with}}
 
   </div>{{! group _fields }}
 
   <button
-    {{action (dispatch-action) node 'save'}}
-    disabled = {{isPristine}}
+    {{action 'save'}}
+    disabled = {{not currentProgram.hasDirtyAttributes}}
   >
     Save
   </button>
@@ -71,5 +67,3 @@
 
 
 </div>{{! route-programsProgram }}
-
---}}

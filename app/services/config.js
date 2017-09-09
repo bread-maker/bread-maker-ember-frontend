@@ -1,6 +1,8 @@
 // ----- Ember modules -----
-import Service from 'ember-service'
-import {reads} from 'ember-computed'
+import Service from '@ember/service'
+
+// ----- Ember addons -----
+import reads from 'ember-macro-helpers/reads'
 
 // ----- Own modules -----
 import ENV from 'bread-maker-ember-frontend/config/environment'

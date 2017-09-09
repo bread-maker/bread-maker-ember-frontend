@@ -1,5 +1,5 @@
 // ----- Ember modules -----
-import service from 'ember-service/inject'
+import { inject as service } from '@ember/service'
 
 // ----- Ember addons -----
 import Base from 'ember-simple-auth/authenticators/base'

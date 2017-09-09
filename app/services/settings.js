@@ -1,8 +1,6 @@
 // ----- Ember modules -----
-import Service from 'ember-service'
-import service from 'ember-service/inject'
-import {next} from 'ember-runloop'
-// import {reads} from 'ember-computed'
+import Service, {inject as service} from '@ember/service'
+import { next } from '@ember/runloop'
 
 // ----- Ember addon modules -----
 import writable from 'ember-macro-helpers/writable'

@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 import { describe, it } from 'mocha'
 import arrayPadLeft from 'bread-maker-ember-frontend/utils/array-pad-left'
+import _ from 'lodash'
 
 const testCases = [
   /* eslint-disable key-spacing */

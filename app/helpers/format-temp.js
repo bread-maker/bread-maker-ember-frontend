@@ -1,12 +1,13 @@
 // ----- Ember modules -----
-import Helper from 'ember-helper'
-// import service from 'ember-service/inject'
-import observer from 'ember-metal/observer'
+import Helper from '@ember/component/helper'
+// import { inject as service } from '@ember/service'
+import { observer } from '@ember/object'
 
 // ----- Ember addons -----
 import writable from 'ember-macro-helpers/writable'
 
 // ----- Third-party libraries -----
+import _ from 'lodash'
 
 // ----- Own modules -----
 

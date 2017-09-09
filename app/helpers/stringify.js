@@ -1,5 +1,5 @@
 // ----- Ember modules -----
-import {helper} from 'ember-helper'
+import { helper } from '@ember/component/helper'
 
 // ----- Ember addons -----
 

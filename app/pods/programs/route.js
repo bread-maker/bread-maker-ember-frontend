@@ -1,6 +1,6 @@
 // ----- Ember modules -----
-import Route from 'ember-route'
-// import service from 'ember-service/inject'
+import Route from '@ember/routing/route'
+// import { inject as service } from '@ember/service'
 
 // ----- Ember addons -----
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin'

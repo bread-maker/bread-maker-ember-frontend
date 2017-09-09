@@ -1,6 +1,6 @@
 // ----- Ember modules -----
-import Controller from 'ember-controller'
-// import service from 'ember-service/inject'
+import Controller from '@ember/controller'
+// import { inject as service } from '@ember/service'
 
 // ----- Ember addons -----
 import writable from 'ember-macro-helpers/writable'
@@ -27,6 +27,7 @@ export default Controller.extend({
 
 
   // ----- Computed properties -----
+  currentProgram : writable('model.currentProgram'),
 
 
 
@@ -47,4 +48,10 @@ export default Controller.extend({
 
 
   // ----- Actions -----
+  actions : {
+    save () {
+      const currentProgram = this.get('currentProgram')
+      currentProgram.save()
+    },
+  },
 })

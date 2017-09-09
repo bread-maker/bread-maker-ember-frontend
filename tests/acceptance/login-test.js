@@ -1,4 +1,4 @@
-import get from 'ember-metal/get'
+import { get } from '@ember/object'
 import { describe, it, beforeEach, afterEach } from 'mocha'
 import { expect } from 'chai'
 import startApp from 'bread-maker-ember-frontend/tests/helpers/start-app'
@@ -7,6 +7,7 @@ import { currentSession } from 'bread-maker-ember-frontend/tests/helpers/ember-s
 import createTokenAndAuthenticateSession from 'bread-maker-ember-frontend/tests/helpers/session'
 import page from '../pages/login'
 import ignoreError from '../helpers/ignore-error'
+import _ from 'lodash'
 
 
 let application, m

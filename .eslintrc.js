@@ -37,8 +37,4 @@ module.exports = {
     "spaced-comment": "off",
     "standard/object-curly-even-spacing": "off",
   },
-
-  "globals": {
-    "_": false,
-  }
 }

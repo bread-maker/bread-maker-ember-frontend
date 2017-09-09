@@ -1,7 +1,7 @@
-// Ember modules
-import EObject from "ember-object"
+// ----- Ember modules -----
+import EObject from '@ember/object'
 
-// Ember addons
+// ----- Ember addons -----
 import curriedComputed from "ember-macro-helpers/curried-computed"
 import {and} from 'ember-awesome-macros'
 

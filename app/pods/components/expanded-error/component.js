@@ -1,5 +1,5 @@
 // ----- Ember modules -----
-import Component from 'ember-component'
+import Component from '@ember/component'
 
 
 // ----- Ember addons -----

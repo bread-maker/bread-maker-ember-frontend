@@ -7,6 +7,7 @@ import createTokenAndAuthenticateSession from 'bread-maker-ember-frontend/tests/
 // import {timeout} from 'ember-concurrency'
 import ignoreError from '../helpers/ignore-error'
 import errorPage from '../pages/error'
+import _ from 'lodash'
 
 
 

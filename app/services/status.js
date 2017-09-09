@@ -1,9 +1,6 @@
 // ----- Ember modules -----
-import Service from 'ember-service'
-import service from 'ember-service/inject'
-// import {reads} from 'ember-computed'
-import EmberObject from 'ember-object'
-import observer from 'ember-metal/observer'
+import Service, {inject as service} from '@ember/service'
+import EmberObject, {observer} from '@ember/object'
 
 // ----- Ember addon modules -----
 import computed from 'ember-macro-helpers/computed'
@@ -17,12 +14,11 @@ import {
 
 import RunMixin from 'ember-lifeline/mixins/run'
 
+// ----- Third-party modules -----
+import _ from 'lodash'
+
 // ----- Own modules -----
 import cache from 'bread-maker-ember-frontend/macros/cache'
-
-
-
-// ----- Own modules -----
 import t from 'bread-maker-ember-frontend/macros/t'
 import {REQUEST_STATS_POLL_ID} from 'bread-maker-ember-frontend/constants'
 import {convertTemp} from 'bread-maker-ember-frontend/helpers/format-temp'

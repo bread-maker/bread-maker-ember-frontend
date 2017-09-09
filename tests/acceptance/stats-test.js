@@ -8,6 +8,7 @@ import { pollTaskFor } from 'ember-lifeline/mixins/run'
 import {REQUEST_STATS_POLL_ID} from 'bread-maker-ember-frontend/constants'
 import {timeout} from 'ember-concurrency'
 import ignoreError from '../helpers/ignore-error'
+import _ from 'lodash'
 
 
 
