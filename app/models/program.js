@@ -7,6 +7,7 @@ import Model from 'ember-data/model'
 import attr from 'ember-data/attr'
 
 // ----- Ember addon modules -----
+import {fragmentArray} from 'ember-data-model-fragments/attributes'
 import {add, tag} from 'ember-awesome-macros'
 
 
@@ -23,8 +24,8 @@ export default Model.extend({
   maxTempAfterBaking  : attr('number'),
   maxTempDurationMins : attr('number'),
 
-  stages : attr(),
-  beeps  : attr(),
+  stages : fragmentArray('stage'),
+  beeps  : fragmentArray('beep'),
 
 
 

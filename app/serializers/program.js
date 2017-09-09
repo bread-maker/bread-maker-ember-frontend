@@ -6,6 +6,7 @@
 
 // ----- Own modules -----
 import ApplicationSerializer from './application'
+import {camelizeKeys, decamelizeKeys} from 'bread-maker-ember-frontend/utils/serialization'
 
 
 
@@ -46,13 +47,32 @@ export default ApplicationSerializer.extend({
     return effectiveKey
   },
 
-  normalizeSaveResponse (store, primaryModelClass, payload, id, requestType) {
-    const {program, program_id, crust_id} = payload
+  normalize (modelClass, hash, prop) {
+    hash.stages = hash.stages && hash.stages.map(camelizeKeys)
+    hash.beeps  = hash.beeps  && hash.beeps .map(camelizeKeys)
 
-    program.program_id = program_id
-    program.crust_id = crust_id
+    return this._super(modelClass, hash, prop)
+  },
+
+  normalizeSaveResponse (store, primaryModelClass, payload, id, requestType) {
+    const {program} = payload
+
+    program.program_id = payload.program_id
+    delete payload.program_id
+
+    program.crust_id = payload.crust_id
+    delete payload.crust_id
 
     return this._super(store, primaryModelClass, payload, id, requestType)
+  },
+
+  serialize (snapshot, options) {
+    const hash = this._super(snapshot, options)
+
+    hash.stages = hash.stages && hash.stages.map(decamelizeKeys)
+    hash.beeps  = hash.beeps  && hash.beeps .map(decamelizeKeys)
+
+    return hash
   },
 
 

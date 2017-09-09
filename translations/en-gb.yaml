@@ -42,6 +42,16 @@ routes:
         label: Max Warm Time
         description: Max time of sustaining temperature after baking (in minutes)
 
+    stage:
+      name:
+        label: Name
+      temp:
+        label: Temperature
+      motor:
+        label: Motor
+      duration:
+        label: Duratoin
+
   settings:
     title: Settings
     updating: Updating...

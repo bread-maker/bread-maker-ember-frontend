@@ -6,6 +6,8 @@
     {{currentProgram.name}}
   </h1>{{! title }}
 
+  <p>isDirty {{currentProgram.hasDirtyAttributes}}</p>
+
 
 
   <div class = 'route-programsProgram-group _stages'>
@@ -15,8 +17,64 @@
     </h2>
 
     {{#each currentProgram.stages as |stage|}}
+      <div class = 'route-programsProgram-stage'>
 
-    {{/each}}
+        {{#settings-field
+          class     = 'route-programsProgram-stage-field'
+          fieldName = 'stageName'
+          label     = (t 'routes.programs-program.stage.name.label')
+        }}
+          {{one-way-input
+            class    = 'route-programsProgram-stage-field-input'
+            disabled = currentProgram.isSaving
+            type     = 'text'
+            value    = stage.stageName
+            update   = (action (mut stage.stageName))
+          }}
+        {{/settings-field}}{{! stageName }}
+
+        {{#settings-field
+          class     = 'route-programsProgram-stage-field'
+          fieldName = 'temp'
+          label     = (t 'routes.programs-program.stage.temp.label')
+        }}
+          {{one-way-input
+            class    = 'route-programsProgram-stage-field-input'
+            disabled = currentProgram.isSaving
+            type     = 'number'
+            value    = stage.temp
+            update   = (action (mut stage.temp))
+          }}
+        {{/settings-field}}{{! temp }}
+
+        {{#settings-field
+          class     = 'route-programsProgram-stage-field'
+          fieldName = 'motor'
+          label     = (t 'routes.programs-program.stage.motor.label')
+        }}
+          {{one-way-select currentIntervalOption
+            options = (array "on" "off" "onoff")
+            value   = stage.motor
+            update  = (action (mut stage.motor))
+          }}
+        {{/settings-field}}{{! temp }}
+
+        {{#settings-field
+          class     = 'route-programsProgram-stage-field'
+          fieldName = 'duration'
+          label     = (t 'routes.programs-program.stage.duration.label')
+        }}
+          {{one-way-input
+            class    = 'route-programsProgram-stage-field-input'
+            disabled = currentProgram.isSaving
+            type     = 'number'
+            value    = stage.duration
+            update   = (action (mut stage.duration))
+          }}
+        {{/settings-field}}{{! duration }}
+
+      </div>{{! route-programsProgram-stage }}
+    {{/each}}{{! currentProgram.stages }}
 
   </div>{{! group _stages }}
 
