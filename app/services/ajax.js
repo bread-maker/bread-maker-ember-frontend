@@ -292,7 +292,7 @@ export default AjaxService.extend({
 
   _setAutorun (enabled, params = {}) {
     enabled = enabled ? 1 : 0
-    return this.postMethod('emu.autorun', {enabled, ...params})
+    return this.postMethod('emu.autorun', {enabled, forceauth : true,  ...params})
   },
 
   _setEmuTemp (temp, params = {}) {

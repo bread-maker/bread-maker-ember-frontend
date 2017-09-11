@@ -8,11 +8,15 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 // ----- Third-party modules -----
 import RSVP from 'rsvp'
 
+// ----- Own modules -----
+
 
 
 export default Route.extend(ApplicationRouteMixin, {
 
   // ----- Services -----
+  ajax     : service(),
+  config   : service(),
   session  : service(),
   settings : service(),
 
@@ -20,7 +24,11 @@ export default Route.extend(ApplicationRouteMixin, {
 
   // ----- Overridden methods -----
   beforeModel () {
+    const ajax     = this.get('ajax')
     const settings = this.get('settings')
+    const isDev    = this.get('config.isDev')
+
+    if (isDev) ajax._setAutorun(true)
 
     return settings
       .requestMiscConfig()
