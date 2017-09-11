@@ -16,8 +16,14 @@
       {{t 'routes.programs-program.stages'}}
     </h2>
 
-    {{#each currentProgram.stages as |stage|}}
+    {{#drag-sort-list
+      handle        = '.route-programsProgram-stage-handle'
+      items         = currentProgram.stages
+      dragEndAction = (action 'positionStage')
+      as |stage|
+    }}
       <div class = 'route-programsProgram-stage'>
+        <div class = 'route-programsProgram-stage-handle' draggable="true">handle</div>
 
         {{#settings-field
           class     = 'route-programsProgram-stage-field'
@@ -74,7 +80,7 @@
         {{/settings-field}}{{! duration }}
 
       </div>{{! route-programsProgram-stage }}
-    {{/each}}{{! currentProgram.stages }}
+    {{/drag-sort-list}}{{! currentProgram.stages }}
 
   </div>{{! group _stages }}
 

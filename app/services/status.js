@@ -7,10 +7,8 @@ import computed from 'ember-macro-helpers/computed'
 import raw from 'ember-macro-helpers/raw'
 import writable from 'ember-macro-helpers/writable'
 
-import {
-  findBy,
-  tag,
-} from 'ember-awesome-macros'
+import {tag} from 'ember-awesome-macros'
+import {findBy} from 'ember-awesome-macros/array'
 
 import RunMixin from 'ember-lifeline/mixins/run'
 

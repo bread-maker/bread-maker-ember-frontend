@@ -49,6 +49,15 @@ export default Controller.extend({
 
   // ----- Actions -----
   actions : {
+    positionStage ({sourceList, sourceIndex, targetList, targetIndex}) {
+      if (sourceList === targetList && sourceIndex === targetIndex) return
+
+      const item = sourceList.objectAt(sourceIndex)
+
+      sourceList.removeAt(sourceIndex)
+      targetList.insertAt(targetIndex, item)
+    },
+
     save () {
       const currentProgram = this.get('currentProgram')
       currentProgram.save()
