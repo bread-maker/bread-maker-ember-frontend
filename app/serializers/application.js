@@ -35,7 +35,7 @@ export default RESTSerializer.extend({
     return decamelize(key)
   },
 
-  normalizeSaveResponse(store, primaryModelClass, payload, id, requestType) {
+  normalizeSaveResponse (store, primaryModelClass, payload, id, requestType) {
     delete payload.result
     return this._super(store, primaryModelClass, payload, id, requestType)
   },
