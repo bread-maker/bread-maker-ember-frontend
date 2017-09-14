@@ -3,6 +3,7 @@
 // ----- Ember addons -----
 
 // ----- Third-party libraries -----
+import _ from 'lodash'
 
 // ----- Own modules -----
 import ApplicationSerializer from './application'
@@ -48,8 +49,21 @@ export default ApplicationSerializer.extend({
   },
 
   normalize (modelClass, hash, prop) {
-    hash.stages = hash.stages && hash.stages.map(camelizeKeys)
-    hash.beeps  = hash.beeps  && hash.beeps .map(camelizeKeys)
+    hash.stages = hash.stages && hash.stages.map(camelizeKeys) || []
+    hash.beeps  = hash.beeps  && hash.beeps .map(camelizeKeys) || []
+
+    hash.beeps.forEach(beep => {
+      const stage = hash.stages[beep.stage]
+
+      if (!stage) return
+      if (!stage.beeps) stage.beeps = []
+
+      stage.beeps.push({...beep})
+    })
+
+    delete hash.beeps
+
+    console.log('hash', hash)
 
     return this._super(modelClass, hash, prop)
   },
@@ -69,8 +83,19 @@ export default ApplicationSerializer.extend({
   serialize (snapshot, options) {
     const hash = this._super(snapshot, options)
 
+    hash.beeps =
+      _(hash.stages)
+        .map((stage, i) => {
+          const beeps = stage.beeps.map(beep => ({...decamelizeKeys(beep), stage : i}))
+          delete stage.beeps
+          return beeps
+        })
+        .flatten()
+        .value()
+
     hash.stages = hash.stages && hash.stages.map(decamelizeKeys)
-    hash.beeps  = hash.beeps  && hash.beeps .map(decamelizeKeys)
+
+    console.log('hash', hash)
 
     return hash
   },

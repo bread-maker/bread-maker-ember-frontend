@@ -1,133 +1,249 @@
-<div class = 'route-programsProgram'>
+{{#liquid-bind currentProgram class = '-horizontal' as |currentProgram|}}
+
+  <div class = 'route-programsProgram'>
 
 
 
-  <h1 class = 'route-programsProgram-title'>
-    {{currentProgram.name}}
-  </h1>{{! title }}
-
-  <p>isDirty {{currentProgram.hasDirtyAttributes}}</p>
+    <h1 class = 'route-programsProgram-title'>
+      {{currentProgram.name}}
+    </h1>{{! title }}
 
 
 
-  <div class = 'route-programsProgram-group _stages'>
+    <div class = 'route-programsProgram-group _stages'>
 
-    <h2>
-      {{t 'routes.programs-program.stages'}}
-    </h2>
+      <h2>
+        {{t 'routes.programs-program.stages'}}
+      </h2>
 
-    {{#drag-sort-list
-      handle        = '.route-programsProgram-stage-handle'
-      items         = currentProgram.stages
-      dragEndAction = (action 'positionStage')
-      as |stage|
-    }}
-      <div class = 'route-programsProgram-stage'>
-        <div class = 'route-programsProgram-stage-handle' draggable="true">handle</div>
 
-        {{#settings-field
-          class     = 'route-programsProgram-stage-field'
-          fieldName = 'stageName'
-          label     = (t 'routes.programs-program.stage.name.label')
-        }}
-          {{one-way-input
-            class    = 'route-programsProgram-stage-field-input'
-            disabled = currentProgram.isSaving
-            type     = 'text'
-            value    = stage.stageName
-            update   = (action (mut stage.stageName))
+
+      <div class = 'route-programsProgram-stagesHeader'>
+        <div class = 'route-programsProgram-stage-item _handle'></div>
+        <div class = 'route-programsProgram-stage-item _index'>#</div>
+
+        <div class = 'route-programsProgram-stage-item _stageName'>
+          {{t 'routes.programs-program.fields.name.label'}}
+        </div>{{! stage-item _stageName }}
+
+        <div class = 'route-programsProgram-stage-item _temp'>
+          {{t 'routes.programs-program.fields.temp.label'}}
+        </div>{{! stage-item _temp }}
+
+        <div class = 'route-programsProgram-stage-item _motor'>
+          {{t 'routes.programs-program.fields.motor.label'}}
+        </div>{{! stage-item _motor }}
+
+        <div class = 'route-programsProgram-stage-item _duration'>
+          {{t 'routes.programs-program.fields.duration.label'}}
+        </div>{{! stage-item _duration }}
+
+        <div class = 'route-programsProgram-stage-item _beep'>
+          {{t 'routes.programs-program.fields.beeps.label'}}
+        </div>{{! stage-item _duration }}
+      </div>{{! stagesHeader }}
+
+
+
+      {{#drag-sort-list
+        class         = 'route-programsProgram-stages'
+        childClass    = 'route-programsProgram-stage'
+        handle        = '.route-programsProgram-stage-item._handle'
+        items         = stageWrappers
+        dragEndAction = (action 'positionStage')
+        as |stageWrapper i|
+      }}
+        <div class = 'route-programsProgram-stage-main'>
+          <div class = 'route-programsProgram-stage-item _handle' draggable='true'>
+            <span class = 'route-programsProgram-stage-item-handle-handle'>
+              𝍖
+            </span>{{! stage-item-handle-handle }}
+          </div>{{! stage-item _handle }}
+
+          <div class = 'route-programsProgram-stage-item _index'>
+            {{inc i}}
+          </div>{{! stage-item _index }}
+
+          <div class = 'route-programsProgram-stage-item _stageName'>
+            {{input
+              class    = 'route-programsProgram-stage-field-input'
+              disabled = currentProgram.isSaving
+              type     = 'text'
+              value    = stageWrapper.stage.stageName
+            }}
+          </div>{{! stage-item _stageName }}
+
+          <div class = 'route-programsProgram-stage-item _temp'>
+            {{input
+              class    = 'route-programsProgram-stage-field-input'
+              disabled = currentProgram.isSaving
+              type     = 'number'
+              value    = stageWrapper.stage.temp
+            }}
+          </div>{{! stage-item _temp }}
+
+          <div class = 'route-programsProgram-stage-item _motor'>
+            {{one-way-select currentIntervalOption
+              options = (array 'on' 'off' 'onoff')
+              value   = stageWrapper.stage.motor
+              update  = (action (mut stageWrapper.stage.motor))
+            }}
+          </div>{{! stage-item _motor }}
+
+          <div class = 'route-programsProgram-stage-item _duration'>
+            {{input
+              class    = 'route-programsProgram-stage-field-input'
+              disabled = currentProgram.isSaving
+              type     = 'number'
+              value    = stageWrapper.stage.duration
+            }}
+          </div>{{! stage-item _duration }}
+
+          <div class = 'route-programsProgram-stage-item _beep'>
+            <a
+              href
+              {{action (toggle 'beepsAreExpanded' stageWrapper)}}
+            >
+              {{stageWrapper.stage.beeps.length}}
+            </a>
+          </div>{{! stage-item _beep }}
+        </div>{{! stage-main }}
+
+        {{#liquid-if stageWrapper.beepsAreExpanded}}
+          <div class = 'route-programsProgram-stage-beeps'>
+
+            <div class = 'route-programsProgram-stage-beeps-title'>
+              {{t 'routes.programs-program.beeps'}}
+
+              <a
+                href
+                {{action 'addBeep' stageWrapper.stage}}
+              >
+                {{t 'routes.programs-program.add'}}
+              </a>
+            </div>
+
+            {{#if stageWrapper.stage.beeps.length}}
+              <div class = 'route-programsProgram-stage-beeps-list'>
+
+                <div class = 'route-programsProgram-stage-beep'>
+                  <div class = 'route-programsProgram-stage-beep-field _index'>
+                    #
+                  </div>{{! stage-beep-field _index }}
+
+                  <div class = 'route-programsProgram-stage-beep-field _time'>
+                    {{t 'routes.programs-program.fields.duration.label'}}
+                  </div>{{! stage-beep-field _time }}
+
+                  <div class = 'route-programsProgram-stage-beep-field _count'>
+                    {{t 'routes.programs-program.fields.count.label'}}
+                  </div>{{! stage-beep-field _count }}
+
+                  <div class = 'route-programsProgram-stage-beep-field _remove'></div>
+                </div>{{! stage-beep }}
+
+
+                {{#each stageWrapper.stage.beeps as |beep i|}}
+                  <div class = 'route-programsProgram-stage-beep'>
+
+                    <div class = 'route-programsProgram-stage-beep-field _index'>
+                      {{inc i}}
+                    </div>{{! stage-beep-field _index }}
+
+                    <div class = 'route-programsProgram-stage-beep-field _time'>
+                      {{input
+                        class = 'route-programsProgram-stage-beep-field-input'
+                        type  = 'number'
+                        value = beep.time
+                      }}
+                    </div>{{! stage-beep-field _time }}
+
+                    <div class = 'route-programsProgram-stage-beep-field _count'>
+                      {{input
+                        class = 'route-programsProgram-stage-beep-field-input'
+                        type  = 'number'
+                        value = beep.count
+                      }}
+                    </div>{{! stage-beep-field _count }}
+
+                    <div class = 'route-programsProgram-stage-beep-field _remove'>
+                      <a
+                        href
+                        {{action 'removeBeep' stageWrapper.stage beep}}
+                      >
+                        {{t 'routes.programs-program.remove'}}
+                      </a>
+                    </div>{{! stage-beep-field _remove }}
+
+                  </div>{{! stage-beep }}
+                {{/each}}{{! stage.beeps }}
+              </div>{{! stage-beeps-list }}
+            {{/if}}
+          </div>{{! stage-beeps }}
+        {{/liquid-if}}{{! stageObject.beepsAreExpanded }}
+      {{/drag-sort-list}}{{! currentProgram.stages }}
+
+      <button
+        {{action 'addStage'}}
+      >
+          {{t 'routes.programs-program.add-stage'}}
+      </button>
+
+    </div>{{! group _stages }}
+
+
+
+    <div class = 'route-programsProgram-group _fields'>
+
+      <h2>
+        {{t 'routes.programs-program.settings'}}
+      </h2>
+
+      {{#with
+        (array
+          (hash name='name'                type='text')
+          (hash name='maxTempBeforeTimer'  type='number')
+          (hash name='maxTempBeforeBaking' type='number')
+          (hash name='maxTempAfterBaking'  type='number')
+          (hash name='maxTempDurationMins' type='number')
+        )
+        as |fields|
+      }}
+        {{#each fields as |field|}}
+          {{#settings-field
+            class     = 'route-programsProgram-fields-field'
+            fieldName = field.name
+            label     = (t (concat 'routes.programs-program.fields.' field.name '.label'))
           }}
-        {{/settings-field}}{{! stageName }}
+            {{input
+              class    = 'route-programsProgram-fields-field-input'
+              disabled = currentProgram.isSaving
+              type     = field.type
+              value    = (get currentProgram field.name)
+            }}
+          {{/settings-field}}{{! maxTempBeforeTimer }}
+        {{/each}}
+      {{/with}}
 
-        {{#settings-field
-          class     = 'route-programsProgram-stage-field'
-          fieldName = 'temp'
-          label     = (t 'routes.programs-program.stage.temp.label')
-        }}
-          {{one-way-input
-            class    = 'route-programsProgram-stage-field-input'
-            disabled = currentProgram.isSaving
-            type     = 'number'
-            value    = stage.temp
-            update   = (action (mut stage.temp))
-          }}
-        {{/settings-field}}{{! temp }}
+    </div>{{! group _fields }}
 
-        {{#settings-field
-          class     = 'route-programsProgram-stage-field'
-          fieldName = 'motor'
-          label     = (t 'routes.programs-program.stage.motor.label')
-        }}
-          {{one-way-select currentIntervalOption
-            options = (array "on" "off" "onoff")
-            value   = stage.motor
-            update  = (action (mut stage.motor))
-          }}
-        {{/settings-field}}{{! temp }}
+    <button
+      {{action 'save'}}
+      disabled = {{or (not currentProgram.hasDirtyAttributes) currentProgram.isSaving}}
+    >
+      {{if currentProgram.iSaving
+         (t 'routes.programs-program.saving')
+         (t 'routes.programs-program.save')
+       }}
+    </button>
 
-        {{#settings-field
-          class     = 'route-programsProgram-stage-field'
-          fieldName = 'duration'
-          label     = (t 'routes.programs-program.stage.duration.label')
-        }}
-          {{one-way-input
-            class    = 'route-programsProgram-stage-field-input'
-            disabled = currentProgram.isSaving
-            type     = 'number'
-            value    = stage.duration
-            update   = (action (mut stage.duration))
-          }}
-        {{/settings-field}}{{! duration }}
+    <button
+      {{action 'reset'}}
+      disabled = {{or (not currentProgram.hasDirtyAttributes) currentProgram.isSaving}}
+    >
+      {{t 'routes.programs-program.reset'}}
+    </button>
 
-      </div>{{! route-programsProgram-stage }}
-    {{/drag-sort-list}}{{! currentProgram.stages }}
+  </div>{{! route-programsProgram }}
 
-  </div>{{! group _stages }}
-
-
-
-  <div class = 'route-programsProgram-group _fields'>
-
-    <h2>
-      {{t 'routes.programs-program.settings'}}
-    </h2>
-
-    {{#with
-      (array
-        (hash name='name'                type='text')
-        (hash name='maxTempBeforeTimer'  type='number')
-        (hash name='maxTempBeforeBaking' type='number')
-        (hash name='maxTempAfterBaking'  type='number')
-        (hash name='maxTempDurationMins' type='number')
-      )
-      as |fields|
-    }}
-      {{#each fields as |field|}}
-        {{#settings-field
-          class     = 'route-programsProgram-fields-field'
-          fieldName = field.name
-          label     = (t (concat 'routes.programs-program.fields.' field.name '.label'))
-        }}
-          {{one-way-input
-            class    = 'route-programsProgram-fields-field-input'
-            disabled = currentProgram.isSaving
-            type     = field.type
-            value    = (get currentProgram field.name)
-            update   = (action (mut (get currentProgram field.name)))
-          }}
-        {{/settings-field}}{{! maxTempBeforeTimer }}
-      {{/each}}
-    {{/with}}
-
-  </div>{{! group _fields }}
-
-  <button
-    {{action 'save'}}
-    disabled = {{not currentProgram.hasDirtyAttributes}}
-  >
-    Save
-  </button>
-
-
-
-</div>{{! route-programsProgram }}
+{{/liquid-bind}}

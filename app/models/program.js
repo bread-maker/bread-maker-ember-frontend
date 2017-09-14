@@ -24,8 +24,7 @@ export default Model.extend({
   maxTempAfterBaking  : attr('number'),
   maxTempDurationMins : attr('number'),
 
-  stages : fragmentArray('stage'),
-  beeps  : fragmentArray('beep'),
+  stages : fragmentArray('stage', {defaultValue : []}),
 
 
 

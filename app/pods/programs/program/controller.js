@@ -1,9 +1,12 @@
 // ----- Ember modules -----
 import Controller from '@ember/controller'
+import EmberObject from '@ember/object'
 // import { inject as service } from '@ember/service'
 
 // ----- Ember addons -----
+// import computed from 'ember-macro-helpers/computed'
 import writable from 'ember-macro-helpers/writable'
+import {map} from 'ember-awesome-macros/array'
 
 // ----- Third-party libraries -----
 
@@ -11,10 +14,17 @@ import writable from 'ember-macro-helpers/writable'
 
 
 
+const StageWrapper = EmberObject.extend({
+  stage            : null,
+  beepsAreExpanded : false,
+})
+
+
+
 export default Controller.extend({
 
   // ----- Services -----
-  // ajax : service(),
+  // intl : service(),
 
 
 
@@ -28,6 +38,7 @@ export default Controller.extend({
 
   // ----- Computed properties -----
   currentProgram : writable('model.currentProgram'),
+  stageWrappers  : map('currentProgram.stages', stage => StageWrapper.create({stage})),
 
 
 
@@ -49,6 +60,14 @@ export default Controller.extend({
 
   // ----- Actions -----
   actions : {
+    addStage () {
+      const store  = this.get('store')
+      const stages = this.get('currentProgram.stages')
+      const stage  = store.createFragment('stage')
+
+      stages.addObject(stage)
+    },
+
     positionStage ({sourceList, sourceIndex, targetList, targetIndex}) {
       if (sourceList === targetList && sourceIndex === targetIndex) return
 
@@ -61,6 +80,19 @@ export default Controller.extend({
     save () {
       const currentProgram = this.get('currentProgram')
       currentProgram.save()
+    },
+
+    addBeep (stage) {
+      const store = this.get('store')
+      const beeps = stage.get('beeps')
+      const beep  = store.createFragment('beep')
+
+      beeps.pushObject(beep)
+    },
+
+    removeBeep (stage, beep) {
+      const beeps = stage.get('beeps')
+      beeps.removeObject(beep)
     },
   },
 })

@@ -23,12 +23,31 @@ routes:
 
   programs-program:
     stages: Stages
+    beeps: Beeps
     settings: Settings
     error: "Failed to update {field}: {error}"
+    add: Add
+    remove: Remove
+    add-stage: Add stage
+    save: Save
+    saving: Saving...
+    reset: Reset
 
     fields:
       name:
         label: Name
+      stageName:
+        label: Name
+      temp:
+        label: Temp
+      motor:
+        label: Motor
+      duration:
+        label: Time
+      beeps:
+        label: Beeps
+      count:
+        label: Count
       maxTempBeforeTimer:
         label: Max Temp A
         description: Max temperature before starting delay timer

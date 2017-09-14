@@ -1,0 +1,109 @@
+@at-root
+
+  $gutter : 1rem
+
+
+
+  ////------------------------------------------
+  .route-programsProgram-stages
+    //------------------------------------------
+
+    // ----- Layout -----
+    overflow : visible
+
+    // ----- Content layout -----
+    .route-programsProgram-stage:not(:last-child)
+      margin-bottom : $gutter
+
+
+
+
+
+  ////------------------------------------------
+  .route-programsProgram-stage-main, .route-programsProgram-stagesHeader
+    //------------------------------------------
+
+    // ----- Layout -----
+    display     : flex
+    align-items : center
+
+    .route-programsProgram-stage-item:not(:last-child)
+      margin-right: $gutter
+
+
+
+  ////------------------------------------------
+  .route-programsProgram-stage-item
+    //------------------------------------------
+
+    // ----- Layout -----
+    .route-programsProgram-stage-field-input
+      width : 100%
+
+    // ----- Variations -----
+    &._handle, &._index
+      width : 1rem
+
+    &._stageName
+      flex-grow : 1
+
+    &._temp, &._motor, &._duration, &._beep
+      width : 4rem
+
+
+
+
+  ////------------------------------------------
+  .route-programsProgram-stage-item-handle-handle
+    //------------------------------------------
+
+    // ----- Layout -----
+    font-size      : 1.5rem
+    vertical-align : middle
+
+    // ----- Looks -----
+    color : grey
+
+
+
+  ////------------------------------------------
+  .route-programsProgram-stage-beeps-list
+    //------------------------------------------
+
+    // ----- Content layout -----
+    .route-programsProgram-stage-beep:not(:last-child)
+      margin-bottom : 0.5rem
+
+
+
+
+  ////------------------------------------------
+  .route-programsProgram-stage-beep
+    //------------------------------------------
+
+    // ----- Layout -----
+    display     : flex
+    align-items : center
+
+    // ----- Content layout -----
+    .route-programsProgram-stage-beep-field:not(:last-child)
+      margin-right : 0.5rem
+
+
+
+
+  ////------------------------------------------
+  .route-programsProgram-stage-beep-field
+    //------------------------------------------
+
+    // ----- Content layout -----
+    .route-programsProgram-stage-beep-field-input
+      width : 100%
+
+    // ----- Variants -----
+    &._index
+      width : 2rem
+
+    &._count, &._time
+      width : 4rem
+
