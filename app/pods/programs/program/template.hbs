@@ -40,7 +40,9 @@
 
         <div class = 'route-programsProgram-stage-item _beep'>
           {{t 'routes.programs-program.fields.beeps.label'}}
-        </div>{{! stage-item _duration }}
+        </div>{{! stage-item _beep }}
+
+        <div class = 'route-programsProgram-stage-item _remove'></div>
       </div>{{! stagesHeader }}
 
 
@@ -105,6 +107,15 @@
               {{action (toggle 'beepsAreExpanded' stageWrapper)}}
             >
               {{stageWrapper.stage.beeps.length}}
+            </a>
+          </div>{{! stage-item _beep }}
+
+          <div class = 'route-programsProgram-stage-item _remove'>
+            <a
+              href
+              {{action 'removeStage' stageWrapper.stage}}
+            >
+              {{t 'routes.programs-program.remove'}}
             </a>
           </div>{{! stage-item _beep }}
         </div>{{! stage-main }}

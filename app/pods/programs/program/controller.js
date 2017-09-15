@@ -77,6 +77,11 @@ export default Controller.extend({
       targetList.insertAt(targetIndex, item)
     },
 
+    removeStage (stage) {
+      const stages = this.get('currentProgram.stages')
+      stages.removeObject(stage)
+    },
+
     save () {
       const currentProgram = this.get('currentProgram')
       currentProgram.save()

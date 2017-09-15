@@ -93,3 +93,11 @@
     position : relative
     padding  : config-get('bm.layout.container.padding')
 
+    // ----- Content layout -----
+    &, & > .liquid-container, & > .liquid-container > .liquid-child
+      display        : flex
+      flex-direction : column
+
+      > *
+        flex-grow : 1
+

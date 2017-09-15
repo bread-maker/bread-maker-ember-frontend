@@ -9,7 +9,8 @@
     //------------------------------------------
 
     // ----- Layout -----
-    overflow : visible
+    overflow-x : auto
+    overflow-y : hidden
 
     // ----- Content layout -----
     .route-programsProgram-stage:not(:last-child)
@@ -41,13 +42,17 @@
       width : 100%
 
     // ----- Variations -----
+    flex-grow   : 0
+    flex-shrink : 0
+
     &._handle, &._index
       width : 1rem
 
     &._stageName
       flex-grow : 1
+      width     : 6rem
 
-    &._temp, &._motor, &._duration, &._beep
+    &._temp, &._motor, &._duration, &._beep, &._remove
       width : 4rem
 
 
