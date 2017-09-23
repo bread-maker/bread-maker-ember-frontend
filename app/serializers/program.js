@@ -41,7 +41,7 @@ export default ApplicationSerializer.extend({
       key === 'maxTempBeforeTimer'  ? 'max_temp_a'    :
       key === 'maxTempBeforeBaking' ? 'max_temp_b'    :
       key === 'maxTempAfterBaking'  ? 'warm_temp'     :
-      key === 'maxTempDurationMins' ? 'max_warm_time' :
+      key === 'maxTempDuration'     ? 'max_warm_time' :
                                       this._super(key, method)
     /* eslint-enable indent*/
 
@@ -62,8 +62,6 @@ export default ApplicationSerializer.extend({
     })
 
     delete hash.beeps
-
-    console.log('hash', hash)
 
     return this._super(modelClass, hash, prop)
   },
@@ -94,8 +92,6 @@ export default ApplicationSerializer.extend({
         .value()
 
     hash.stages = hash.stages && hash.stages.map(decamelizeKeys)
-
-    console.log('hash', hash)
 
     return hash
   },

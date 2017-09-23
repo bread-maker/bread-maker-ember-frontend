@@ -35,7 +35,7 @@ export default Route.extend({
     const programs = this.modelFor('programs').programs
 
     if (get(programs, 'length')) {
-      const id = programs.get('firstObject.id')
+      const id = programs.get('firstObject.humanId')
       this.transitionTo('programs.program', id)
     }
   },

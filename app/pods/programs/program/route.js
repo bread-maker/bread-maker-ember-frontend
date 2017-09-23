@@ -30,9 +30,10 @@ export default Route.extend({
 
 
   // ----- Overridden Methods -----
-  model ({id}) {
+  model ({humanId}) {
     const parentModel    = this.modelFor('programs')
     const store          = this.get('store')
+    const id             = humanId.split('-').map(n => parseInt(n, 10) - 1).join('-')
     const currentProgram = store.peekRecord('program', id)
 
     if (!currentProgram) this.transitionTo('programs')

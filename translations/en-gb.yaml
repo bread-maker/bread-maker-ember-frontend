@@ -21,6 +21,10 @@ routes:
     loading: Loading chart...
     error: "Failed to fetch stats: {error}"
 
+  programs-index:
+    errors:
+      no-programs: No programs have been found. :( This should not happen.
+
   programs-program:
     stages: Stages
     beeps: Beeps

@@ -9,7 +9,7 @@ const Router = EmberRouter.extend({
 Router.map(function () {
   this.route('login')
   this.route('programs', function () {
-    this.route('program', {path : ':id'})
+    this.route('program', {path : ':humanId'})
   })
   this.route('settings')
 })

@@ -253,7 +253,10 @@ export default AjaxService.extend({
       && this.isUnauthorizedError(error)
       && this.get('session.isAuthenticated')
     ) {
-      this.get('session').invalidate()
+      this
+        .get('session')
+        .invalidate()
+        .then(() => location.reload())
     }
 
     return RSVP.reject(error)

@@ -4,9 +4,9 @@
   <ul class = 'route-programs-menu'>
     {{#each model.programs as |program|}}
       <li class = 'route-programs-menu-item'>
-        {{#link-to 'programs.program' program.id}}
-          {{humanId}}
-          {{program.name}}
+        {{#link-to 'programs.program' program.humanId class = 'route-programs-menu-item-link'}}
+          <span class = 'route-programs-menu-item-id'>{{program.humanId}}</span>
+          <span class = 'route-programs-menu-item-name'>{{program.name}}</span>
         {{/link-to}}
       </li>{{! menu-item' }}
     {{/each}}

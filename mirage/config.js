@@ -120,6 +120,13 @@ const authMethods = {
     config = db.miscConfigs.update(config.id, {[key] : value})
     return {config}
   },
+
+  "config.baking.stages.get.all" ({db}/*, request*/) {
+    const programs = db.programs.toArray()
+
+    return {programs}
+  },
+
 }
 
 

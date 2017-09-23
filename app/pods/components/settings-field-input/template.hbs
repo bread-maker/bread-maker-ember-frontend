@@ -1,0 +1,18 @@
+{{#settings-field
+  fieldName   = fieldName
+  label       = label
+  description = description
+
+  requestIsPending  = requestIsPending
+  requestIsRejected = requestIsRejected
+
+  errorLabel = errorLabel
+}}
+  {{one-way-input
+    class     = 'settingsFieldInput-input'
+    disabled  = requestIsPending
+    type      = type
+    value     = (if (is-nully value) defaultValue value)
+    update    = (or updateAction (action (mut value)))
+  }}
+{{/settings-field}}{{! maxTempBeforeTimer }}
