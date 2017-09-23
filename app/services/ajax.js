@@ -256,7 +256,9 @@ export default AjaxService.extend({
       this
         .get('session')
         .invalidate()
-        .then(() => location.reload())
+        .then(() => {
+          if (!this.get('config.isTest')) location.reload()
+        })
     }
 
     return RSVP.reject(error)

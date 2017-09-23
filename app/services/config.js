@@ -29,6 +29,7 @@ export default Service.extend({
   // ----- Computed properties -----
   backendUrl : reads('envVars.BM_BACKEND_URL'),
   isDev      : ENV.environment === 'development',
+  isTest     : ENV.environment === 'test',
 
 
 
