@@ -8,8 +8,11 @@ import attr from 'ember-data/attr'
 
 // ----- Ember addon modules -----
 import {fragmentArray} from 'ember-data-model-fragments/attributes'
-import computed from 'ember-macro-helpers/computed'
+// import computed from 'ember-macro-helpers/computed'
 import {add, tag} from 'ember-awesome-macros'
+
+// ----- Own modules -----
+import minutes from 'bread-maker-ember-frontend/macros/minutes'
 
 
 
@@ -50,15 +53,7 @@ export default Model.extend({
   humanId : tag`${add('programId', 1)}-${add('crustId', 1)}`,
   name    : alias('programName'),
 
-  maxTempDurationMins : computed('maxTempDuration', {
-    get (maxTempDuration = 0) {
-      return Math.round(maxTempDuration / 60)
-    },
-
-    set (maxTempDuration) {
-      return maxTempDuration * 60
-    },
-  }),
+  maxTempDurationMins : minutes('maxTempDuration'),
 
 
 

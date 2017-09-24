@@ -111,7 +111,7 @@ describe('Acceptance | program', function () {
       expect(pageStage.motor.value, m).equal(stage.motor)
 
       m = `stage #${i} duration`
-      expect(pageStage.duration.value, m).equal(`${stage.duration}`)
+      expect(pageStage.duration.value, m).equal(`${Math.round((stage.duration || 0) / 60)}`)
 
       await pageStage.beepsToggle.click()
 
@@ -125,7 +125,7 @@ describe('Acceptance | program', function () {
         expect(pageStage.beeps.items(k).index.text, m).equal(`${k + 1}`)
 
         m = `stage #${i} beep #${k} time`
-        expect(pageStage.beeps.items(k).time.value, m).equal(`${beep.time}`)
+        expect(pageStage.beeps.items(k).time.value, m).equal(`${Math.round((beep.time || 0) / 60)}`)
 
         m = `stage #${i} beep #${k} count`
         expect(pageStage.beeps.items(k).count.value, m).equal(`${beep.count}`)
@@ -146,41 +146,238 @@ describe('Acceptance | program', function () {
 
     m = "maxTempDurationMins"
     expect(page.fields.maxTempDurationMins.input.value, m).equal(`${Math.round((program.max_warm_time || 0) / 60)}`)
+
+    m = "Save button disabled stage"
+    expect(page.buttons.save.disabled, m).true
+
+    m = "Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).true
   })
 
 
 
-  it.skip('editing name', async function () {
+  it('editing stage name + saving', async function () {
+    programsScenario(server)
+
+    await page.visit({id : '1-1'})
+    await page.stages(0).name.fill('foo')
+
+    m = "#0 After filling name: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).false
+
+    m = "#0 After filling name: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).false
+
+    await page.buttons.save.click()
+
+    m = "#1 After saving: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).true
+
+    m = "#1 After saving: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).true
+
+    m = "#1 After saving: db stage_name"
+    expect(server.db.programs[0].stages[0].stage_name, m).equal('foo')
   })
 
 
 
-  it.skip('editing temp', async function () {
+  it('editing stage temp', async function () {
+    programsScenario(server)
+
+    await page.visit({id : '1-1'})
+    await page.stages(0).temp.fill('23')
+
+    m = "#0 After filling temp: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).false
+
+    m = "#0 After filling temp: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).false
+
+    await page.buttons.save.click()
+
+    m = "#1 After saving: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).true
+
+    m = "#1 After saving: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).true
+
+    m = "#1 After saving: db temp"
+    expect(server.db.programs[0].stages[0].temp, m).equal(23)
   })
 
 
 
-  it.skip('editing motor', async function () {
+  it('editing stage motor', async function () {
+    programsScenario(server)
+
+    await page.visit({id : '1-1'})
+    await page.stages(0).motor.fill('off')
+
+    m = "#0 After filling motor: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).false
+
+    m = "#0 After filling motor: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).false
+
+    await page.buttons.save.click()
+
+    m = "#1 After saving: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).true
+
+    m = "#1 After saving: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).true
+
+    m = "#1 After saving: db motor"
+    expect(server.db.programs[0].stages[0].motor, m).equal('off')
   })
 
 
 
-  it.skip('editing time', async function () {
+  it('editing stage duration', async function () {
+    programsScenario(server)
+
+    await page.visit({id : '1-1'})
+    await page.stages(0).duration.fill('23')
+
+    m = "#0 After filling duration: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).false
+
+    m = "#0 After filling duration: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).false
+
+    await page.buttons.save.click()
+
+    m = "#1 After saving: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).true
+
+    m = "#1 After saving: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).true
+
+    m = "#1 After saving: db duration"
+    expect(server.db.programs[0].stages[0].duration, m).equal(23 * 60)
   })
 
 
 
-  it.skip('editing a beep', async function () {
+  it('editing stage beep time', async function () {
+    programsScenario(server)
+
+    await page.visit({id : '1-1'})
+    await page.stages(3).beepsToggle.click()
+    await page.stages(3).beeps.items(0).time.fill(23)
+
+    m = "#0 After filling beep time: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).false
+
+    m = "#0 After filling beep time: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).false
+
+    await page.buttons.save.click()
+
+    m = "#1 After saving: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).true
+
+    m = "#1 After saving: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).true
+
+    m = "#1 After saving: db beep time"
+    expect(server.db.programs[0].beeps[0].time, m).equal(23 * 60)
   })
 
 
 
-  it.skip('adding a beep', async function () {
+  it('editing stage beep count', async function () {
+    programsScenario(server)
+
+    await page.visit({id : '1-1'})
+    await page.stages(3).beepsToggle.click()
+    await page.stages(3).beeps.items(0).count.fill(23)
+
+    m = "#0 After filling beep count: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).false
+
+    m = "#0 After filling beep count: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).false
+
+    await page.buttons.save.click()
+
+    m = "#1 After saving: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).true
+
+    m = "#1 After saving: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).true
+
+    m = "#1 After saving: db beep count"
+    expect(server.db.programs[0].beeps[0].count, m).equal(23)
   })
 
 
 
-  it.skip('removing a beep', async function () {
+  it('adding a beep', async function () {
+    programsScenario(server)
+
+    await page.visit({id : '1-1'})
+    await page.stages(3).beepsToggle.click()
+    await page.stages(3).beeps.add.click()
+
+    m = "#0 After adding beep: beeps count"
+    expect(page.stages(3).beeps.items().count, m).equal(2)
+
+    m = "#0 After adding beep: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).false
+
+    m = "#0 After adding beep: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).false
+
+    await page.stages(3).beeps.items(1).time.fill(23)
+    await page.stages(3).beeps.items(1).count.fill(32)
+    await page.buttons.save.click()
+
+    m = "#1 After saving: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).true
+
+    m = "#1 After saving: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).true
+
+    m = "#1 After saving: db beeps count"
+    expect(server.db.programs[0].beeps.length, m).equal(2)
+
+    m = "#1 After saving: db beep 1 time"
+    expect(server.db.programs[0].beeps[1].time, m).equal(23 * 60)
+
+    m = "#1 After saving: db beep 1 count"
+    expect(server.db.programs[0].beeps[1].count, m).equal(32)
+  })
+
+
+
+  it('removing a beep', async function () {
+    programsScenario(server)
+
+    await page.visit({id : '1-1'})
+    await page.stages(3).beepsToggle.click()
+    await page.stages(3).beeps.items(0).remove.click()
+
+    m = "#0 After removing beep: beeps count"
+    expect(page.stages(3).beeps.items().count, m).equal(0)
+
+    m = "#0 After adding beep: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).false
+
+    m = "#0 After adding beep: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).false
+
+    await page.buttons.save.click()
+
+    m = "#1 After saving: Save button disabled stage"
+    expect(page.buttons.save.disabled, m).true
+
+    m = "#1 After saving: Reset button disabled stage"
+    expect(page.buttons.reset.disabled, m).true
+
+    m = "#1 After saving: db beeps count"
+    expect(server.db.programs[0].beeps.length, m).equal(0)
   })
 
 

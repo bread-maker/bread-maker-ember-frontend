@@ -3,11 +3,20 @@ import attr from 'ember-data/attr'
 
 // ----- Ember addon modules -----
 import Fragment from 'ember-data-model-fragments/fragment'
-// import computed from 'ember-macro-helpers/computed'
+
+// ----- Own modules -----
+import minutes from 'bread-maker-ember-frontend/macros/minutes'
 
 
 
 export default Fragment.extend({
+
+  // ----- Attrs -----
   time  : attr('number'),
   count : attr('number'),
+
+
+
+  // ----- Computed properties -----
+  timeMins : minutes('time'),
 })

@@ -13,16 +13,20 @@ function respondUnauthorized (error_code = 11) {
 
 
 function parseParams (str) {
-  if (!str) return
-
-  return str
-    .split('&')
-    .map(substr => substr.split('=').map(decodeURIComponent))
-    .reduce((result, [key, value]) => {
-      const path = key.replace(/\[/g, '.').replace(/\]/g, '')
-      _.set(result, path, value)
-      return result
-    }, {})
+  if (!str) {
+    return {}
+  } else if (str[0] === '{' || str[0] === '[') {
+    return JSON.parse(str)
+  } else {
+    return str
+      .split('&')
+      .map(substr => substr.split('=').map(decodeURIComponent))
+      .reduce((result, [key, value]) => {
+        const path = key.replace(/\[/g, '.').replace(/\]/g, '')
+        _.set(result, path, value)
+        return result
+      }, {})
+  }
 }
 
 
@@ -127,6 +131,15 @@ const authMethods = {
     return {programs}
   },
 
+  "config.baking.stages.set" ({db}, request, params) {
+    const {crust_id, program_id, program} = params
+    const [{id}] = db.programs.where({crust_id, program_id})
+
+    db.programs.update(id, program)
+
+    return {crust_id, program_id, program}
+  },
+
 }
 
 
@@ -163,6 +176,10 @@ export default function () {
   })
 
   this.post('api/', function (schema, request) {
+    return respond(schema, request)
+  })
+
+  this.put('api/', function (schema, request) {
     return respond(schema, request)
   })
 }
