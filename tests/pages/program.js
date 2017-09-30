@@ -10,6 +10,8 @@ import select from './components/select'
 import input from './components/settings-field-input'
 // import select from './components/settings-field-select'
 import {dragSortList} from 'bread-maker-ember-frontend/tests/pages/components/drag-sort-list'
+import {dialog} from 'bread-maker-ember-frontend/tests/pages/components/dialogs'
+import error from './components/expanded-error'
 
 
 
@@ -56,7 +58,8 @@ export default create({
           }),
         }),
       },
-    }),
+    }, '.route-programsProgram-stage-item._handle'),
+
     scope : '.route-programsProgram-stages',
   },
 
@@ -69,7 +72,11 @@ export default create({
   }),
 
   buttons : {
+    add   : c('.route-programsProgram-button._add'),
     save  : c('.route-programsProgram-button._save'),
     reset : c('.route-programsProgram-button._reset'),
   },
+
+  error,
+  dialog,
 })

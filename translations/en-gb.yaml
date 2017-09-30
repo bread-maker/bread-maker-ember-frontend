@@ -36,6 +36,7 @@ routes:
     save: Save
     saving: Saving...
     reset: Reset
+    reset-confirm: Reset the form?
 
     fields:
       name:
@@ -182,3 +183,4 @@ errors:
   21: Baking program corrupted
   22: Internal exception
   23: Timeout
+

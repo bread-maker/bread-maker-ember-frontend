@@ -1,7 +1,8 @@
 // ----- Ember modules -----
 import Controller from '@ember/controller'
 import EmberObject from '@ember/object'
-// import { inject as service } from '@ember/service'
+import { inject as service } from '@ember/service'
+import { assert } from '@ember/debug'
 
 // ----- Ember addons -----
 // import computed from 'ember-macro-helpers/computed'
@@ -24,7 +25,8 @@ const StageWrapper = EmberObject.extend({
 export default Controller.extend({
 
   // ----- Services -----
-  // intl : service(),
+  dialogs : service(),
+  intl    : service(),
 
 
 
@@ -69,17 +71,30 @@ export default Controller.extend({
     },
 
     positionStage ({sourceList, sourceIndex, targetList, targetIndex}) {
-      if (sourceList === targetList && sourceIndex === targetIndex) return
+      if (sourceIndex === targetIndex) return
+      assert("Should position within the same list", sourceList === targetList)
 
-      const item = sourceList.objectAt(sourceIndex)
+      const stages = this.get('currentProgram.stages')
+      const item   = stages.objectAt(sourceIndex)
 
-      sourceList.removeAt(sourceIndex)
-      targetList.insertAt(targetIndex, item)
+      stages.removeAt(sourceIndex)
+      stages.insertAt(targetIndex, item)
     },
 
     removeStage (stage) {
       const stages = this.get('currentProgram.stages')
       stages.removeObject(stage)
+    },
+
+    reset () {
+      const currentProgram = this.get('currentProgram')
+      const dialogs        = this.get('dialogs')
+      const intl           = this.get('intl')
+
+      dialogs.confirm({
+        message  : intl.t('routes.programs-program.reset-confirm'),
+        actionOk : () => currentProgram.rollbackAttributes(),
+      })
     },
 
     save () {
