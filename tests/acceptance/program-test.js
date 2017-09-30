@@ -89,11 +89,14 @@ describe('Acceptance | program', function () {
     expect(page.name.text, m).equal(program.program_name)
 
     m = 'stages count'
-    expect(page.stages().count, m).equal(program.stages.length)
+    expect(page.stages.items().count, m).equal(program.stages.length)
 
     // Stages
     await RSVP.all(program.stages.map(async (stage, i) => {
-      const pageStage = page.stages(i)
+      const pageStage = page.stages.items(i)
+
+      console.log('page', page)
+      console.log('pageStage', pageStage)
 
       m = `stage #${i} index`
       expect(pageStage.index.text, m).equal(`${i + 1}`)
@@ -160,7 +163,7 @@ describe('Acceptance | program', function () {
     programsScenario(server)
 
     await page.visit({id : '1-1'})
-    await page.stages(0).name.fill('foo')
+    await page.stages.items(0).name.fill('foo')
 
     m = "#0 After filling name: Save button disabled stage"
     expect(page.buttons.save.disabled, m).false
@@ -186,7 +189,7 @@ describe('Acceptance | program', function () {
     programsScenario(server)
 
     await page.visit({id : '1-1'})
-    await page.stages(0).temp.fill('23')
+    await page.stages.items(0).temp.fill('23')
 
     m = "#0 After filling temp: Save button disabled stage"
     expect(page.buttons.save.disabled, m).false
@@ -212,7 +215,7 @@ describe('Acceptance | program', function () {
     programsScenario(server)
 
     await page.visit({id : '1-1'})
-    await page.stages(0).motor.fill('off')
+    await page.stages.items(0).motor.fill('off')
 
     m = "#0 After filling motor: Save button disabled stage"
     expect(page.buttons.save.disabled, m).false
@@ -238,7 +241,7 @@ describe('Acceptance | program', function () {
     programsScenario(server)
 
     await page.visit({id : '1-1'})
-    await page.stages(0).duration.fill('23')
+    await page.stages.items(0).duration.fill('23')
 
     m = "#0 After filling duration: Save button disabled stage"
     expect(page.buttons.save.disabled, m).false
@@ -264,8 +267,8 @@ describe('Acceptance | program', function () {
     programsScenario(server)
 
     await page.visit({id : '1-1'})
-    await page.stages(3).beepsToggle.click()
-    await page.stages(3).beeps.items(0).time.fill(23)
+    await page.stages.items(3).beepsToggle.click()
+    await page.stages.items(3).beeps.items(0).time.fill(23)
 
     m = "#0 After filling beep time: Save button disabled stage"
     expect(page.buttons.save.disabled, m).false
@@ -291,8 +294,8 @@ describe('Acceptance | program', function () {
     programsScenario(server)
 
     await page.visit({id : '1-1'})
-    await page.stages(3).beepsToggle.click()
-    await page.stages(3).beeps.items(0).count.fill(23)
+    await page.stages.items(3).beepsToggle.click()
+    await page.stages.items(3).beeps.items(0).count.fill(23)
 
     m = "#0 After filling beep count: Save button disabled stage"
     expect(page.buttons.save.disabled, m).false
@@ -318,11 +321,11 @@ describe('Acceptance | program', function () {
     programsScenario(server)
 
     await page.visit({id : '1-1'})
-    await page.stages(3).beepsToggle.click()
-    await page.stages(3).beeps.add.click()
+    await page.stages.items(3).beepsToggle.click()
+    await page.stages.items(3).beeps.add.click()
 
     m = "#0 After adding beep: beeps count"
-    expect(page.stages(3).beeps.items().count, m).equal(2)
+    expect(page.stages.items(3).beeps.items().count, m).equal(2)
 
     m = "#0 After adding beep: Save button disabled stage"
     expect(page.buttons.save.disabled, m).false
@@ -330,8 +333,8 @@ describe('Acceptance | program', function () {
     m = "#0 After adding beep: Reset button disabled stage"
     expect(page.buttons.reset.disabled, m).false
 
-    await page.stages(3).beeps.items(1).time.fill(23)
-    await page.stages(3).beeps.items(1).count.fill(32)
+    await page.stages.items(3).beeps.items(1).time.fill(23)
+    await page.stages.items(3).beeps.items(1).count.fill(32)
     await page.buttons.save.click()
 
     m = "#1 After saving: Save button disabled stage"
@@ -356,11 +359,11 @@ describe('Acceptance | program', function () {
     programsScenario(server)
 
     await page.visit({id : '1-1'})
-    await page.stages(3).beepsToggle.click()
-    await page.stages(3).beeps.items(0).remove.click()
+    await page.stages.items(3).beepsToggle.click()
+    await page.stages.items(3).beeps.items(0).remove.click()
 
     m = "#0 After removing beep: beeps count"
-    expect(page.stages(3).beeps.items().count, m).equal(0)
+    expect(page.stages.items(3).beeps.items().count, m).equal(0)
 
     m = "#0 After adding beep: Save button disabled stage"
     expect(page.buttons.save.disabled, m).false
@@ -381,13 +384,10 @@ describe('Acceptance | program', function () {
   })
 
 
+  it('sorting stages', async function () {
+    programsScenario(server)
 
-  it.skip('sorting beeps', async function () {
-  })
-
-
-
-  it.skip('sorting stages', async function () {
+    await page.visit({id : '1-1'})
   })
 
 

@@ -9,6 +9,7 @@ import select from './components/select'
 // import field from './components/settings-field'
 import input from './components/settings-field-input'
 // import select from './components/settings-field-select'
+import {dragSortList} from 'bread-maker-ember-frontend/tests/pages/components/drag-sort-list'
 
 
 
@@ -30,11 +31,10 @@ export default create({
   // ----- Current program -----
   name : c('.route-programsProgram-title'),
 
-  stages : collection({
-    scope     : '.route-programsProgram-stages',
-    itemScope : '.route-programsProgram-stage',
+  stages : {
+    ...dragSortList({
+      scope : '.route-programsProgram-stage',
 
-    item : c({
       index       : c('.route-programsProgram-stage-item._index'),
       name        : c('.route-programsProgram-stage-item._stageName .route-programsProgram-stage-field-input'),
       temp        : c('.route-programsProgram-stage-item._temp .route-programsProgram-stage-field-input'),
@@ -59,7 +59,8 @@ export default create({
         }),
       },
     }),
-  }),
+    scope : '.route-programsProgram-stages',
+  },
 
   fields : c('.route-programsProgram-group._fields', {
     name                : {...input, scope : '.route-programsProgram-fields-field._name'},
