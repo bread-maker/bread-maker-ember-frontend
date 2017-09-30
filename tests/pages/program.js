@@ -33,8 +33,6 @@ export default create({
 
   stages : {
     ...dragSortList({
-      scope : '.route-programsProgram-stage',
-
       index       : c('.route-programsProgram-stage-item._index'),
       name        : c('.route-programsProgram-stage-item._stageName .route-programsProgram-stage-field-input'),
       temp        : c('.route-programsProgram-stage-item._temp .route-programsProgram-stage-field-input'),
