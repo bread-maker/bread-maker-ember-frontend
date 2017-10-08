@@ -1,12 +1,19 @@
 /* eslint-env node */
 const _ = require('lodash')
 
-const envVars = _.pick(process.env, [
+
+
+const ALLOWED_ENV_VARS = [
   'BM_DEPLOY_TARGET',
   'BM_BACKEND_URL',
-])
+]
+
+
 
 module.exports = function (environment) {
+
+  const envVars = _.pick(process.env, ALLOWED_ENV_VARS)
+
   const ENV = {
     modulePrefix    : 'bread-maker-ember-frontend',
     podModulePrefix : 'bread-maker-ember-frontend/pods',
@@ -32,7 +39,7 @@ module.exports = function (environment) {
 
     moment : {
       includeTimezone : 'subset',
-      includeLocales  : ['en', 'ru'],
+      includeLocales  : ['en-gb', 'en', 'ru'],
     },
   }
 
@@ -54,6 +61,9 @@ module.exports = function (environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false
 
     ENV.APP.rootElement = '#ember-testing'
+
+    ENV.APP.LOG_TRANSITIONS = true
+    ENV.APP.LOG_TRANSITIONS_INTERNAL = true
   }
 
   // if (environment === 'production') {

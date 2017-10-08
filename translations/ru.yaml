@@ -16,6 +16,7 @@ routes:
       auto-update: Авто-обновление
       stats-loading: Загружаем состояние...
       stats-error: "Не удалось загрузить состояние: {error}"
+      stats-outdated: "Отображаются данные, загруженные {time}"
 
   index:
     loading: Загружаем график...

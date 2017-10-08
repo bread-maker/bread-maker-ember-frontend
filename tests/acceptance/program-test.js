@@ -3,6 +3,7 @@ import { expect } from 'chai'
 import startApp from 'bread-maker-ember-frontend/tests/helpers/start-app'
 import destroyApp from 'bread-maker-ember-frontend/tests/helpers/destroy-app'
 import page from '../pages/program'
+import loginPage from '../pages/login'
 import errorPage from '../pages/error'
 import programsScenario from 'bread-maker-ember-frontend/mirage/scenarios/programs'
 import createTokenAndAuthenticateSession from 'bread-maker-ember-frontend/tests/helpers/session'
@@ -17,7 +18,6 @@ describe('Acceptance | program', function () {
 
   beforeEach(function () {
     application = startApp()
-    createTokenAndAuthenticateSession(server, application)
   })
 
   afterEach(function () {
@@ -27,6 +27,7 @@ describe('Acceptance | program', function () {
 
 
   it('should redirect to first program', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await visit('/programs')
@@ -38,6 +39,7 @@ describe('Acceptance | program', function () {
 
 
   it('programs list, switching programs', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     const programs = programsScenario(server)
 
     await page.visit({id : '0-0'})
@@ -67,7 +69,23 @@ describe('Acceptance | program', function () {
 
 
 
+  it('should load programs after login', async function () {
+    server.create('password', {value : 'breadtime'})
+    programsScenario(server)
+
+    await loginPage.visit()
+    await loginPage.passwordField.fill('breadtime')
+    await loginPage.submitButton.click()
+    await page.visit({id : '0-0'})
+
+    m = 'programs count'
+    expect(page.programs().count, m).equal(21)
+  })
+
+
+
   it('error when no programs', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     await visit('/programs')
 
     m = "Error message"
@@ -80,6 +98,7 @@ describe('Acceptance | program', function () {
 
 
   it('should render all fields', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     const programs = programsScenario(server)
     const [program] = programs
 
@@ -157,6 +176,7 @@ describe('Acceptance | program', function () {
 
 
   it('editing stage name + saving', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -183,6 +203,7 @@ describe('Acceptance | program', function () {
 
 
   it('editing stage temp', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -209,6 +230,7 @@ describe('Acceptance | program', function () {
 
 
   it('editing stage motor', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -235,6 +257,7 @@ describe('Acceptance | program', function () {
 
 
   it('editing stage duration', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -261,6 +284,7 @@ describe('Acceptance | program', function () {
 
 
   it('editing stage beep time', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -288,6 +312,7 @@ describe('Acceptance | program', function () {
 
 
   it('editing stage beep count', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -315,6 +340,7 @@ describe('Acceptance | program', function () {
 
 
   it('adding a beep', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -353,6 +379,7 @@ describe('Acceptance | program', function () {
 
 
   it('removing a beep', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -382,6 +409,7 @@ describe('Acceptance | program', function () {
 
 
   it('sorting stages', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -408,6 +436,7 @@ describe('Acceptance | program', function () {
 
 
   it('removing a stage', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -428,6 +457,7 @@ describe('Acceptance | program', function () {
 
 
   it('no stages', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     await page.visit({id : '1-1'})
 
     m = "Error message"
@@ -437,6 +467,7 @@ describe('Acceptance | program', function () {
 
 
   it('adding a stage', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -460,6 +491,7 @@ describe('Acceptance | program', function () {
 
 
   it('editing settings - name', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -480,6 +512,7 @@ describe('Acceptance | program', function () {
 
 
   it('editing settings - max temp a', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -500,6 +533,7 @@ describe('Acceptance | program', function () {
 
 
   it('editing settings - max temp b', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -520,6 +554,7 @@ describe('Acceptance | program', function () {
 
 
   it('editing settings - warm temp', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -540,6 +575,7 @@ describe('Acceptance | program', function () {
 
 
   it('editing settings - max warm time', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     programsScenario(server)
 
     await page.visit({id : '1-1'})
@@ -560,6 +596,7 @@ describe('Acceptance | program', function () {
 
 
   it('resetting form', async function () {
+    await createTokenAndAuthenticateSession(server, application)
     const programs = programsScenario(server)
     const [program] = programs
 

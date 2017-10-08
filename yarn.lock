@@ -2481,10 +2481,6 @@ deep-eql@^0.1.3:
   dependencies:
     type-detect "0.1.1"
 
-deep-freeze@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/deep-freeze/-/deep-freeze-0.0.1.tgz#3a0b0005de18672819dfd38cd31f91179c893e84"
-
 deep-is@~0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
@@ -2649,9 +2645,9 @@ dot-prop@^4.1.0:
   dependencies:
     is-obj "^1.0.0"
 
-dotenv@^1.0.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-1.2.0.tgz#7cd73e16e07f057c8072147a5bc3a8677f0ab5c6"
+dotenv@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
 
 duplexer2@^0.1.2, duplexer2@~0.1.0, duplexer2@~0.1.2:
   version "0.1.4"
@@ -2833,13 +2829,6 @@ ember-cli-dependency-checker@^2.0.0:
     chalk "^1.1.3"
     is-git-url "^1.0.0"
     semver "^5.3.0"
-
-ember-cli-dotenv@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-dotenv/-/ember-cli-dotenv-1.2.0.tgz#11aab75ee3d98305799778dad58072fca97c57f1"
-  dependencies:
-    dotenv "^1.0.0"
-    exists-sync "0.0.3"
 
 ember-cli-eslint@^4.2.0:
   version "4.2.0"
@@ -3145,9 +3134,9 @@ ember-cli-version-checker@^2.0.0:
     resolve "^1.3.3"
     semver "^5.3.0"
 
-ember-cli@2.16.0-beta.1:
-  version "2.16.0-beta.1"
-  resolved "https://registry.yarnpkg.com/ember-cli/-/ember-cli-2.16.0-beta.1.tgz#bb70a79182709d90e14c460b85ac3ebd3320fb5d"
+ember-cli@2.16.0-beta.2:
+  version "2.16.0-beta.2"
+  resolved "https://registry.yarnpkg.com/ember-cli/-/ember-cli-2.16.0-beta.2.tgz#f78277555f14eb12a7d6086379460117004a1682"
   dependencies:
     amd-name-resolver "1.0.0"
     babel-plugin-transform-es2015-modules-amd "^6.24.0"
@@ -3175,7 +3164,6 @@ ember-cli@2.16.0-beta.1:
     console-ui "^2.0.0"
     core-object "^3.1.3"
     dag-map "^2.0.2"
-    deep-freeze "^0.0.1"
     diff "^3.2.0"
     ember-cli-broccoli-sane-watcher "^2.0.4"
     ember-cli-is-package-missing "^1.0.0"
@@ -3603,15 +3591,14 @@ ember-simple-auth@^1.4.0:
     ember-getowner-polyfill "^1.1.0"
     silent-error "^1.0.0"
 
-ember-source@2.16.0-beta.1:
-  version "2.16.0-beta.1"
-  resolved "https://registry.yarnpkg.com/ember-source/-/ember-source-2.16.0-beta.1.tgz#5acccd9c7bd8bc245a6bce921c8bdcf4f438be7d"
+ember-source@2.16.0-beta.2:
+  version "2.16.0-beta.2"
+  resolved "https://registry.yarnpkg.com/ember-source/-/ember-source-2.16.0-beta.2.tgz#da763c800c6c2ea6edea4fda25311428df7d763c"
   dependencies:
     "@glimmer/compiler" "^0.25.3"
     "@glimmer/node" "^0.25.3"
     "@glimmer/reference" "^0.25.3"
     "@glimmer/runtime" "^0.25.3"
-    "@glimmer/util" "^0.25.3"
     broccoli-funnel "^1.2.0"
     broccoli-merge-trees "^2.0.0"
     ember-cli-get-component-path-option "^1.0.0"
@@ -3623,7 +3610,6 @@ ember-source@2.16.0-beta.1:
     ember-cli-valid-component-name "^1.0.0"
     ember-cli-version-checker "^1.3.1"
     ember-router-generator "^1.2.3"
-    handlebars "^4.0.6"
     jquery "^3.2.1"
     resolve "^1.3.3"
     rsvp "^3.6.1"

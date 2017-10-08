@@ -48,16 +48,29 @@
 
     <aside class="route-application-sidebar">
       {{#if status.statsContent}}
-        {{stats-x status=status.statsContent.lastStatus}}
+        {{stats-x status=status.lastStatus}}
       {{else if status.statsProxy.isPending}}
         <p>
           {{t 'routes.application.sidebar.stats-loading'}}
         </p>
-      {{else if status.statsProxy.isRejected}}
-        <p>
-          {{t 'routes.application.sidebar.stats-error' error=(error status.statsProxy.reason)}}
-        </p>
-      {{/if}}
+      {{/if}}{{! status.statsContent }}
+
+      {{#if status.statsReason}}
+        <div class = "route-application-statsError">
+          <p class = "route-application-statsError-message">
+            {{t 'routes.application.sidebar.stats-error' error=(error status.statsReason)}}
+          </p>
+
+          {{#if status.statsContent}}
+            <p class = "route-application-statsError-time">
+             {{t
+               'routes.application.sidebar.stats-outdated'
+               time=(moment-from-now (moment timeMs) (now interval=1000))
+             }}
+            </p>
+          {{/if}}{{! status.statsContent }}
+        </div>{{! route-application-statsError }}
+      {{/if}}{{! status.statsReason }}
 
       <label class="route-application-autoUpdate">
         {{one-way-checkbox
@@ -69,15 +82,50 @@
           {{t 'routes.application.sidebar.auto-update'}}
         </span>
       </label>
+
+      {{#if (and session.isAuthenticated (eq status.lastStatus.state 'idle'))}}
+        <div>
+          <button
+            class = "route-application-start"
+            {{action (toggle 'isStartModalVisible' this)}}
+          >
+            {{t 'routes.application.sidebar.bake'}}
+          </button>
+        </div>
+      {{/if}}
     </aside>{{! sidebar }}
 
 
-    <main class="route-application-content">
+    <main class= "route-application-content">
       {{liquid-outlet class = '-horizontal'}}
     </main>{{! content }}
 
   </div>{{! main }}
 
-</div>
+</div>{{! route-application }}
 
 {{ember-dialogs}}
+
+{{#if isStartModalVisible}}
+  {{#modal-x
+    backdropAction = (toggle 'isStartModalVisible' this)
+
+    buttons = (array
+      (hash
+        label  = 'OK'
+        action = (action 'startProgram')
+      )
+
+      (hash
+        label  = 'Cancel'
+        action = (toggle 'isStartModalVisible' this)
+      )
+    )
+  }}
+    <div class = "route-application-startModal-message">
+      {{t 'routes.application.choose-program.message'}}
+    </div>{{! startModal-message }}
+
+    {{one-way-select}}
+  {{/modal-x}}
+{{/if}}

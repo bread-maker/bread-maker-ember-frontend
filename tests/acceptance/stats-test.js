@@ -9,6 +9,7 @@ import {REQUEST_STATS_POLL_ID} from 'bread-maker-ember-frontend/constants'
 import {timeout} from 'ember-concurrency'
 import ignoreError from '../helpers/ignore-error'
 import _ from 'lodash'
+import createTokenAndAuthenticateSession from 'bread-maker-ember-frontend/tests/helpers/session'
 
 
 
@@ -64,6 +65,8 @@ describe('Acceptance | stats', function () {
     expect(page.stats.temp.text, m).equal('20°C')
   })
 
+
+
   it('global failure', async function () {
     server.create('error')
 
@@ -79,5 +82,79 @@ describe('Acceptance | stats', function () {
 
     m = "Error status"
     expect(errorPage.status.text, m).equal("500")
+  })
+
+
+
+  it('failure after fetching stats', async function () {
+    server.create('stat', {temp : 30})
+
+    await page.visit()
+
+    server.create('error')
+
+    await ignoreError(
+      error => _.get(error, 'status') == 500, // eslint-disable-line eqeqeq
+      async () => {
+        pollTaskFor(REQUEST_STATS_POLL_ID)
+        await timeout(0)
+      }
+    )
+
+    m = "Error message"
+    expect(page.statsError.message.text, m).equal("Failed to fetch stats: Internal exception")
+
+    m = "Error time"
+    expect(page.statsError.time.text, m).equal("Showing data from a few seconds ago")
+  })
+
+
+
+  it('unauthenticated user should not see start baking button', async function () {
+    server.create('stat', {temp : 30})
+
+    await page.visit()
+
+    m = "Start button visibility"
+    expect(page.start.visible, m).false
+  })
+
+
+
+  it('starting baking', async function () {
+    server.create('stat', {temp : 30})
+    createTokenAndAuthenticateSession(server, application)
+
+    await page.visit()
+
+    m = "#0 Initial: Start button visibility"
+    expect(page.start.visible, m).true
+
+    m = "#0 Initial: Start modal visibility"
+    expect(page.startModal.visible, m).false
+
+    await page.start.click()
+
+    m = "#1 After clicking start once: Start modal visibility"
+    expect(page.startModalBackdrop.visible, m).true
+
+    m = "#1 After clicking start once: Start modal visibility"
+    expect(page.startModal.visible, m).true
+
+    await page.startModalBackdrop.click()
+
+    m = "#2 After clicking backdrop: Start modal visibility"
+    expect(page.startModalBackdrop.visible, m).false
+
+    m = "#2 After clicking backdrop: Start modal visibility"
+    expect(page.startModal.visible, m).false
+
+    await page.start.click()
+
+    // m = "#3 After clicking start twice: message"
+    // expect(page.startModal.message.text, m).equal("Choose a program to start")
+    //
+    // m = "#3 After clicking start twice: programs count"
+    // expect(page.startModal.programs.options().count, m).equal(21)
   })
 })

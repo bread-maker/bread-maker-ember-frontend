@@ -8,7 +8,9 @@ import RESTAdapter from 'ember-data/adapters/rest'
 import writable from 'ember-macro-helpers/writable'
 
 // ----- Third-party libraries -----
+import _ from 'lodash'
 import $ from 'jquery'
+import RSVP from 'rsvp'
 
 // ----- Own modules -----
 
@@ -36,6 +38,15 @@ export default RESTAdapter.extend({
 
 
   // ----- Overridden Methods -----
+  ajax () {
+    return this
+      ._super(...arguments)
+      .catch(error => RSVP.reject(this._formatError(error)))
+      .catch(error => this._logOutOnTokenExpired(error))
+  },
+
+
+
   buildURL (modelName, id, snapshot, requestType, query) {
     const host   = this.get('host')
     const method = this.apiMethodForRequest({modelName, id, snapshot, requestType, query})
@@ -69,6 +80,22 @@ export default RESTAdapter.extend({
     const data         = paramsMethod && this.paramsMethod({store, type, snapshot, requestType})
 
     return this.ajax(url, 'GET', { data })
+  },
+
+
+
+  normalizeErrorResponse (status, headers, payload) {
+    if (payload && typeof payload === 'object' && payload.error) {
+      return [
+        {
+          status : `${status}`,
+          title  : payload.error.error_text,
+          detail : payload.error.error_code,
+        },
+      ]
+    } else {
+      return this._super(status, headers, payload)
+    }
   },
 
 
@@ -108,6 +135,33 @@ export default RESTAdapter.extend({
   //   serializer.serializeIntoHash(data, type, snapshot)
   //   return data
   // },
+
+
+
+  // ----- Private methods -----
+  _formatError (error) {
+    error.status = _.get(error, 'errors[0].status')
+    error.name   = _.get(error, 'errors[0].title')
+    return error
+  },
+
+
+
+  _logOutOnTokenExpired (error) {
+    if (
+      error.status == 401 // eslint-disable-line eqeqeq
+      && this.get('session.isAuthenticated')
+    ) {
+      this
+        .get('session')
+        .invalidate()
+        .then(() => {
+          if (!this.get('config.isTest')) location.reload()
+        })
+    }
+
+    return RSVP.reject(error)
+  },
 
 
 

@@ -6,7 +6,7 @@ import Route from '@ember/routing/route'
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin'
 
 // ----- Third-party libraries -----
-import RSVP from 'rsvp'
+// import RSVP from 'rsvp'
 
 // ----- Own modules -----
 
@@ -31,13 +31,13 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
 
   // ----- Overridden Methods -----
-  model () {
-    const store = this.get('store')
-
-    return RSVP.hash({
-      programs : store.findAll('program'),
-    })
-  },
+  // model () {
+  //   const parentModel = this.modelFor('application')
+  //
+  //   return RSVP.hash({
+  //     ...parentModel,
+  //   })
+  // },
 
 
 

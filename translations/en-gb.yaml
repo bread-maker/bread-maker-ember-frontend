@@ -16,6 +16,10 @@ routes:
       auto-update: Auto-update
       stats-loading: Loading stats...
       stats-error: "Failed to fetch stats: {error}"
+      stats-outdated: "Showing data from {time}"
+      bake: Bake!
+    choose-program:
+      message: Choose a program to start
 
   index:
     loading: Loading chart...

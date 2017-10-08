@@ -1,6 +1,7 @@
 // ----- Ember modules -----
 import Route from '@ember/routing/route'
 import { inject as service } from '@ember/service'
+import { observer } from '@ember/object'
 
 // ----- Ember addons -----
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin'
@@ -24,9 +25,13 @@ export default Route.extend(ApplicationRouteMixin, {
 
   // ----- Overridden methods -----
   beforeModel () {
-    const ajax     = this.get('ajax')
-    const settings = this.get('settings')
-    const isDev    = this.get('config.isDev')
+    const ajax      = this.get('ajax')
+    const settings  = this.get('settings')
+    const isPending = settings.get('miscConfigProxy.isPending')
+
+    if (isPending) return
+
+    const isDev = this.get('config.isDev')
 
     if (isDev) ajax._setAutorun(true)
 
@@ -38,18 +43,22 @@ export default Route.extend(ApplicationRouteMixin, {
       })
   },
 
-  // beforeModel () {
-  //   const session  = this.get('session')
-  //   const settings = this.get('settings')
-  //
-  //   return session
-  //     .restore()
-  //     .then(() => settings.requestMiscConfig())
-  //     .catch(error => {
-  //       settings.applyMiscConfig()
-  //       return RSVP.reject(error)
-  //     })
-  // },
+  model () {
+    const store  = this.get('store')
+    const isAuth = this.get('session.isAuthenticated')
+
+    return RSVP
+      .hash({
+        programs : isAuth && store.findAll('program'),
+      })
+  },
+
+
+
+  // ----- Events and observers -----
+  refreshOnAuth : observer('session.isAuthenticated', function () {
+    this.refresh()
+  }),
 
 
 

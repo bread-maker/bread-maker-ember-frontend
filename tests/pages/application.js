@@ -6,7 +6,9 @@ import {
 
 import c from './components/_component'
 
+import select from './components/select'
 import stats from './components/stats-x'
+import modal, {backdrop} from './components/modal-x'
 
 
 
@@ -26,4 +28,18 @@ export default create({
   }),
 
   stats,
+
+  statsError : c('.route-application-statsError', {
+    message : c('.route-application-statsError-message'),
+    time    : c('.route-application-statsError-time'),
+  }),
+
+  start              : c('.route-application-start'),
+  startModalBackdrop : backdrop,
+  startModal         : {
+    ...modal,
+
+    message  : c('.route-application-startModal-message'),
+    programs : {...select, scope : '.route-application-startModal-programs'},
+  },
 })

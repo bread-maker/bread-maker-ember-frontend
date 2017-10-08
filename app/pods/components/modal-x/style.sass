@@ -1,0 +1,67 @@
+@at-root
+
+  ////------------------------------------------
+  .modalX-backdrop
+    //------------------------------------------
+
+    // ----- External Layout -----
+    position : fixed
+    top      : 0
+    left     : 0
+    width    : 100vw
+    height   : 100vh
+
+    // ----- Looks -----
+    background-color : rgba(0, 0, 0, 0.3)
+
+    // ----- Behavior -----
+    &.-clickable
+      cursor : pointer
+
+
+
+  ////------------------------------------------
+  .modalX
+    //------------------------------------------
+
+    // ----- Layout -----
+    max-width : 70vw
+
+    // ----- Looks -----
+    background-color : white
+    box-shadow       : rgba(0, 0, 0, 0.25) 0px 14px 45px, rgba(0, 0, 0, 0.22) 0px 10px 18px
+    border-radius    : 2px
+
+
+
+  ////------------------------------------------
+  .modalX-content
+    //------------------------------------------
+
+    // ----- Layout -----
+    padding   : 1.5rem
+
+
+
+  ////------------------------------------------
+  .modalX-buttons
+    //------------------------------------------
+
+    // ----- Layout -----
+    padding         : 0 1.5rem 1.5rem
+    display         : flex
+    justify-content : flex-end
+
+    // ----- Content layout -----
+    .modalX-button
+      &:not(:last-child)
+        margin-right : 2rem
+
+
+
+  ////------------------------------------------
+  .modalX-button
+    //------------------------------------------
+
+    // ----- Looks -----
+    cursor : pointer

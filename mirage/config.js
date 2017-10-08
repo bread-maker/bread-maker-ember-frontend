@@ -6,8 +6,8 @@ const LIMIT = 500
 
 
 
-function respondUnauthorized (error_code = 11) {
-  return new Response(401, {}, {error : {error_code}})
+function respondUnauthorized (error_code = 11, error_text) {
+  return new Response(401, {}, {error : {error_code, error_text}})
 }
 
 
@@ -52,7 +52,7 @@ function respond (schema, request) {
     const storeToken = _.last(schema.db.tokens)
 
     if (!token || !storeToken || token !== storeToken.value) return respondUnauthorized(11)
-    if (storeToken.expired) return respondUnauthorized(13)
+    if (storeToken.expired) return respondUnauthorized(13, 'Token expired')
 
     callback = authMethods[method]
   }

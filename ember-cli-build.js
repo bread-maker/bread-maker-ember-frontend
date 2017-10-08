@@ -1,6 +1,7 @@
 /* eslint-env node */
 const EmberApp = require('ember-cli/lib/broccoli/ember-app')
 const fs       = require('fs')
+const dotenv   = require('dotenv')
 
 
 
@@ -14,15 +15,15 @@ const defaultTarget =
                                  'localhost-4200'
 /* eslint-enable indent */
 
-const target        = process.env.BM_DEPLOY_TARGET || defaultTarget
-const dotEnvFile    = `./.env-${target}`
+const target     = process.env.BM_DEPLOY_TARGET || defaultTarget
+const dotEnvFile = `./.env-${target}`
 
-if (!fs.existsSync(dotEnvFile)) {
-  if (process.env.BM_DEPLOY_TARGET) {
-    throw new Error(`dot-env file specified but not found: ${dotEnvFile}`)
-  } else {
-    console.warn(`default dot-env file not found: ${dotEnvFile}, assuming env vars are passed manually`)
-  }
+if (fs.existsSync(dotEnvFile)) {
+  dotenv.config({path : dotEnvFile})
+} else if (process.env.BM_DEPLOY_TARGET) {
+  throw new Error(`dot-env file specified but not found: ${dotEnvFile}`)
+} else {
+  console.warn(`default dot-env file not found: ${dotEnvFile}, assuming env vars are passed manually`)
 }
 
 
@@ -42,16 +43,6 @@ module.exports = function (defaults) {
     sassOptions : {
       includePaths : ['app'],
     },
-  }
-
-  if (fs.existsSync(dotEnvFile)) {
-    options.dotEnv = {
-      clientAllowedKeys : [
-        'BM_DEPLOY_TARGET',
-        'BM_BACKEND_URL',
-      ],
-      path : dotEnvFile,
-    }
   }
 
   const app = new EmberApp(defaults, options)

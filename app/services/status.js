@@ -6,8 +6,7 @@ import EmberObject, {observer} from '@ember/object'
 import computed from 'ember-macro-helpers/computed'
 import raw from 'ember-macro-helpers/raw'
 import writable from 'ember-macro-helpers/writable'
-
-import {tag} from 'ember-awesome-macros'
+import {multiply, tag} from 'ember-awesome-macros'
 import {findBy} from 'ember-awesome-macros/array'
 
 import RunMixin from 'ember-lifeline/mixins/run'
@@ -68,13 +67,17 @@ export default Service.extend(RunMixin, {
   // ----- Promises -----
   statsPromise      : null,
   statsContentCache : null,
+  statsReasonCache  : null,
   statsProxy        : promiseProxy('statsPromise'),
   statsContent      : cache('statsProxy.content', 'statsContentCache'),
-  stats             : writable('statsContent.stats'),
+  statsReason       : cache('statsProxy.reason',  'statsReasonCache'),
 
 
 
   // ----- Computed properties -----
+  stats      : writable('statsContent.stats'),
+  lastStatus : writable('statsContent.lastStatus'),
+  timeMs     : multiply('lastStatus.time', 1000),
 
   currentIntervalOption : findBy('intervalOptions', raw('interval'), 'interval'),
 
@@ -157,7 +160,12 @@ export default Service.extend(RunMixin, {
   requestStats () {
     const ajax         = this.get('ajax')
     const interval     = this.get('interval')
-    const statsPromise = ajax.getStats(interval)
+
+    const statsPromise =
+      ajax
+        .getStats(interval)
+        .then(stats => (this.set('statsReasonCache', null), stats))
+
     this.setProperties({statsPromise})
     return statsPromise
   },

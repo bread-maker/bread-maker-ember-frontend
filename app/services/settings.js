@@ -116,6 +116,8 @@ export default Service.extend({
     const intl   = this.get('intl')
     const moment = this.get('moment')
 
+    if (locale === 'en-us') locale = 'en'
+
     intl.setLocale(locale)
     moment.setLocale(locale)
   },

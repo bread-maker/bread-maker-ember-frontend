@@ -1,0 +1,39 @@
+{{liquid-wormhole
+  stack="modal-x-backdrop"
+  class=(concat
+    'modalX-backdrop'
+    (if backdropAction ' -clickable' '')
+  )
+  click = backdropAction
+}}
+
+{{#liquid-tether
+  stack="modal-dialog"
+  index=1
+
+  target="document.body"
+  targetModifier="visible"
+  attachment="middle center"
+}}
+  <div class = "
+    modalX
+    {{if buttons '-hasButtons'}}
+  ">
+    <div class = 'modalX-content'>
+      {{yield}}
+    </div>{{! content }}
+
+    {{#if buttons}}
+      <div class = 'modalX-buttons'>
+        {{#each buttons as |button|}}
+          <button
+            class = 'modalX-button {{button.klass}}'
+            {{action button.action}}
+          >
+            {{button.label}}
+          </button>{{! button }}
+        {{/each}}
+      </div>{{! buttons }}
+    {{/if}}
+  </div>{{! modalX }}
+{{/liquid-tether}}

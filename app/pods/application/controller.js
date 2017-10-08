@@ -34,6 +34,8 @@ export default Controller.extend({
 
 
   // ----- Static properties -----
+  isStartModalVisible : false,
+  userSelectedProgram : null,
 
 
 
@@ -89,6 +91,10 @@ export default Controller.extend({
     updatePolling (autoUpdate) {
       const polling = autoUpdate.toString()
       this.setProperties({polling})
+    },
+
+    startProgram () {
+
     },
   },
 })
