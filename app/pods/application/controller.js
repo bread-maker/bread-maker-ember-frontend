@@ -6,7 +6,7 @@ import { observer } from '@ember/object'
 // ----- Ember Addon modules -----
 import computed from 'ember-macro-helpers/computed'
 // import raw from 'ember-macro-helpers/raw'
-// import writable from 'ember-macro-helpers/writable'
+import writable from 'ember-macro-helpers/writable'
 // import {
 //   and,
 //   findBy,
@@ -20,6 +20,8 @@ export default Controller.extend({
 
   // ----- Services -----
   ajax    : service(),
+  dialogs : service(),
+  intl    : service(),
   session : service(),
   status  : service(),
 
@@ -32,10 +34,15 @@ export default Controller.extend({
 
 
 
+  // ----- Model -----
+  programs : writable('model.programs'),
+
+
+
 
   // ----- Static properties -----
   isStartModalVisible : false,
-  userSelectedProgram : null,
+  userSelectedProgram : writable('programs.firstObject'),
 
 
 
@@ -94,7 +101,14 @@ export default Controller.extend({
     },
 
     startProgram () {
+      const dialogs = this.get('dialogs')
+      const intl    = this.get('intl')
+      const program = this.get('userSelectedProgram.nameWithHumanId')
 
+      dialogs.confirm({
+        message  : intl.t('routes.application.choose-program.confirm', {program}),
+        actionOk : () => {}
+      })
     },
   },
 })

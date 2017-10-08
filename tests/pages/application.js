@@ -6,6 +6,8 @@ import {
 
 import c from './components/_component'
 
+import {dialog} from 'bread-maker-ember-frontend/tests/pages/components/dialogs'
+
 import select from './components/select'
 import stats from './components/stats-x'
 import modal, {backdrop} from './components/modal-x'
@@ -14,6 +16,8 @@ import modal, {backdrop} from './components/modal-x'
 
 export default create({
   visit : visitable('/'),
+
+  dialog,
 
   menu : c('.route-application-menu', {
     items : collection({

@@ -50,8 +50,9 @@ export default Model.extend({
 
 
   // ----- Computed properties -----
-  humanId : tag`${add('programId', 1)}-${add('crustId', 1)}`,
-  name    : alias('programName'),
+  humanId         : tag`${add('programId', 1)}-${add('crustId', 1)}`,
+  name            : alias('programName'),
+  nameWithHumanId : tag`${'humanId'} ${'name'}`,
 
   maxTempDurationMins : minutes('maxTempDuration'),
 

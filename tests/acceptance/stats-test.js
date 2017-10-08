@@ -10,6 +10,7 @@ import {timeout} from 'ember-concurrency'
 import ignoreError from '../helpers/ignore-error'
 import _ from 'lodash'
 import createTokenAndAuthenticateSession from 'bread-maker-ember-frontend/tests/helpers/session'
+import programsScenario from 'bread-maker-ember-frontend/mirage/scenarios/programs'
 
 
 
@@ -123,6 +124,7 @@ describe('Acceptance | stats', function () {
 
   it('starting baking', async function () {
     server.create('stat', {temp : 30})
+    programsScenario(server)
     createTokenAndAuthenticateSession(server, application)
 
     await page.visit()
@@ -151,10 +153,18 @@ describe('Acceptance | stats', function () {
 
     await page.start.click()
 
-    // m = "#3 After clicking start twice: message"
-    // expect(page.startModal.message.text, m).equal("Choose a program to start")
-    //
-    // m = "#3 After clicking start twice: programs count"
-    // expect(page.startModal.programs.options().count, m).equal(21)
+    m = "#3 After clicking start twice: message"
+    expect(page.startModal.message.text, m).equal("Choose a program to start")
+
+    m = "#3 After clicking start twice: programs count"
+    expect(page.startModal.programs.options().count, m).equal(21)
+
+    await page.startModal.programs.fill('2-2')
+    await page.startModal.buttons(0).click()
+
+    m = "#4 After clicking Ok in the modal: confirmation dialog message"
+    expect(page.dialog.message.text, m).equal("About to start baking program 3-3 Specialty Bread (dark). Ensure ingredients are in place and press OK.")
+
+    await page.dialog.buttonOk.click()
   })
 })

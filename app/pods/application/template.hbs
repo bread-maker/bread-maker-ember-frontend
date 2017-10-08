@@ -1,32 +1,32 @@
 {{trigger (action 'didReceiveQueryParams')}}
 
-<div class="route-application">
+<div class='route-application'>
 
-  <header class = "route-application-header">
+  <header class = 'route-application-header'>
 
-    <div class="route-application-header-item _left">
-      <h2 class="route-application-title">
+    <div class='route-application-header-item _left'>
+      <h2 class='route-application-title'>
         Open Bread Maker
       </h2>
     </div>{{! header-item _left }}
 
-    <div class="route-application-header-item _right">
-      <div class = "route-application-menu">
+    <div class='route-application-header-item _right'>
+      <div class = 'route-application-menu'>
         {{link-to (t 'routes.application.menu.chart') 'index'
-          class = "route-application-menu-item _chart"
+          class = 'route-application-menu-item _chart'
         }}
 
         {{#if session.isAuthenticated}}
           {{link-to (t 'routes.application.menu.programs') 'programs'
-            class = "route-application-menu-item _programs"
+            class = 'route-application-menu-item _programs'
           }}
 
           {{link-to (t 'routes.application.menu.settings') 'settings'
-            class = "route-application-menu-item _settings"
+            class = 'route-application-menu-item _settings'
           }}
 
           <a
-            class = "route-application-menu-item _logout"
+            class = 'route-application-menu-item _logout'
             href
             {{action 'invalidateSession'}}
           >
@@ -34,7 +34,7 @@
           </a>
         {{else}}
           {{link-to (t 'domain.login.login') 'login'
-            class = "route-application-menu-item _login"
+            class = 'route-application-menu-item _login'
           }}
         {{/if}}
       </div>{{! menu }}
@@ -44,9 +44,9 @@
 
 
 
-  <div class="route-application-main">
+  <div class='route-application-main'>
 
-    <aside class="route-application-sidebar">
+    <aside class='route-application-sidebar'>
       {{#if status.statsContent}}
         {{stats-x status=status.lastStatus}}
       {{else if status.statsProxy.isPending}}
@@ -56,13 +56,13 @@
       {{/if}}{{! status.statsContent }}
 
       {{#if status.statsReason}}
-        <div class = "route-application-statsError">
-          <p class = "route-application-statsError-message">
+        <div class = 'route-application-statsError'>
+          <p class = 'route-application-statsError-message'>
             {{t 'routes.application.sidebar.stats-error' error=(error status.statsReason)}}
           </p>
 
           {{#if status.statsContent}}
-            <p class = "route-application-statsError-time">
+            <p class = 'route-application-statsError-time'>
              {{t
                'routes.application.sidebar.stats-outdated'
                time=(moment-from-now (moment timeMs) (now interval=1000))
@@ -72,7 +72,7 @@
         </div>{{! route-application-statsError }}
       {{/if}}{{! status.statsReason }}
 
-      <label class="route-application-autoUpdate">
+      <label class='route-application-autoUpdate'>
         {{one-way-checkbox
           checked = pollingEffective
           update  = (action 'updatePolling')
@@ -86,7 +86,7 @@
       {{#if (and session.isAuthenticated (eq status.lastStatus.state 'idle'))}}
         <div>
           <button
-            class = "route-application-start"
+            class = 'route-application-start'
             {{action (toggle 'isStartModalVisible' this)}}
           >
             {{t 'routes.application.sidebar.bake'}}
@@ -96,7 +96,7 @@
     </aside>{{! sidebar }}
 
 
-    <main class= "route-application-content">
+    <main class= 'route-application-content'>
       {{liquid-outlet class = '-horizontal'}}
     </main>{{! content }}
 
@@ -122,10 +122,20 @@
       )
     )
   }}
-    <div class = "route-application-startModal-message">
+    <div class = 'route-application-startModal-message'>
       {{t 'routes.application.choose-program.message'}}
     </div>{{! startModal-message }}
 
-    {{one-way-select}}
+    {{one-way-select
+      class = 'route-application-startModal-programs'
+
+      options = programs
+      value   = userSelectedProgram
+
+      optionLabelPath = 'nameWithHumanId'
+      optionValuePath = 'id'
+
+      update = (action (mut userSelectedProgram))
+    }}
   {{/modal-x}}
 {{/if}}
