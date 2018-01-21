@@ -96,9 +96,12 @@ export default AjaxService.extend({
     return this.getMethod('auth.login', {password, ...params})
   },
 
-
   logout (params = {}) {
-    return this.getMethod('auth.logout', params)
+    return this
+      .getMethod('auth.logout', params)
+      .catch(error => {
+        if (error.status != 404) return RSVP.reject(error) // eslint-disable-line eqeqeq
+      })
   },
 
   getStats (interval = '', params = {}) {
@@ -242,6 +245,15 @@ export default AjaxService.extend({
 
   confirmAuth (token, params = {}) {
     return this.getGlobalBakingConfig({token, ...params})
+  },
+
+  bake (program_id, crust_id, timer = 0, params = {}) {
+    return this.postMethod('baking.bake', {
+      program_id,
+      crust_id,
+      timer,
+      ...params,
+    })
   },
 
 

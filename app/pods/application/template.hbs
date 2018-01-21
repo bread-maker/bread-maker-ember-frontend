@@ -55,6 +55,8 @@
         </p>
       {{/if}}{{! status.statsContent }}
 
+
+
       {{#if status.statsReason}}
         <div class = 'route-application-statsError'>
           <p class = 'route-application-statsError-message'>
@@ -71,6 +73,33 @@
           {{/if}}{{! status.statsContent }}
         </div>{{! route-application-statsError }}
       {{/if}}{{! status.statsReason }}
+
+
+
+      {{#if status.lastStatus.errorCode}}
+        <div class = 'route-application-statsError'>
+          <p class = 'route-application-statsError-message'>
+            {{status.lastStatus.errorText}}
+          </p>
+
+          <p>
+            <button
+              disabled = {{clearErrorProxy.isPending}}
+              {{action 'clearError'}}
+            >
+              {{#if clearErrorProxy.isPending}}
+                Clearing...
+              {{else if clearErrorProxy.isRejected}}
+                Failed clearing error, retry
+              {{else}}
+                Clear error
+              {{/if}}
+            </button>
+          </p>
+        </div>{{! route-application-statsError }}
+      {{/if}}
+
+
 
       <label class='route-application-autoUpdate'>
         {{one-way-checkbox

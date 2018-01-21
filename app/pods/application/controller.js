@@ -13,6 +13,7 @@ import writable from 'ember-macro-helpers/writable'
 // } from 'ember-awesome-macros'
 
 // ----- Own modules -----
+import promiseProxy from 'bread-maker-ember-frontend/macros/promise-proxy'
 
 
 
@@ -36,6 +37,15 @@ export default Controller.extend({
 
   // ----- Model -----
   programs : writable('model.programs'),
+
+
+
+  // ----- Promises -----
+  startBakingPromise : null,
+  startBakingProxy   : promiseProxy('startBakingPromise'),
+
+  clearErrorPromise : null,
+  clearErrorProxy   : promiseProxy('clearErrorPromise'),
 
 
 
@@ -107,7 +117,23 @@ export default Controller.extend({
 
       dialogs.confirm({
         message  : intl.t('routes.application.choose-program.confirm', {program}),
-        actionOk : () => {}
+        actionOk : () => {
+          const ajax                 = this.get('ajax')
+          const program              = this.get('userSelectedProgram')
+          const {programId, crustId} = program.getProperties('programId', 'crustId')
+
+          const startBakingPromise =
+            ajax
+              .bake(programId, crustId)
+              .then(() => {
+                this.setProperties({
+                  isStartModalVisible : false,
+                  startBakingPromise  : null,
+                })
+              })
+
+          this.setProperties({startBakingPromise})
+        },
       })
     },
   },

@@ -1,5 +1,7 @@
 /* eslint-env node */
-const _ = require('lodash')
+const _        = require('lodash')
+const fs       = require('fs')
+const dotenv   = require('dotenv')
 
 
 
@@ -11,6 +13,27 @@ const ALLOWED_ENV_VARS = [
 
 
 module.exports = function (environment) {
+
+  // Dot-env file
+  if (environment) {
+    /* eslint-disable indent */
+    const defaultTarget =
+      environment === 'production' ? 'prod' :
+      environment === 'test'       ? 'mirage' :
+                                     'localhost-4200'
+    /* eslint-enable indent */
+
+    const target     = process.env.BM_DEPLOY_TARGET || defaultTarget
+    const dotEnvFile = `./.env-${target}`
+
+    if (fs.existsSync(dotEnvFile)) {
+      dotenv.config({path : dotEnvFile})
+    } else if (process.env.BM_DEPLOY_TARGET) {
+      throw new Error(`dot-env file specified but not found: ${dotEnvFile}`)
+    } else {
+      console.warn(`default dot-env file not found: ${dotEnvFile}, assuming env vars are passed manually`)
+    }
+  }
 
   const envVars = _.pick(process.env, ALLOWED_ENV_VARS)
 

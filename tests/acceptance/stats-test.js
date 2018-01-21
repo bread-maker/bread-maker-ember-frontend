@@ -166,5 +166,7 @@ describe('Acceptance | stats', function () {
     expect(page.dialog.message.text, m).equal("About to start baking program 3-3 Specialty Bread (dark). Ensure ingredients are in place and press OK.")
 
     await page.dialog.buttonOk.click()
+
+    await new Promise(() => {})
   })
 })

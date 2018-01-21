@@ -140,6 +140,10 @@ const authMethods = {
     return {crust_id, program_id, program}
   },
 
+  "baking.bake" () {
+    return {result : true}
+  },
+
 }
 
 

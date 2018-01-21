@@ -1,30 +1,5 @@
 /* eslint-env node */
 const EmberApp = require('ember-cli/lib/broccoli/ember-app')
-const fs       = require('fs')
-const dotenv   = require('dotenv')
-
-
-
-// Dot-env file
-const environment   = process.env.EMBER_ENV || 'development'
-
-/* eslint-disable indent */
-const defaultTarget =
-  environment === 'production' ? 'prod' :
-  environment === 'test'       ? 'mirage' :
-                                 'localhost-4200'
-/* eslint-enable indent */
-
-const target     = process.env.BM_DEPLOY_TARGET || defaultTarget
-const dotEnvFile = `./.env-${target}`
-
-if (fs.existsSync(dotEnvFile)) {
-  dotenv.config({path : dotEnvFile})
-} else if (process.env.BM_DEPLOY_TARGET) {
-  throw new Error(`dot-env file specified but not found: ${dotEnvFile}`)
-} else {
-  console.warn(`default dot-env file not found: ${dotEnvFile}, assuming env vars are passed manually`)
-}
 
 
 
