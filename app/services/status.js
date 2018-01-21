@@ -82,7 +82,7 @@ export default Service.extend(RunMixin, {
   currentIntervalOption : findBy('intervalOptions', raw('interval'), 'interval'),
 
   statsChartData : computed(
-    'stats',    'currentIntervalOption.multiplier', 'intl', 'moment',       'settings.locale', 'settings.timezone',
+    'stats',    'currentIntervalOption.multiplier', 'intl', 'moment',       'settings.{locale,timezone}',
     (stats = [], multiplier,                         intl,   momentService,  locale) => {
       const limit      = 500
       const lastTime   = stats[stats.length - 1].time

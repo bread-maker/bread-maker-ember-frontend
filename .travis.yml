@@ -1,17 +1,21 @@
 ---
 language: node_js
 node_js:
-  - "6"
+  - "8"
 
 sudo: false
-
-cache:
-  yarn: true
-
 dist: trusty
 
 addons:
   chrome: stable
+
+cache:
+  yarn: true
+
+env:
+  global:
+    # See https://git.io/vdao3 for details.
+    - JOBS=1
 
 before_install:
   - export DISPLAY=:99.0
@@ -27,6 +31,7 @@ install:
   - yarn install --non-interactive
 
 script:
+  - yarn lint:js
   - yarn test
 
 notifications:

@@ -3,6 +3,8 @@ import { describe, it } from 'mocha'
 import arrayPadLeft from 'bread-maker-ember-frontend/utils/array-pad-left'
 import _ from 'lodash'
 
+
+
 const testCases = [
   /* eslint-disable key-spacing */
   {array: [1, 2, 3], amount: 5, filler: undefined,  expected: [undefined, undefined, 1, 2, 3]},

@@ -167,6 +167,6 @@ describe('Acceptance | stats', function () {
 
     await page.dialog.buttonOk.click()
 
-    await new Promise(() => {})
+    // await new Promise(() => {})
   })
 })

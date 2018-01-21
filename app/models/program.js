@@ -1,6 +1,6 @@
 // ----- Ember modules -----
-import {alias} from 'ember-computed'
-// import { alias } from '@ember/object/computed'
+// import {alias} from 'ember-computed'
+import { alias } from '@ember/object/computed'
 
 // ----- Ember Data modules -----
 import Model from 'ember-data/model'

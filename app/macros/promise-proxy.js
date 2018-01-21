@@ -1,13 +1,10 @@
 // ----- Ember modules -----
 import EObject from '@ember/object'
+import PromiseProxyMixin from '@ember/object/promise-proxy-mixin'
 
 // ----- Ember addons -----
 import curriedComputed from "ember-macro-helpers/curried-computed"
 import {and} from 'ember-awesome-macros'
-
-// ----- Old-school imports -----
-import Ember from "ember"
-const { PromiseProxyMixin } = Ember
 
 
 

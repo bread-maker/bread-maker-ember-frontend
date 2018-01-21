@@ -1,5 +1,5 @@
 // ----- Ember modules -----
-import {decamelize} from 'ember-string'
+import { decamelize } from '@ember/string'
 
 // ----- Ember Data modules -----
 import RESTSerializer from 'ember-data/serializers/rest'

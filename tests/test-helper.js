@@ -7,5 +7,5 @@ import './helpers/chai-assertions'
 setResolver(resolver)
 mocha.reporter(Reporter)
 mocha.slow(10000)
-// mocha.timeout(30000)
-mocha.timeout(0)
+mocha.timeout(30000)
+// mocha.timeout(0)
