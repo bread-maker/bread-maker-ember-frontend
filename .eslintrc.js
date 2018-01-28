@@ -72,6 +72,7 @@ module.exports = {
       globals : {
         sinon  : true,
         server : true,
+        pause  : true,
       },
     }
   ],

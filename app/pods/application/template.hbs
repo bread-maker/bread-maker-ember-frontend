@@ -141,8 +141,9 @@
 
     buttons = (array
       (hash
-        label  = 'OK'
-        action = (action 'startProgram')
+        label    = (if startBakingProxy.isPending 'Starting...' 'OK')
+        action   = (action 'startProgram')
+        disabled = startBakingProxy.isPending
       )
 
       (hash

@@ -131,6 +131,11 @@ export default Controller.extend({
                   startBakingPromise  : null,
                 })
               })
+              .catch(error => {
+                dialogs.alert({
+                  message : intl.t('routes.application.choose-program.bake-fail', {error : error.payload.errorText}),
+                })
+              })
 
           this.setProperties({startBakingPromise})
         },

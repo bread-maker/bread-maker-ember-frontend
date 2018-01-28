@@ -21,6 +21,7 @@ routes:
     choose-program:
       message: Choose a program to start
       confirm: "About to start baking program {program}. Ensure ingredients are in place and press OK."
+      bake-fail: "Failed to start baking: {error}"
 
   index:
     loading: Loading chart...

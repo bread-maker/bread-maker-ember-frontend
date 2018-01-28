@@ -122,7 +122,7 @@ describe('Acceptance | stats', function () {
 
 
 
-  it('starting baking', async function () {
+  it('starting baking and cancel', async function () {
     server.create('stat', {temp : 30})
     programsScenario(server)
     createTokenAndAuthenticateSession(server, application)
@@ -137,10 +137,10 @@ describe('Acceptance | stats', function () {
 
     await page.start.click()
 
-    m = "#1 After clicking start once: Start modal visibility"
+    m = "#1 After clicking start: Start modal visibility"
     expect(page.startModalBackdrop.visible, m).true
 
-    m = "#1 After clicking start once: Start modal visibility"
+    m = "#1 After clicking start: Start modal visibility"
     expect(page.startModal.visible, m).true
 
     await page.startModalBackdrop.click()
@@ -150,23 +150,74 @@ describe('Acceptance | stats', function () {
 
     m = "#2 After clicking backdrop: Start modal visibility"
     expect(page.startModal.visible, m).false
+  })
+
+
+
+  it('starting baking normally', async function () {
+    server.create('stat', {temp : 30})
+    programsScenario(server)
+    createTokenAndAuthenticateSession(server, application)
+
+    await page.visit()
+
+    m = "#0 Initial: Start button visibility"
+    expect(page.start.visible, m).true
+
+    m = "#0 Initial: Start modal visibility"
+    expect(page.startModal.visible, m).false
 
     await page.start.click()
 
-    m = "#3 After clicking start twice: message"
+    m = "#1 After clicking start: Start modal visibility"
+    expect(page.startModalBackdrop.visible, m).true
+
+    m = "#1 After clicking start: Start modal visibility"
+    expect(page.startModal.visible, m).true
+
+    m = "#2 After clicking start: message"
     expect(page.startModal.message.text, m).equal("Choose a program to start")
 
-    m = "#3 After clicking start twice: programs count"
+    m = "#2 After clicking start: programs count"
     expect(page.startModal.programs.options().count, m).equal(21)
 
     await page.startModal.programs.fill('2-2')
     await page.startModal.buttons(0).click()
 
-    m = "#4 After clicking Ok in the modal: confirmation dialog message"
+    m = "#3 After clicking Ok in the modal: confirmation dialog message"
     expect(page.dialog.message.text, m).equal("About to start baking program 3-3 Specialty Bread (dark). Ensure ingredients are in place and press OK.")
 
     await page.dialog.buttonOk.click()
 
-    // await new Promise(() => {})
+    m = "#4 After confirming: confirmation dialog existence"
+    expect(page.dialog.exists, m).false
+
+    m = "#4 After confirming: modal existence"
+    expect(page.startModal.exists, m).false
+  })
+
+
+
+  it('starting baking error', async function () {
+    server.create('stat', {temp : 30})
+    programsScenario(server)
+    createTokenAndAuthenticateSession(server, application)
+
+    await page.visit()
+    await page.start.click()
+    await page.startModal.programs.fill('2-2')
+    await page.startModal.buttons(0).click()
+
+    server.create('error')
+
+    await ignoreError(
+      error => _.get(error, 'status') == 500, // eslint-disable-line eqeqeq
+      async () => {
+        await page.dialog.buttonOk.click()
+      }
+    )
+
+    m = "confirmation dialog message"
+    expect(page.dialog.message.text, m).equal("Failed to start baking: Shoop da whoop")
   })
 })

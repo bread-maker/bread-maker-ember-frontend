@@ -27,7 +27,8 @@
       <div class = 'modalX-buttons'>
         {{#each buttons as |button|}}
           <button
-            class = 'modalX-button {{button.klass}}'
+            class    = 'modalX-button {{button.klass}}'
+            disabled = {{button.disabled}}
             {{action button.action}}
           >
             {{button.label}}
