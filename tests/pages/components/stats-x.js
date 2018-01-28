@@ -14,4 +14,7 @@ export default c('.statsX', {
   res        : c('.statsX-stat._res        .statsX-stat-value'),
   pwm        : c('.statsX-stat._pwm        .statsX-stat-value'),
   heat       : c('.statsX-stat._heat       .statsX-stat-value'),
+  error      : c('.statsX-stat._error      .statsX-stat-value'),
+
+  clear : c('.statsX-clear'),
 })

@@ -17,11 +17,12 @@ routes:
       stats-loading: Loading stats...
       stats-error: "Failed to fetch stats: {error}"
       stats-outdated: "Showing data from {time}"
+      clear-fail: Failed to clear error
       bake: Bake!
     choose-program:
       message: Choose a program to start
       confirm: "About to start baking program {program}. Ensure ingredients are in place and press OK."
-      bake-fail: "Failed to start baking: {error}"
+      bake-fail: "Failed to start baking"
 
   index:
     loading: Loading chart...
@@ -115,6 +116,9 @@ components:
     status: Status code
     message: Message
     payload: Payload
+  stats-x:
+    clear: Clear error
+    clearing: Clearing...
   stats-chart:
     interval: Interval
 
@@ -175,6 +179,13 @@ domain:
 
 errors:
   unknown: Something wrong happened
+  1: Power was lost during baking
+  2: Emergency watchdog reset occured during baking
+  3: External reset occured during baking
+  4: No sync signal
+  5: No response on baking program request
+  6: Thermistor is not connected or broken
+  7: Case is too hot to start baking
   10: Authorization required
   11: Invalid password
   12: Invalid authorization token

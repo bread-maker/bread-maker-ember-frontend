@@ -122,7 +122,7 @@ describe('Acceptance | stats', function () {
 
 
 
-  it('starting baking and cancel', async function () {
+  it('starting baking and cancelling', async function () {
     server.create('stat', {temp : 30})
     programsScenario(server)
     createTokenAndAuthenticateSession(server, application)
@@ -189,11 +189,18 @@ describe('Acceptance | stats', function () {
 
     await page.dialog.buttonOk.click()
 
+    server.create('stat', {state : 'baking'})
+    pollTaskFor(REQUEST_STATS_POLL_ID)
+    await timeout(0)
+
     m = "#4 After confirming: confirmation dialog existence"
     expect(page.dialog.exists, m).false
 
     m = "#4 After confirming: modal existence"
     expect(page.startModal.exists, m).false
+
+    m = "#4 After confirming: state"
+    expect(page.stats.state.text, m).equal('baking')
   })
 
 
@@ -218,6 +225,34 @@ describe('Acceptance | stats', function () {
     )
 
     m = "confirmation dialog message"
-    expect(page.dialog.message.text, m).equal("Failed to start baking: Shoop da whoop")
+    expect(page.dialog.message.text, m).equal("Failed to start baking: Internal exception")
+  })
+
+
+
+  it('clear error', async function () {
+    server.create('stat', {state : 'error', error_code : 22})
+    programsScenario(server)
+    createTokenAndAuthenticateSession(server, application)
+
+    await page.visit()
+
+    m = "#0 Initial: status text"
+    expect(page.stats.state.text, m).equal("error")
+
+    m = "#0 Initial: error text"
+    expect(page.stats.error.text, m).equal("Internal exception")
+
+    await page.stats.clear.click()
+
+    server.create('stat')
+    pollTaskFor(REQUEST_STATS_POLL_ID)
+    await timeout(0)
+
+    m = "#1 After clearing: status text"
+    expect(page.stats.state.text, m).equal("idle")
+
+    m = "#1 After clearing: error visibility"
+    expect(page.stats.error.visible, m).false
   })
 })

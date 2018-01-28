@@ -55,3 +55,21 @@
     {{t (concat 'domain.onoff-boolean.' status.heat)}}
   </div>{{! stat-value }}
 </div>{{! stat _heat }}
+
+
+
+{{#if (eq status.state 'error')}}
+  <div class="statsX-stat _error">
+    <div class="statsX-stat-value">
+      {{t (concat 'errors.' status.error_code)}}
+    </div>{{! stat-value }}
+  </div>{{! stat _error }}
+
+  <button
+    class    = "statsX-clear"
+    disabled = {{clearErrorPending}}
+    {{action clearErrorAction}}
+  >
+    {{t (if clearErrorPending 'components.stats-x.clearing' 'components.stats-x.clear')}}
+  </button>
+{{/if}}{{! eq status.state 'error' }}

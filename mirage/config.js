@@ -140,7 +140,11 @@ const authMethods = {
     return {crust_id, program_id, program}
   },
 
-  "baking.bake" (schema) {
+  "baking.bake" () {
+    return {result : true}
+  },
+
+  "noerr" () {
     return {result : true}
   },
 

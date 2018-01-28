@@ -92,6 +92,13 @@ export default AjaxService.extend({
   },
 
 
+
+
+
+  clearError () {
+    return this.postMethod('noerr')
+  },
+
   login (password, params = {}) {
     return this.getMethod('auth.login', {password, ...params})
   },

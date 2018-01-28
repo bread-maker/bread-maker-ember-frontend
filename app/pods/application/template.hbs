@@ -48,7 +48,11 @@
 
     <aside class='route-application-sidebar'>
       {{#if status.statsContent}}
-        {{stats-x status=status.lastStatus}}
+        {{stats-x
+          status            = status.lastStatus
+          clearErrorAction  = (action 'clearError')
+          clearErrorPending = clearErrorProxy.isPending
+        }}
       {{else if status.statsProxy.isPending}}
         <p>
           {{t 'routes.application.sidebar.stats-loading'}}

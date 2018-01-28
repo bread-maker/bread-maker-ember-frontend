@@ -133,13 +133,30 @@ export default Controller.extend({
               })
               .catch(error => {
                 dialogs.alert({
-                  message : intl.t('routes.application.choose-program.bake-fail', {error : error.payload.errorText}),
+                  message : `${intl.t('routes.application.choose-program.bake-fail')}: ${error.payload && (error.payload.errorCode && intl.t(`errors.${error.payload.errorCode}`) || error.payload.errorMessage) || error.message}`,
                 })
               })
 
           this.setProperties({startBakingPromise})
         },
       })
+    },
+
+    clearError () {
+      const ajax    = this.get('ajax')
+      const dialogs = this.get('dialogs')
+      const intl    = this.get('intl')
+
+      const clearErrorPromise =
+        ajax
+          .clearError()
+          .catch(error => {
+            dialogs.alert({
+              message : `${intl.t('routes.application.sidebar.clear-fail')}: ${error.payload && (error.payload.errorCode && intl.t(`errors.${error.payload.errorCode}`) || error.payload.errorMessage) || error.message}`,
+            })
+          })
+
+      this.setProperties({clearErrorPromise})
     },
   },
 })
