@@ -95,8 +95,8 @@ export default AjaxService.extend({
 
 
 
-  clearError () {
-    return this.postMethod('noerr')
+  clearError (params = {}) {
+    return this.postMethod('noerr', params)
   },
 
   login (password, params = {}) {
@@ -261,6 +261,10 @@ export default AjaxService.extend({
       timer,
       ...params,
     })
+  },
+
+  cancelBaking (params = {}) {
+    return this.postMethod('baking.abort', params)
   },
 
 

@@ -19,6 +19,8 @@ routes:
       stats-outdated: "Showing data from {time}"
       clear-fail: Failed to clear error
       bake: Bake!
+      cancel-confirm: Really cancel baking?
+      cancel-fail: Failed to cancel baking
     choose-program:
       message: Choose a program to start
       confirm: "About to start baking program {program}. Ensure ingredients are in place and press OK."
@@ -119,6 +121,8 @@ components:
   stats-x:
     clear: Clear error
     clearing: Clearing...
+    cancel: Cancel baking
+    cancelling: Cancelling...
   stats-chart:
     interval: Interval
 

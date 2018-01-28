@@ -47,6 +47,9 @@ export default Controller.extend({
   clearErrorPromise : null,
   clearErrorProxy   : promiseProxy('clearErrorPromise'),
 
+  cancelBakingPromise : null,
+  cancelBakingProxy   : promiseProxy('cancelBakingPromise'),
+
 
 
 
@@ -157,6 +160,28 @@ export default Controller.extend({
           })
 
       this.setProperties({clearErrorPromise})
+    },
+
+    cancelBaking () {
+      const ajax    = this.get('ajax')
+      const dialogs = this.get('dialogs')
+      const intl    = this.get('intl')
+
+      dialogs.confirm({
+        message  : intl.t('routes.application.sidebar.cancel-confirm'),
+        actionOk : () => {
+          const cancelBakingPromise =
+            ajax
+              .cancelBaking()
+              .catch(error => {
+                dialogs.alert({
+                  message : `${intl.t('routes.application.sidebar.cancel-fail')}: ${error.payload && (error.payload.errorCode && intl.t(`errors.${error.payload.errorCode}`) || error.payload.errorMessage) || error.message}`,
+                })
+              })
+
+          this.setProperties({cancelBakingPromise})
+        },
+      })
     },
   },
 })

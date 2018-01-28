@@ -17,9 +17,11 @@ import Component from '@ember/component'
 export default Component.extend({
 
   // ----- Arguments -----
-  status            : null,
-  clearErrorAction  : null,
-  clearErrorPending : false,
+  status              : null,
+  clearErrorAction    : null,
+  clearErrorPending   : false,
+  cancelBakingAction  : null,
+  cancelBakingPending : false,
 
 
 

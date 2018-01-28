@@ -255,4 +255,29 @@ describe('Acceptance | stats', function () {
     m = "#1 After clearing: error visibility"
     expect(page.stats.error.visible, m).false
   })
+
+
+
+  it('cancel baking', async function () {
+    server.create('stat', {state : 'baking'})
+    programsScenario(server)
+    createTokenAndAuthenticateSession(server, application)
+
+    await page.visit()
+
+    m = "#0 Initial: status text"
+    expect(page.stats.state.text, m).equal("baking")
+
+    await page.stats.cancel.click()
+
+    server.create('stat')
+    pollTaskFor(REQUEST_STATS_POLL_ID)
+    await timeout(0)
+
+    m = "#1 After clearing: status text"
+    expect(page.stats.state.text, m).equal("idle")
+
+    m = "#1 After clearing: error visibility"
+    expect(page.stats.error.visible, m).false
+  })
 })

@@ -58,6 +58,18 @@
 
 
 
+{{#if (eq status.state 'baking')}}
+  <button
+    class    = "statsX-cancel"
+    disabled = {{cancelBakingPending}}
+    {{action cancelBakingAction}}
+  >
+    {{t (if cancelBakingPending 'components.stats-x.cancelling' 'components.stats-x.cancel')}}
+  </button>
+{{/if}}{{! eq status.state 'error' }}
+
+
+
 {{#if (eq status.state 'error')}}
   <div class="statsX-stat _error">
     <div class="statsX-stat-value">

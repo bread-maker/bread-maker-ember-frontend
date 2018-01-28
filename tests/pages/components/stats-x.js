@@ -16,5 +16,6 @@ export default c('.statsX', {
   heat       : c('.statsX-stat._heat       .statsX-stat-value'),
   error      : c('.statsX-stat._error      .statsX-stat-value'),
 
-  clear : c('.statsX-clear'),
+  clear  : c('.statsX-clear'),
+  cancel : c('.statsX-cancel'),
 })
