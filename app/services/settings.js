@@ -3,6 +3,7 @@ import Service, {inject as service} from '@ember/service'
 import { next } from '@ember/runloop'
 
 // ----- Ember addon modules -----
+import computed from 'ember-macro-helpers/computed'
 import writable from 'ember-macro-helpers/writable'
 
 import {
@@ -54,9 +55,19 @@ export default Service.extend({
   locale            : or('miscConfig.locale',   'localeDefault'),
   timezone          : or('miscConfig.timezone', 'timezoneDefault'),
 
-  // ----- Misc config -----
+  // ----- Password -----
   passwordPromise : null,
   passwordProxy   : promiseProxy('passwordPromise'),
+
+  // ----- WiFi -----
+  wifiStatusPromise : computed('ajax', ajax => ajax.wifiGetStatus()),
+  wifiStatusProxy   : promiseProxy('wifiStatusPromise'),
+
+  wifiScanPromise : computed('ajax', ajax => ajax.wifiGetScan()),
+  wifiScanProxy   : promiseProxy('wifiScanPromise'),
+
+  wifiConnectPromise : null,
+  wifiConnectProxy   : promiseProxy('wifiConnectPromise'),
 
 
 
@@ -181,6 +192,35 @@ export default Service.extend({
 
     this.setProperties({miscConfigPromise})
     return miscConfigPromise
+  },
+
+
+
+  wifiGetStatus () {
+    const ajax = this.get('ajax')
+    const wifiStatusPromise = ajax.wifiGetStatus()
+
+    return this.setProperties({wifiStatusPromise})
+  },
+
+
+
+  wifiGetScan () {
+    const ajax = this.get('ajax')
+    const wifiScanPromise = ajax.wifiGetScan()
+
+    return this.setProperties({wifiScanPromise})
+  },
+
+
+
+  wifiConnect (ssid = '', encryption = 'NONE', key) {
+    const ajax = this.get('ajax')
+    const wifiConnectPromise = ajax.wifiConnect(ssid, encryption, key)
+
+    this.setProperties({wifiConnectPromise})
+
+    return wifiConnectPromise
   },
 
 

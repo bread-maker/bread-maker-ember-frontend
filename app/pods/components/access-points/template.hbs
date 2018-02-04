@@ -1,0 +1,57 @@
+<tr>
+  <th>
+    SSID
+  </th>
+
+  <th>
+    BSSID
+  </th>
+
+  <th>
+    Signal Strength
+  </th>
+
+  <th>
+    Encryption
+  </th>
+
+  <th>
+  </th>
+</tr>
+
+
+{{#each points as |point|}}
+  <tr>
+    <td>
+      {{point.ssid}}
+    </td>
+
+    <td>
+      {{point.bsid}}
+    </td>
+
+    <td>
+      {{point.signalStrength}}
+    </td>
+
+    <td>
+      {{point.authentication}} / {{point.encryption}}
+    </td>
+
+    {{#if (or
+      (not-eq currentSSID point.ssid)
+      isConnectPending
+    )}}
+      <td>
+        <button
+          disabled = {{isConnectPending}}
+          {{action connectAction point}}
+        >
+          {{if (and isConnectPending (eq currentSSID point.ssid)) 'Connecting...' 'Connect'}}
+        </button>
+      </td>
+    {{/if}}
+  </tr>
+{{/each}}
+
+<div>currentSSID {{currentSSID}}</div>

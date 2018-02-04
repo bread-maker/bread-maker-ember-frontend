@@ -71,6 +71,11 @@ export default AjaxService.extend({
       .then(this._camelizeKeys_)
       .catch(error => this._logOutOnTokenExpired(error, options.preventLogoutOnAuthError))
       .catch(error => RSVP.reject(this._formatError(error)))
+      .then(result => {
+        return new RSVP.Promise(resolve => {
+          setTimeout(() => resolve(result), 1000)
+        })
+      })
   },
 
   postMethod (method, data = {}, options = {}) {
@@ -89,6 +94,11 @@ export default AjaxService.extend({
       .then(this._camelizeKeys_)
       .catch(error => this._logOutOnTokenExpired(error, options.preventLogoutOnAuthError))
       .catch(error => RSVP.reject(this._formatError(error)))
+      .then(result => {
+        return new RSVP.Promise(resolve => {
+          setTimeout(() => resolve(result), 1000)
+        })
+      })
   },
 
 
@@ -265,6 +275,22 @@ export default AjaxService.extend({
 
   cancelBaking (params = {}) {
     return this.postMethod('baking.abort', params)
+  },
+
+  wifiGetStatus (params = {}) {
+    return this.getMethod('wifi.status', params)
+  },
+
+  wifiGetScan (params = {}) {
+    return this.getMethod('wifi.scan', params)
+  },
+
+  // wifiReset (params = {}) {
+  //   return this.powtMethod('wifi.restart', params)
+  // },
+
+  wifiConnect (ssid, encryption, key, params = {}) {
+    return this.postMethod('config.wifi.ap.set', {ssid, encryption, key, ...params})
   },
 
 

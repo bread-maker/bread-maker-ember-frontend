@@ -47,7 +47,7 @@
 <div class='route-settings-settingsGroup _system'>
 
   <h2 class='route-settings-settingsGroup-title'>
-    System
+    User
   </h2>
 
   {{#settings-field-select
@@ -155,6 +155,93 @@
     </button>
   {{/settings-field}}{{! password }}
 
-
-
 </div>{{! settingsGroup _system }}
+
+
+
+<div class='route-settings-settingsGroup _wifi-Scan'>
+
+  <h2 class='route-settings-settingsGroup-title'>
+    WiFi status
+  </h2>
+
+
+  {{#if settings.wifiStatusProxy.isPending}}
+    Loading... 
+
+  {{else if settings.wifiStatusProxy.isFulfilled}}
+
+    <p>
+      Up: {{settings.wifiStatusProxy.content.wifiStatus.up}}
+    </p>
+    <p>
+      SSID: {{settings.wifiStatusProxy.content.ssid}}
+    </p>
+    <p>
+      Encryption: {{settings.wifiStatusProxy.content.encryption}}
+    </p>
+
+    <p>
+      <button
+        {{action 'wifiStatusUpdate'}}
+      >
+        Update
+      </button>
+
+      {{#if (and settings.wifiStatusProxy.content.ssid (not-eq settings.wifiStatusProxy.content.ssid 'NONE'))}}
+        {{#if settings.wifiConnectProxy.isRejected}}
+          Failed to (dis)connect: {{error settings.wifiConnectProxy.reason}}
+        {{else if settings.wifiConnectProxy.isPending}}
+          (Dis)connecting...
+        {{else}}
+          <button
+            {{action 'wifiDisconnect'}}
+          >
+            Disconnect
+          </button>
+        {{/if}}{{! settings.wifiConnectProxy }}
+      {{/if}}{{! ssid exists}}
+    </p>
+
+  {{else if settings.wifiStatusProxy.isRejected}}
+    <p>
+      Failed to get WiFi status: {{error settings.wifiStatusProxy.reason}}
+    </p>
+  {{/if}}{{! settings.wifiStatusProxy }}
+
+</div>{{! settingsGroup _wifi-status }}
+
+
+
+<div class='route-settings-settingsGroup _wifi-scan'>
+
+  <h2 class='route-settings-settingsGroup-title'>
+    Available WiFi access points
+  </h2>
+
+
+  {{#if settings.wifiScanProxy.isPending}}
+    Loading... 
+
+  {{else if settings.wifiScanProxy.isFulfilled}}
+
+    {{access-points 
+      points           = settings.wifiScanProxy.content.wifiScanResult
+      connectAction    = (action 'wifiConnect')
+      isConnectPending = settings.wifiConnectProxy.isPending
+      currentSSID      = currentSSIDEffective
+    }}
+
+    <button
+      {{action 'wifiScan'}}
+    >
+      Update
+    </button>
+
+  {{else if settings.wifiScanProxy.isRejected}}
+    <p>
+      Failed to get access points: {{error settings.wifiScanProxy.reason}}
+    </p>
+  {{/if}}{{! settings.wifiScanProxy }}
+
+</div>{{! settingsGroup _wifi-Scan }}
