@@ -162,42 +162,44 @@
 <div class='route-settings-settingsGroup _wifi-Scan'>
 
   <h2 class='route-settings-settingsGroup-title'>
-    WiFi status
+    {{t 'routes.settings.wifi.status'}}
   </h2>
 
 
   {{#if settings.wifiStatusProxy.isPending}}
-    Loading... 
+    {{t 'routes.settings.wifi.loading'}}
 
   {{else if settings.wifiStatusProxy.isFulfilled}}
 
     <p>
-      Up: {{settings.wifiStatusProxy.content.wifiStatus.up}}
+      {{t 'routes.settings.wifi.connected'}}: {{settings.wifiStatusProxy.content.wifiStatus.up}}
     </p>
     <p>
-      SSID: {{settings.wifiStatusProxy.content.ssid}}
+      {{t 'routes.settings.wifi.ssid'}}: {{settings.wifiStatusProxy.content.ssid}}
     </p>
     <p>
-      Encryption: {{settings.wifiStatusProxy.content.encryption}}
+      {{t 'routes.settings.wifi.encryption'}}: {{settings.wifiStatusProxy.content.encryption}}
     </p>
+
+    {{!#if settings.wifiStatusProxy.content}}
 
     <p>
       <button
         {{action 'wifiStatusUpdate'}}
       >
-        Update
+        {{t 'routes.settings.wifi.update'}}
       </button>
 
       {{#if (and settings.wifiStatusProxy.content.ssid (not-eq settings.wifiStatusProxy.content.ssid 'NONE'))}}
         {{#if settings.wifiConnectProxy.isRejected}}
-          Failed to (dis)connect: {{error settings.wifiConnectProxy.reason}}
+          {{t 'routes.settings.wifi.failed-to-connect-disconnect'}}: {{error settings.wifiConnectProxy.reason}}
         {{else if settings.wifiConnectProxy.isPending}}
-          (Dis)connecting...
+          {{t 'routes.settings.wifi.connecting-disconnecting'}}
         {{else}}
           <button
             {{action 'wifiDisconnect'}}
           >
-            Disconnect
+            {{t 'routes.settings.wifi.disconnect'}}
           </button>
         {{/if}}{{! settings.wifiConnectProxy }}
       {{/if}}{{! ssid exists}}
@@ -205,7 +207,7 @@
 
   {{else if settings.wifiStatusProxy.isRejected}}
     <p>
-      Failed to get WiFi status: {{error settings.wifiStatusProxy.reason}}
+      {{t 'routes.settings.wifi.failed-to-get-wifi-status'}}: {{error settings.wifiStatusProxy.reason}}
     </p>
   {{/if}}{{! settings.wifiStatusProxy }}
 
@@ -216,12 +218,12 @@
 <div class='route-settings-settingsGroup _wifi-scan'>
 
   <h2 class='route-settings-settingsGroup-title'>
-    Available WiFi access points
+   {{t 'routes.settings.wifi.available-wifi-access-points'}}
   </h2>
 
 
   {{#if settings.wifiScanProxy.isPending}}
-    Loading... 
+    {{t 'routes.settings.wifi.loading'}}
 
   {{else if settings.wifiScanProxy.isFulfilled}}
 
@@ -235,12 +237,12 @@
     <button
       {{action 'wifiScan'}}
     >
-      Update
+      {{t 'routes.settings.wifi.update'}}
     </button>
 
   {{else if settings.wifiScanProxy.isRejected}}
     <p>
-      Failed to get access points: {{error settings.wifiScanProxy.reason}}
+      {{t 'routes.settings.wifi.failed-to-get-access-points'}}: {{error settings.wifiScanProxy.reason}}
     </p>
   {{/if}}{{! settings.wifiScanProxy }}
 

@@ -151,6 +151,7 @@ export default Controller.extend({
       keyPromise
         .then(key => settings.wifiConnect(ssid, encryption, key))
         .then(()  => settings.wifiGetStatus())
+        .catch(error => dialogs.alert(error.message)) // ToDo: format error
         .finally(()  => this.set('currentSSID', null))
     },
 

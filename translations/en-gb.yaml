@@ -109,9 +109,30 @@ routes:
       timezone:
         label: Timezone
 
+    wifi:
+      status: WiFi status
+      loading: Loading...
+      connected: Connected
+      ssid: SSID
+      encryption: Encryption
+      update: Update
+      failed-to-connect-disconnect: Failed to (dis)connect
+      connecting-disconnecting: (Dis)connecting...
+      disconnect: Disconnect
+      failed-to-get-wifi-status: Failed to get WiFi status
+      available-wifi-access-points: Available WiFi access points
+      failed-to-get-access-points: Failed to get access points
+
 
 
 components:
+  access-points:
+    ssid: SSID
+    bssid: BSSID
+    signal-strength: Signal Strength
+    encryption: Encryption
+    connecting: Connecting...
+    connect: Connect
   expanded-error:
     title: Something terribly wrong happened
     type: Error type

@@ -1,18 +1,18 @@
 <tr>
   <th>
-    SSID
+    {{t 'components.access-points.ssid'}}
   </th>
 
   <th>
-    BSSID
+    {{t 'components.access-points.bssid'}}
   </th>
 
   <th>
-    Signal Strength
+    {{t 'components.access-points.signal-strength'}}
   </th>
 
   <th>
-    Encryption
+    {{t 'components.access-points.encryption'}}
   </th>
 
   <th>
@@ -47,11 +47,13 @@
           disabled = {{isConnectPending}}
           {{action connectAction point}}
         >
-          {{if (and isConnectPending (eq currentSSID point.ssid)) 'Connecting...' 'Connect'}}
+          {{if
+            (and isConnectPending (eq currentSSID point.ssid))
+            (t 'components.access-points.connecting')
+            (t 'components.access-points.connect')
+          }}
         </button>
       </td>
     {{/if}}
   </tr>
 {{/each}}
-
-<div>currentSSID {{currentSSID}}</div>
