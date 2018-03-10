@@ -1,66 +1,20 @@
-import { get } from '@ember/object'
-import { describe, it, beforeEach, afterEach } from 'mocha'
-import { expect } from 'chai'
-import startApp from 'bread-maker-ember-frontend/tests/helpers/start-app'
-import destroyApp from 'bread-maker-ember-frontend/tests/helpers/destroy-app'
-import { currentSession } from 'bread-maker-ember-frontend/tests/helpers/ember-simple-auth'
-import createTokenAndAuthenticateSession from 'bread-maker-ember-frontend/tests/helpers/session'
+import { module, test } from 'qunit'
+import { visit, currentURL, pauseTest } from '@ember/test-helpers'
+import { setupApplicationTest } from 'ember-qunit'
 import page from '../pages/login'
-import ignoreError from '../helpers/ignore-error'
-import _ from 'lodash'
+import { currentSession } from 'ember-simple-auth/test-support'
+import setupMirage from 'ember-cli-mirage/test-support/setup-mirage'
+import { get } from '@ember/object'
 
+let m
 
-let application, m
+module('Acceptance | login2', function (hooks) {
+  setupApplicationTest(hooks)
+  setupMirage(hooks)
 
+  test('should redirect to login from settings when not authenticated', async function (assert) {
+    await visit('/login')
 
-
-function currentToken () {
-  return get(currentSession(application), 'session.content.authenticated.token')
-}
-
-
-
-describe('Acceptance | login', function () {
-
-  beforeEach(function () {
-    application = startApp()
-  })
-
-  afterEach(function () {
-    destroyApp(application)
-  })
-
-
-
-  it('should redirect to login from settings when not authenticated', async function () {
-    await visit('/settings')
-
-    m = 'Current URL'
-    expect(currentURL(), m).equal('/login')
-  })
-
-
-
-  it('should not redirect to login from settings when authenticated', async function () {
-    await createTokenAndAuthenticateSession(server, application)
-    await visit('/settings')
-
-    m = 'Current URL'
-    expect(currentURL(), m).equal('/settings')
-  })
-
-
-
-  it('should stay on login when not authenticated', async function () {
-    await page.visit()
-
-    m = 'Current URL'
-    expect(currentURL(), m).equal('/login')
-  })
-
-
-
-  it('should authenticate with valid password and redirect to index', async function () {
     const password = 'foo'
 
     server.create('password', {value : password})
@@ -70,49 +24,18 @@ describe('Acceptance | login', function () {
     await page.submitButton.click()
 
     m = 'current URL'
-    expect(currentURL(), m).equal('/')
+    assert.equal(currentURL(), '/', m)
 
     m = 'Token existence in DB'
-    expect(server.db.tokens.length > 0, m).true
+    assert.ok(server.db.tokens.length > 0, m)
+
+    const session = currentSession(this.owner.application)
+    const token = get(session, 'session.content.authenticated.token')
 
     m = 'Current token in session'
-    expect(currentToken(), m).equal(server.db.tokens[0].value)
-  })
+    assert.equal(token, server.db.tokens[0].value, m)
 
-
-
-  it('should display an error when authenticating with an invalid password', async function () {
-    server.create('password', {value : 'foo'})
-
-    await ignoreError(
-      error => _.get(error, 'status') == 401, // eslint-disable-line eqeqeq
-      async () => {
-        await page.visit()
-        await page.passwordField.fill('bar')
-        await page.submitButton.click()
-
-        m = 'current URL'
-        expect(currentURL(), m).equal('/login')
-
-        m = 'Error text'
-        expect(page.error.text, m).equal('Invalid password')
-      }
-    )
-  })
-
-
-
-  it('should log out on expired token', async function () {
-    await createTokenAndAuthenticateSession(server, application, {expired : true})
-
-    await ignoreError(
-      error => _.get(error, 'status') == 401, // eslint-disable-line eqeqeq
-      async () => {
-        await visit('/settings')
-
-        m = "session.isAuthenticated"
-        expect(currentSession(application).get('isAuthenticated'), m).false
-      }
-    )
+    // debugger // eslint-disable-line no-debugger
+    // await pauseTest()
   })
 })

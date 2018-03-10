@@ -87,6 +87,9 @@ module.exports = function (environment) {
 
     ENV.APP.LOG_TRANSITIONS = true
     ENV.APP.LOG_TRANSITIONS_INTERNAL = true
+
+    // https://github.com/emberjs/ember-qunit/issues/309#issuecomment-366843261
+    ENV.APP.autoboot = false
   }
 
   // if (environment === 'production') {

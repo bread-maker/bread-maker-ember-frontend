@@ -148,6 +148,14 @@ const authMethods = {
     return {result : true}
   },
 
+  "wifi.scan" () {
+    return {result : true}
+  },
+
+  "wifi.status" () {
+    return {result : true}
+  },
+
 }
 
 

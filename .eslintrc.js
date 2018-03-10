@@ -1,4 +1,7 @@
 module.exports = {
+  globals: {
+    server: true,
+  },
   root: true,
   parserOptions: {
     ecmaVersion: 2017,
@@ -46,7 +49,8 @@ module.exports = {
       files: [
         'testem.js',
         'ember-cli-build.js',
-        'config/**/*.js'
+        'config/**/*.js',
+        'lib/*/index.js'
       ],
       parserOptions: {
         sourceType: 'script',
@@ -58,22 +62,22 @@ module.exports = {
       },
     },
 
-    // test files
-    {
-      files: ['tests/**/*.js'],
-      excludedFiles: ['tests/dummy/**/*.js'],
-      env: {
-        embertest : true,
-        mocha     : true,
-      },
-      rules : {
-        "no-unused-expressions": "off",
-      },
-      globals : {
-        sinon  : true,
-        server : true,
-        pause  : true,
-      },
-    }
+    // // test files
+    // {
+    //   files: ['tests/**/*.js'],
+    //   excludedFiles: ['tests/dummy/**/*.js'],
+    //   env: {
+    //     embertest : true,
+    //     mocha     : true,
+    //   },
+    //   rules : {
+    //     "no-unused-expressions": "off",
+    //   },
+    //   globals : {
+    //     sinon  : true,
+    //     server : true,
+    //     pause  : true,
+    //   },
+    // }
   ],
 }

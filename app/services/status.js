@@ -164,7 +164,13 @@ export default Service.extend(RunMixin, {
     const statsPromise =
       ajax
         .getStats(interval)
-        .then(stats => (this.set('statsReasonCache', null), stats))
+        .then(stats => {
+          if (!this.isDestroying && !this.isDestroyed) {
+            this.set('statsReasonCache', null)
+          }
+
+          return stats
+        })
 
     this.setProperties({statsPromise})
     return statsPromise
@@ -174,6 +180,8 @@ export default Service.extend(RunMixin, {
     this
       .requestStats()
       .finally(() => {
+        if (this.isDestroying || this.isDestroyed) return
+
         const requestStatsTaskId = this.runTask(next, 1000)
         this.setProperties({requestStatsTaskId})
       })

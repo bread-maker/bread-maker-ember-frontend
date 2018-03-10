@@ -108,10 +108,11 @@
 
 
       <label class='route-application-autoUpdate'>
-        {{one-way-checkbox
-          checked = pollingEffective
-          update  = (action 'updatePolling')
-        }}
+        <input
+          type    = 'checkbox'
+          checked = {{pollingEffective}}
+          onclick = {{action 'updatePolling' value="target.value"}}
+        >
 
         <span>
           {{t 'routes.application.sidebar.auto-update'}}

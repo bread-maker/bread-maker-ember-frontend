@@ -8,11 +8,11 @@
 
   errorLabel = errorLabel
 }}
-  {{one-way-input
+  <input
     class     = 'settingsFieldInput-input'
-    disabled  = requestIsPending
-    type      = type
-    value     = (if (is-nully value) defaultValue value)
-    update    = (or updateAction (action (mut value)))
-  }}
+    disabled  = {{requestIsPending}}
+    type      = {{type}}
+    value     = {{if (is-nully value) defaultValue value}}
+    oninput   = {{action (or updateAction (action (mut value))) value="target.value"}}
+  >
 {{/settings-field}}{{! maxTempBeforeTimer }}

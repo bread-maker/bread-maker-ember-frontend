@@ -8,13 +8,13 @@
 
   errorLabel = errorLabel
 }}
-  {{one-way-input
+  <input
+    type      = {{type}}
     class     = 'settingsFieldInputButton-input'
-    disabled  = requestIsPending
-    type      = type
-    value     = (if (is-nully userInput) defaultValue userInput)
-    update    = (action (mut userInput))
-  }}
+    disabled  = {{requestIsPending}}
+    value     = {{if (is-nully userInput) defaultValue userInput}}
+    oninput   = {{action (mut userInput) value="target.value"}}
+  >
 
   <button
     class    = 'settingsFieldInputButton-submit'

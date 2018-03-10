@@ -3,13 +3,16 @@ import Controller from '@ember/controller'
 import { inject as service } from '@ember/service'
 
 // ----- Ember Addon modules -----
+// import {or} from 'ember-awesome-macros'
+import reads from 'ember-macro-helpers/reads'
 
 // ----- Own modules -----
 import promiseProxy from 'bread-maker-ember-frontend/macros/promise-proxy'
+import ShouldPauseTestMixin from 'bread-maker-ember-frontend/mixins/should-pause-test'
 
 
 
-export default Controller.extend({
+export default Controller.extend(ShouldPauseTestMixin, {
 
   // ----- Services -----
   session : service(),
@@ -17,6 +20,7 @@ export default Controller.extend({
 
 
   // ----- Overridden properties -----
+  // shouldPauseTest : reads('authProxy.isPending'),
 
 
 

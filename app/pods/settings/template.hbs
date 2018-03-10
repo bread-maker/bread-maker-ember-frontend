@@ -128,23 +128,23 @@
       {{t 'domain.login.old-password'}}
     </label>
 
-    {{one-way-input
+    <input
       class  = 'route-settings-field-password-old'
       type   = 'password'
-      value  = oldPassword
-      update = (action (mut oldPassword))
-    }}
+      value  = {{oldPassword}}
+      update = {{action (mut oldPassword) value="target.value"}}
+    >
 
     <label class='route-settings-setting-label'>
       {{t 'domain.login.new-password'}}
     </label>
 
-    {{one-way-input
+    <input
       class  = 'route-settings-field-password-new'
       type   = 'password'
-      value  = newPassword
-      update = (action (mut newPassword))
-    }}
+      value  = {{newPassword}}
+      update = {{action (mut newPassword) value="target.value"}}
+    >
 
     <button
       class  = 'route-settings-field-password-submit'
@@ -227,7 +227,7 @@
 
   {{else if settings.wifiScanProxy.isFulfilled}}
 
-    {{access-points 
+    {{access-points
       points           = settings.wifiScanProxy.content.wifiScanResult
       connectAction    = (action 'wifiConnect')
       isConnectPending = settings.wifiConnectProxy.isPending
